@@ -22,6 +22,15 @@
 {%- endstyle -%}
 
 <div class="zoora-universos zoora-universos-{{ section.id }} section-{{ section.id }}-padding">
+  {%- if section.settings.title != blank -%}
+    <div class="page-width">
+      <div class="title-wrapper title-wrapper--no-top-margin">
+        <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+          {{ section.settings.title }}
+        </h2>
+      </div>
+    </div>
+  {%- endif -%}
   <div class="zoora-universos__grid">
     {%- for block in section.blocks -%}
       {%- if block.settings.link != blank -%}
@@ -71,6 +80,23 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Título",
+      "default": "Nuestros Universos"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "options": [
+        { "value": "h2", "label": "Pequeño" },
+        { "value": "h1", "label": "Mediano" },
+        { "value": "h0", "label": "Grande" }
+      ],
+      "default": "h1"
+    },
     {
       "type": "select",
       "id": "section_height",
