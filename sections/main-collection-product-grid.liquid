@@ -175,7 +175,8 @@
                     lazy_load: lazy_load,
                     skip_styles: skip_card_product_styles,
                     quick_add: section.settings.quick_add,
-                    section_id: section.id
+                    section_id: section.id,
+                    card_button_style: section.settings.button_style
                   %}
                 </li>
                 {%- assign skip_card_product_styles = true -%}
@@ -343,6 +344,16 @@
           "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_3"
         }
       ]
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Estilo del botón de agregar",
+      "options": [
+        { "value": "outline", "label": "Contorno" },
+        { "value": "solid", "label": "Sólido" }
+      ],
+      "default": "outline"
     },
     {
       "type": "header",

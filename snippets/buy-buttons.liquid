@@ -70,11 +70,22 @@
               assign quantity_rule_soldout = true
             endif
           -%}
+          {%- liquid
+            if button_style == 'outline'
+              assign btn_modifier = 'button--secondary'
+            elsif button_style == 'solid'
+              assign btn_modifier = 'button--primary'
+            elsif show_dynamic_checkout
+              assign btn_modifier = 'button--secondary'
+            else
+              assign btn_modifier = 'button--primary'
+            endif
+          -%}
           <button
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
-            class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
+            class="product-form__submit button button--full-width {{ btn_modifier }}"
             {% if product.selected_or_first_available_variant.available == false
               or quantity_rule_soldout
               or product.selected_or_first_available_variant == null

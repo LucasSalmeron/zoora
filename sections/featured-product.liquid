@@ -404,7 +404,8 @@
                     block: block,
                     product: product,
                     product_form_id: product_form_id,
-                    section_id: section.id
+                    section_id: section.id,
+                    button_style: block.settings.button_style
                   -%}
                 {%- when 'custom_liquid' -%}
                   {{ block.settings.custom_liquid }}
@@ -666,6 +667,16 @@
       "name": "t:sections.featured-product.blocks.buy_buttons.name",
       "limit": 1,
       "settings": [
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Estilo del botón",
+          "options": [
+            { "value": "solid", "label": "Sólido" },
+            { "value": "outline", "label": "Contorno" }
+          ],
+          "default": "solid"
+        },
         {
           "type": "checkbox",
           "id": "show_dynamic_checkout",
