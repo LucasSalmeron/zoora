@@ -33,8 +33,11 @@
 
     {%- if show_carousel -%}
       <slider-component class="zoora-carousel{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        <button type="button" class="zoora-carousel-btn slider-button slider-button--prev" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}" aria-controls="Slider-{{ section.id }}">
+          <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+        </button>
         <ul
-          class="zoora-carousel-list grid grid--3-col-desktop grid--2-col-tablet-down slider slider--everywhere grid--peek"
+          class="zoora-carousel-list grid grid--3-col-desktop grid--2-col-tablet-down slider slider--everywhere"
           id="Slider-{{ section.id }}"
           role="list"
         >
@@ -70,35 +73,12 @@
             </li>
           {%- endfor -%}
         </ul>
-        <div class="zoora-carousel-buttons slider-buttons">
-          <button
-            type="button"
-            class="slider-button slider-button--prev"
-            name="previous"
-            aria-label="{{ 'general.slider.previous_slide' | t }}"
-            aria-controls="Slider-{{ section.id }}"
-          >
-            <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
-          </button>
-          <div class="slider-counter caption">
-            <span class="slider-counter--current">1</span>
-            <span aria-hidden="true"> / </span>
-            <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
-            <span class="slider-counter--total">{{ section.blocks.size }}</span>
-          </div>
-          <button
-            type="button"
-            class="slider-button slider-button--next"
-            name="next"
-            aria-label="{{ 'general.slider.next_slide' | t }}"
-            aria-controls="Slider-{{ section.id }}"
-          >
-            <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
-          </button>
-        </div>
+        <button type="button" class="zoora-carousel-btn slider-button slider-button--next" name="next" aria-label="{{ 'general.slider.next_slide' | t }}" aria-controls="Slider-{{ section.id }}">
+          <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+        </button>
       </slider-component>
     {%- else -%}
-      <ul class="grid grid--3-col-desktop grid--1-col-tablet-down" role="list">
+      <ul class="grid grid--3-col-desktop grid--2-col-tablet-down" role="list">
         {%- for block in section.blocks -%}
           <li
             class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"

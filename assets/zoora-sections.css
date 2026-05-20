@@ -129,23 +129,62 @@
   color: rgb(var(--color-foreground));
 }
 
+/* ── Títulos centrados ──────────────────────────────────── */
+
+.title-wrapper,
+.title-wrapper--no-top-margin,
+.title-wrapper-with-link {
+  text-align: center;
+}
+
 /* ── Carousel / Slider ─────────────────────────────────── */
 
 .zoora-carousel {
-  position: relative;
-  display: block;
+  display: flex !important;
+  align-items: center;
+  gap: 1.2rem;
 }
 
 .zoora-carousel-list {
-  /* inherits slider classes from component-slider.css */
+  flex: 1 !important;
+  min-width: 0 !important;
 }
 
-.zoora-carousel-buttons {
+.zoora-carousel-btn {
+  flex-shrink: 0;
+  width: 5rem;
+  height: 5rem;
+  min-width: 5rem;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.zoora-carousel-btn:hover:not([disabled]) {
+  background-color: rgb(var(--color-foreground));
+  border-color: rgb(var(--color-foreground));
+}
+
+.zoora-carousel-btn:hover:not([disabled]) .icon {
+  color: rgb(var(--color-background));
+  fill: rgb(var(--color-background));
+}
+
+.zoora-carousel-btn[disabled] {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.zoora-carousel-btn .icon {
+  width: 2rem;
+  height: 2rem;
 }
 
 /* Product carousel - give product cards a cream background */
