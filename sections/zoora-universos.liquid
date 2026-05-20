@@ -25,6 +25,9 @@
   <div class="zoora-universos__grid">
     {%- for block in section.blocks -%}
       <div class="zoora-universo-item" {{ block.shopify_attributes }}>
+        {%- if block.settings.button_link != blank -%}
+          <a href="{{ block.settings.button_link }}" class="zoora-universo-item__full-link" aria-label="{{ block.settings.heading | strip_html | escape }}" tabindex="-1"></a>
+        {%- endif -%}
         <div class="zoora-universo-item__media">
           {%- if block.settings.image != blank -%}
             {%- assign img_loading = 'lazy' -%}
