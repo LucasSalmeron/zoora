@@ -16,36 +16,16 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/7ee5740e-1c84-4cd3-b0ab-adb05fb71004.png",
-            "image_overlay_opacity": 0,
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
             "link": "",
-            "button_style_secondary": false,
-            "show_text_box": false,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": "scheme-1"
+            "image_overlay_opacity": 0
           }
         },
         "slide_2": {
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/5694d5d1-2ff7-461a-94a3-fb69fddad41e.png",
-            "image_overlay_opacity": 20,
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
             "link": "shopify://collections/los-minis",
-            "button_style_secondary": true,
-            "show_text_box": false,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": "scheme-1"
+            "image_overlay_opacity": 0
           }
         }
       },
@@ -60,7 +40,6 @@
         "auto_rotate": true,
         "change_slides_speed": 5,
         "image_behavior": "none",
-        "show_text_below": false,
         "accessibility_info": "Carrusel de imágenes"
       }
     },
@@ -118,26 +97,16 @@
           "type": "universo",
           "settings": {
             "image": "shopify://shop_images/7d84fb55-526e-4acd-8e32-2fae45abdf0b_86dfbff7-84e4-4b8b-8b66-11377c2ed871.png",
-            "overlay_opacity": 40,
-            "heading": "Pop",
-            "heading_size": "h1",
-            "text": "<p>Accesorios y objetos con el carácter de tus animales favoritos.</p>",
-            "button_label": "Explorar",
-            "button_link": "shopify://collections/zoora-pop",
-            "button_style_secondary": false
+            "link": "",
+            "overlay_opacity": 80
           }
         },
         "universo_2": {
           "type": "universo",
           "settings": {
             "image": "shopify://shop_images/25a07980-e230-4208-ab48-1133911481c3_291fe82f-9b56-45ec-bace-8d605ac5da50.png",
-            "overlay_opacity": 40,
-            "heading": "Classic",
-            "heading_size": "h1",
-            "text": "<p>Dale vida a tu espacio con piezas únicas y llenas de personalidad.</p>",
-            "button_label": "Explorar",
-            "button_link": "shopify://collections/zoora-style",
-            "button_style_secondary": false
+            "link": "",
+            "overlay_opacity": 80
           }
         }
       },
