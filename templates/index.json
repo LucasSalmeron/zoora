@@ -115,9 +115,11 @@
         "universo_2"
       ],
       "settings": {
+        "title": "Nuestros Universos",
+        "heading_size": "h1",
         "section_height": "620px",
         "section_height_mobile": "320px",
-        "padding_top": 0,
+        "padding_top": 16,
         "padding_bottom": 0
       }
     },
@@ -210,7 +212,7 @@
     "mas_productos": {
       "type": "featured-collection",
       "settings": {
-        "collection": "medianos-y-grandes",
+        "collection": "elegidos",
         "products_to_show": 12,
         "title": "Más elegidos",
         "heading_size": "h1",
@@ -280,7 +282,7 @@
       "settings": {
         "title": "¿Por qué elegirnos?",
         "heading_size": "h2",
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
         "padding_top": 36,
         "padding_bottom": 36
       }
