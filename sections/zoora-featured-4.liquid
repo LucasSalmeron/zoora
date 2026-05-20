@@ -84,18 +84,25 @@
       </button>
     </slider-component>
 
-    {%- if section.settings.button_label != blank -%}
-      <div class="center{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="margin-top: 2.5rem;">
-        <a
-          {% if section.settings.button_link != blank %}
-            href="{{ section.settings.button_link }}"
-          {% else %}
-            role="link" aria-disabled="true"
-          {% endif %}
-          class="button button--secondary"
-        >
-          {{ section.settings.button_label | escape }}
-        </a>
+    {%- if section.settings.button_label != blank or section.settings.view_all_collection != blank -%}
+      <div class="center{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="margin-top: 2.5rem; display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;">
+        {%- if section.settings.button_label != blank -%}
+          <a
+            {% if section.settings.button_link != blank %}
+              href="{{ section.settings.button_link }}"
+            {% else %}
+              role="link" aria-disabled="true"
+            {% endif %}
+            class="button button--secondary"
+          >
+            {{ section.settings.button_label | escape }}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.view_all_collection != blank -%}
+          <a href="{{ section.settings.view_all_collection.url }}" class="button button--secondary">
+            {{ section.settings.view_all_label | default: 'Ver todos los productos' | escape }}
+          </a>
+        {%- endif -%}
       </div>
     {%- endif -%}
   </div>
@@ -173,6 +180,21 @@
       "type": "url",
       "id": "button_link",
       "label": "Link del botón"
+    },
+    {
+      "type": "header",
+      "content": "Botón — Ver todos"
+    },
+    {
+      "type": "collection",
+      "id": "view_all_collection",
+      "label": "Colección de destino"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "Texto del botón",
+      "default": "Ver todos los productos"
     },
     {
       "type": "color_scheme",
