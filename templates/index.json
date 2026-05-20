@@ -1,1 +1,324 @@
-{"sections":{"slideshow":{"type":"slideshow","blocks":{"slide_1":{"type":"slide","settings":{"image":"shopify:\/\/shop_images\/eaa76935-2f49-48b6-a977-3ae8e68428da.png","image_overlay_opacity":20,"heading":"Bienvenidos a Zoora","heading_size":"h1","subheading":"Objetos con alma animal","button_label":"Ver colección","link":"","button_style_secondary":false,"show_text_box":true,"box_align":"middle-center","text_alignment":"center","text_alignment_mobile":"center","color_scheme":"scheme-1"}},"slide_2":{"type":"slide","settings":{"image_overlay_opacity":20,"heading":"Novedades","heading_size":"h1","subheading":"Descubrí lo nuevo","button_label":"Explorar","link":"","button_style_secondary":true,"show_text_box":true,"box_align":"middle-center","text_alignment":"center","text_alignment_mobile":"center","color_scheme":"scheme-1"}}},"block_order":["slide_1","slide_2"],"settings":{"layout":"full_bleed","slide_height":"large","slider_visual":"dots","auto_rotate":true,"change_slides_speed":5,"image_behavior":"none","show_text_below":false,"accessibility_info":"Carrusel de imágenes"}},"featured_4":{"type":"zoora-featured-4","blocks":{"prod_1":{"type":"product","settings":{"product":"caballo-madera-rojo"}},"prod_2":{"type":"product","settings":{"product":"conejitos-orejones"}},"prod_3":{"type":"product","settings":{"product":"mamushka-oso-polar"}},"prod_4":{"type":"product","settings":{"product":"fruit-transformation-alpaca-doll"}}},"block_order":["prod_1","prod_2","prod_3","prod_4"],"settings":{"title":"Productos destacados","heading_size":"h2","image_ratio":"square","show_secondary_image":true,"quick_add":"standard","button_label":"","button_link":"","color_scheme":"scheme-1","padding_top":36,"padding_bottom":36}},"universos":{"type":"zoora-universos","blocks":{"universo_1":{"type":"universo","settings":{"image":"shopify:\/\/shop_images\/7d84fb55-526e-4acd-8e32-2fae45abdf0b_86dfbff7-84e4-4b8b-8b66-11377c2ed871.png","overlay_opacity":40,"heading":"Pop","heading_size":"h1","text":"<p>Accesorios y objetos con el carácter de tus animales favoritos.<\/p>","button_label":"Explorar","button_link":"shopify:\/\/collections\/zoora-pop","button_style_secondary":false}},"universo_2":{"type":"universo","settings":{"image":"shopify:\/\/shop_images\/25a07980-e230-4208-ab48-1133911481c3_291fe82f-9b56-45ec-bace-8d605ac5da50.png","overlay_opacity":40,"heading":"Classic","heading_size":"h1","text":"<p>Dale vida a tu espacio con piezas únicas y llenas de personalidad.<\/p>","button_label":"Explorar","button_link":"shopify:\/\/collections\/zoora-style","button_style_secondary":false}}},"block_order":["universo_1","universo_2"],"settings":{"section_height":"620px","section_height_mobile":"320px","padding_top":0,"padding_bottom":0}},"colecciones":{"type":"collection-list","blocks":{"col_1":{"type":"featured_collection","settings":{"collection":"animalushka"}},"col_2":{"type":"featured_collection","settings":{"collection":"la-vida-secreta-de-las-ranas"}},"col_3":{"type":"featured_collection","settings":{"collection":"decoracion"}}},"block_order":["col_1","col_2","col_3"],"settings":{"title":"Colecciones","heading_size":"h1","image_ratio":"square","columns_desktop":3,"color_scheme":"scheme-1","show_view_all":false,"columns_mobile":"1","swipe_on_mobile":true,"padding_top":36,"padding_bottom":36}},"categorias":{"type":"zoora-categorias","blocks":{"cat_1":{"type":"categoria","settings":{"image":"shopify:\/\/shop_images\/N7A6814.jpg","title":"Mueblecitos","link":""}},"cat_3":{"type":"categoria","settings":{"image":"shopify:\/\/shop_images\/N7A7194.jpg","title":"Carteras y Bolsitas","link":"shopify:\/\/collections\/carteras-mochilas-y-bolsos"}},"cat_2":{"type":"categoria","settings":{"image":"shopify:\/\/shop_images\/N7A6973.jpg","title":"Almohadones y Peluches","link":"shopify:\/\/collections\/almohadones-y-peluches"}}},"block_order":["cat_1","cat_3","cat_2"],"settings":{"title":"Categorías","heading_size":"h1","color_scheme":"scheme-1","padding_top":36,"padding_bottom":36}},"mas_productos":{"type":"featured-collection","settings":{"collection":"medianos-y-grandes","products_to_show":12,"title":"Más elegidos","heading_size":"h1","description":"","show_description":false,"description_style":"body","columns_desktop":4,"enable_desktop_slider":false,"full_width":false,"show_view_all":true,"view_all_style":"solid","color_scheme":"scheme-1","image_ratio":"square","image_shape":"default","show_secondary_image":true,"show_vendor":false,"show_rating":false,"quick_add":"standard","columns_mobile":"2","swipe_on_mobile":false,"padding_top":36,"padding_bottom":36}},"beneficios":{"type":"zoora-beneficios","blocks":{"ben_1":{"type":"beneficio","settings":{"emoji":"🔒","title":"Compra segura","text":"Tus datos y pagos siempre protegidos."}},"ben_2":{"type":"beneficio","settings":{"emoji":"🚚","title":"Envío gratis","text":"En compras a partir de cierto monto."}},"ben_3":{"type":"beneficio","settings":{"emoji":"🛡️","title":"Datos protegidos","text":"Tu privacidad es nuestra prioridad."}},"ben_4":{"type":"beneficio","settings":{"emoji":"↩️","title":"Cambios y devoluciones","text":"Política flexible para tu tranquilidad."}}},"block_order":["ben_1","ben_2","ben_3","ben_4"],"settings":{"title":"¿Por qué elegirnos?","heading_size":"h2","color_scheme":"scheme-2","padding_top":36,"padding_bottom":36}}},"order":["slideshow","featured_4","universos","colecciones","categorias","mas_productos","beneficios"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/eaa76935-2f49-48b6-a977-3ae8e68428da.png",
+            "image_overlay_opacity": 20,
+            "heading": "Bienvenidos a Zoora",
+            "heading_size": "h1",
+            "subheading": "Objetos con alma animal",
+            "button_label": "Ver colección",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": true,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2026-05-19_at_11.24.11_PM.jpg",
+            "image_overlay_opacity": 20,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": true,
+            "show_text_box": true,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-1"
+          }
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2"
+      ],
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "large",
+        "slider_visual": "dots",
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "image_behavior": "none",
+        "show_text_below": false,
+        "accessibility_info": "Carrusel de imágenes"
+      }
+    },
+    "featured_4": {
+      "type": "zoora-featured-4",
+      "blocks": {
+        "prod_1": {
+          "type": "product",
+          "settings": {
+            "product": "caballo-madera-rojo"
+          }
+        },
+        "prod_2": {
+          "type": "product",
+          "settings": {
+            "product": "conejitos-orejones"
+          }
+        },
+        "prod_3": {
+          "type": "product",
+          "settings": {
+            "product": "mamushka-oso-polar"
+          }
+        },
+        "prod_4": {
+          "type": "product",
+          "settings": {
+            "product": "fruit-transformation-alpaca-doll"
+          }
+        }
+      },
+      "block_order": [
+        "prod_1",
+        "prod_2",
+        "prod_3",
+        "prod_4"
+      ],
+      "settings": {
+        "title": "Productos destacados",
+        "heading_size": "h2",
+        "image_ratio": "square",
+        "show_secondary_image": true,
+        "quick_add": "standard",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "universos": {
+      "type": "zoora-universos",
+      "blocks": {
+        "universo_1": {
+          "type": "universo",
+          "settings": {
+            "image": "shopify://shop_images/7d84fb55-526e-4acd-8e32-2fae45abdf0b_86dfbff7-84e4-4b8b-8b66-11377c2ed871.png",
+            "overlay_opacity": 40,
+            "heading": "Pop",
+            "heading_size": "h1",
+            "text": "<p>Accesorios y objetos con el carácter de tus animales favoritos.</p>",
+            "button_label": "Explorar",
+            "button_link": "shopify://collections/zoora-pop",
+            "button_style_secondary": false
+          }
+        },
+        "universo_2": {
+          "type": "universo",
+          "settings": {
+            "image": "shopify://shop_images/25a07980-e230-4208-ab48-1133911481c3_291fe82f-9b56-45ec-bace-8d605ac5da50.png",
+            "overlay_opacity": 40,
+            "heading": "Classic",
+            "heading_size": "h1",
+            "text": "<p>Dale vida a tu espacio con piezas únicas y llenas de personalidad.</p>",
+            "button_label": "Explorar",
+            "button_link": "shopify://collections/zoora-style",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "universo_1",
+        "universo_2"
+      ],
+      "settings": {
+        "section_height": "620px",
+        "section_height_mobile": "320px",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "colecciones": {
+      "type": "collection-list",
+      "blocks": {
+        "col_1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "animalushka"
+          }
+        },
+        "col_2": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "la-vida-secreta-de-las-ranas"
+          }
+        },
+        "col_3": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "decoracion"
+          }
+        }
+      },
+      "block_order": [
+        "col_1",
+        "col_2",
+        "col_3"
+      ],
+      "settings": {
+        "title": "Colecciones",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "scheme-1",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "categorias": {
+      "type": "zoora-categorias",
+      "blocks": {
+        "cat_1": {
+          "type": "categoria",
+          "settings": {
+            "image": "shopify://shop_images/N7A6814.jpg",
+            "title": "Mueblecitos",
+            "link": ""
+          }
+        },
+        "cat_3": {
+          "type": "categoria",
+          "settings": {
+            "image": "shopify://shop_images/N7A7194.jpg",
+            "title": "Carteras y Bolsitas",
+            "link": "shopify://collections/carteras-mochilas-y-bolsos"
+          }
+        },
+        "cat_2": {
+          "type": "categoria",
+          "settings": {
+            "image": "shopify://shop_images/N7A6973.jpg",
+            "title": "Almohadones y Peluches",
+            "link": "shopify://collections/almohadones-y-peluches"
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_3",
+        "cat_2"
+      ],
+      "settings": {
+        "title": "Categorías",
+        "heading_size": "h1",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "mas_productos": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "medianos-y-grandes",
+        "products_to_show": 12,
+        "title": "Más elegidos",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "beneficios": {
+      "type": "zoora-beneficios",
+      "blocks": {
+        "ben_1": {
+          "type": "beneficio",
+          "settings": {
+            "emoji": "🔒",
+            "title": "Compra segura",
+            "text": "Tus datos y pagos siempre protegidos."
+          }
+        },
+        "ben_2": {
+          "type": "beneficio",
+          "settings": {
+            "emoji": "🚚",
+            "title": "Envío gratis",
+            "text": "En compras a partir de cierto monto."
+          }
+        },
+        "ben_3": {
+          "type": "beneficio",
+          "settings": {
+            "emoji": "🛡️",
+            "title": "Datos protegidos",
+            "text": "Tu privacidad es nuestra prioridad."
+          }
+        },
+        "ben_4": {
+          "type": "beneficio",
+          "settings": {
+            "emoji": "↩️",
+            "title": "Cambios y devoluciones",
+            "text": "Política flexible para tu tranquilidad."
+          }
+        }
+      },
+      "block_order": [
+        "ben_1",
+        "ben_2",
+        "ben_3",
+        "ben_4"
+      ],
+      "settings": {
+        "title": "¿Por qué elegirnos?",
+        "heading_size": "h2",
+        "color_scheme": "scheme-2",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "slideshow",
+    "featured_4",
+    "universos",
+    "colecciones",
+    "categorias",
+    "mas_productos",
+    "beneficios"
+  ]
+}
