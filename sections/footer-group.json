@@ -14,6 +14,19 @@
     "footer": {
       "type": "footer",
       "blocks": {
+        "brand_information_9Cpb3Q": {
+          "type": "brand_information",
+          "settings": {
+            "show_social": true
+          }
+        },
+        "text_MAgixd": {
+          "type": "text",
+          "settings": {
+            "heading": "Encabezado",
+            "subtext": "<p>Comparte la información de contacto, los detalles de la tienda y el contenido de la marca con tus clientes.</p>"
+          }
+        },
         "link_list_YfB64r": {
           "type": "link_list",
           "settings": {
@@ -23,6 +36,8 @@
         }
       },
       "block_order": [
+        "brand_information_9Cpb3Q",
+        "text_MAgixd",
         "link_list_YfB64r"
       ],
       "settings": {
