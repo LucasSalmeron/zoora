@@ -208,6 +208,13 @@
         </a>
       </div>
     {%- endif -%}
+    {%- if section.settings.view_all_collection != blank -%}
+      <div class="center collection__view-all{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="margin-top: 1.2rem;">
+        <a href="{{ section.settings.view_all_collection.url }}" class="button button--secondary">
+          {{ section.settings.view_all_label | default: 'Ver todos los productos' | escape }}
+        </a>
+      </div>
+    {%- endif -%}
     {% if section.settings.image_shape == 'arch' %}
       {{ 'mask-arch.svg' | inline_asset_content }}
     {%- endif -%}
@@ -467,6 +474,21 @@
           "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_3"
         }
       ]
+    },
+    {
+      "type": "header",
+      "content": "Botón — Ver todos"
+    },
+    {
+      "type": "collection",
+      "id": "view_all_collection",
+      "label": "Colección de destino"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "Texto del botón",
+      "default": "Ver todos los productos"
     },
     {
       "type": "header",
