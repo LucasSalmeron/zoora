@@ -1,0 +1,236 @@
+{{ 'zoora-sections.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .zoora-universos-{{ section.id }} .zoora-universo-item {
+    min-height: {{ section.settings.section_height }};
+  }
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  @media screen and (max-width: 749px) {
+    .zoora-universos-{{ section.id }} .zoora-universo-item {
+      min-height: {{ section.settings.section_height_mobile }};
+    }
+  }
+{%- endstyle -%}
+
+<div class="zoora-universos zoora-universos-{{ section.id }} section-{{ section.id }}-padding">
+  <div class="zoora-universos__grid">
+    {%- for block in section.blocks -%}
+      <div class="zoora-universo-item" {{ block.shopify_attributes }}>
+        <div class="zoora-universo-item__media">
+          {%- if block.settings.image != blank -%}
+            {%- assign img_loading = 'lazy' -%}
+            {%- if forloop.first -%}{%- assign img_loading = 'eager' -%}{%- endif -%}
+            {{
+              block.settings.image
+              | image_url: width: 1500
+              | image_tag:
+                loading: img_loading,
+                sizes: '(min-width: 750px) 50vw, 100vw',
+                widths: '375, 550, 750, 1100, 1500',
+                alt: block.settings.image.alt
+            }}
+          {%- else -%}
+            {{- 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' -}}
+          {%- endif -%}
+        </div>
+
+        <div
+          class="zoora-universo-item__overlay"
+          style="opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};"
+          aria-hidden="true"
+        ></div>
+
+        <div class="zoora-universo-item__content">
+          {%- if block.settings.heading != blank -%}
+            <h2 class="zoora-universo-item__heading {{ block.settings.heading_size }}">
+              {{ block.settings.heading }}
+            </h2>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <div class="zoora-universo-item__text rte">
+              {{ block.settings.text }}
+            </div>
+          {%- endif -%}
+          {%- if block.settings.button_label != blank -%}
+            <a
+              {% if block.settings.button_link != blank %}
+                href="{{ block.settings.button_link }}"
+              {% else %}
+                role="link" aria-disabled="true"
+              {% endif %}
+              class="button {% if block.settings.button_style_secondary %}button--secondary{% else %}button--primary{% endif %}"
+            >
+              {{ block.settings.button_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Universos",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 2,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Altura en desktop",
+      "options": [
+        { "value": "380px", "label": "Pequeña" },
+        { "value": "500px", "label": "Mediana" },
+        { "value": "620px", "label": "Grande" }
+      ],
+      "default": "500px"
+    },
+    {
+      "type": "select",
+      "id": "section_height_mobile",
+      "label": "Altura en mobile",
+      "options": [
+        { "value": "260px", "label": "Pequeña" },
+        { "value": "320px", "label": "Mediana" },
+        { "value": "420px", "label": "Grande" }
+      ],
+      "default": "320px"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaciado superior",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaciado inferior",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "universo",
+      "name": "Universo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen de fondo"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 80,
+          "step": 5,
+          "unit": "%",
+          "label": "Oscuridad del overlay",
+          "default": 40
+        },
+        {
+          "type": "header",
+          "content": "Texto"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Título",
+          "default": "Universo"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Tamaño del título",
+          "options": [
+            { "value": "h2", "label": "Pequeño" },
+            { "value": "h1", "label": "Mediano" },
+            { "value": "h0", "label": "Grande" },
+            { "value": "hxl", "label": "Extra grande" }
+          ],
+          "default": "h1"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Descripción",
+          "default": "<p>Descripción del universo</p>"
+        },
+        {
+          "type": "header",
+          "content": "Botón"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Texto del botón",
+          "default": "Explorar"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link del botón"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_secondary",
+          "label": "Estilo secundario del botón",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Universos",
+      "blocks": [
+        {
+          "type": "universo",
+          "settings": {
+            "heading": "Animalada Pop",
+            "text": "<p>Accesorios y objetos con el carácter de tus animales favoritos.</p>",
+            "button_label": "Explorar",
+            "overlay_opacity": 40
+          }
+        },
+        {
+          "type": "universo",
+          "settings": {
+            "heading": "Decoración Divertida",
+            "text": "<p>Dale vida a tu espacio con piezas únicas y llenas de personalidad.</p>",
+            "button_label": "Explorar",
+            "overlay_opacity": 40
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

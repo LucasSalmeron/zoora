@@ -1,0 +1,196 @@
+{{ 'zoora-sections.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    {%- if section.settings.title != blank -%}
+      <div class="title-wrapper title-wrapper--no-top-margin">
+        <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+          {{ section.settings.title }}
+        </h2>
+      </div>
+    {%- endif -%}
+
+    <ul
+      class="grid grid--4-col-desktop grid--2-col-tablet-down"
+      role="list"
+    >
+      {%- for block in section.blocks -%}
+        <li
+          class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          {% if settings.animations_reveal_on_scroll %}
+            data-cascade
+            style="--animation-order: {{ forloop.index }};"
+          {% endif %}
+          {{ block.shopify_attributes }}
+        >
+          <div class="zoora-beneficio-item">
+            <div class="zoora-beneficio-item__icon">
+              {%- if block.settings.icon_image != blank -%}
+                {{
+                  block.settings.icon_image
+                  | image_url: width: 110
+                  | image_tag: loading: 'lazy', widths: '55, 110', alt: block.settings.title
+                }}
+              {%- elsif block.settings.emoji != blank -%}
+                <span class="zoora-beneficio-item__icon-emoji" aria-hidden="true">
+                  {{- block.settings.emoji -}}
+                </span>
+              {%- endif -%}
+            </div>
+            {%- if block.settings.title != blank -%}
+              <p class="zoora-beneficio-item__title">{{ block.settings.title | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <p class="zoora-beneficio-item__text">{{ block.settings.text | escape }}</p>
+            {%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Beneficios",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 6,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Título de sección",
+      "default": "¿Por qué elegirnos?",
+      "info": "Dejá en blanco para ocultar"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "options": [
+        { "value": "h2", "label": "Pequeño" },
+        { "value": "h1", "label": "Mediano" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de color",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaciado superior",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaciado inferior",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "beneficio",
+      "name": "Beneficio",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Ícono (imagen PNG/SVG)"
+        },
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "Ícono (emoji)",
+          "info": "Se usa solo si no se sube una imagen",
+          "default": "✓"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Beneficio"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Descripción",
+          "default": "Descripción del beneficio."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Beneficios",
+      "blocks": [
+        {
+          "type": "beneficio",
+          "settings": {
+            "emoji": "🔒",
+            "title": "Compra segura",
+            "text": "Tus datos y pagos siempre protegidos."
+          }
+        },
+        {
+          "type": "beneficio",
+          "settings": {
+            "emoji": "🚚",
+            "title": "Envío gratis",
+            "text": "En compras a partir de cierto monto."
+          }
+        },
+        {
+          "type": "beneficio",
+          "settings": {
+            "emoji": "🛡️",
+            "title": "Datos protegidos",
+            "text": "Tu privacidad es nuestra prioridad."
+          }
+        },
+        {
+          "type": "beneficio",
+          "settings": {
+            "emoji": "↩️",
+            "title": "Cambios y devoluciones",
+            "text": "Política flexible para tu tranquilidad."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

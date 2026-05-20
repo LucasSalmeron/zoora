@@ -1,0 +1,170 @@
+/* ── Universos ──────────────────────────────────────────── */
+
+.zoora-universos__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.zoora-universo-item {
+  position: relative;
+  overflow: hidden;
+  min-height: 500px;
+}
+
+.zoora-universo-item__media {
+  position: absolute;
+  inset: 0;
+}
+
+.zoora-universo-item__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.zoora-universo-item__media .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.zoora-universo-item__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgb(0 0 0);
+  pointer-events: none;
+}
+
+.zoora-universo-item__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: inherit;
+  padding: 5rem 4rem;
+  text-align: center;
+  color: #fff;
+}
+
+.zoora-universo-item__heading {
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.zoora-universo-item__text {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2.5rem;
+  font-size: 1.6rem;
+  max-width: 42rem;
+}
+
+.zoora-universo-item__text p {
+  margin: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .zoora-universos__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .zoora-universo-item {
+    min-height: 320px;
+  }
+
+  .zoora-universo-item__content {
+    padding: 3rem 2rem;
+  }
+}
+
+/* ── Categorías ─────────────────────────────────────────── */
+
+.zoora-categoria-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.zoora-categoria-media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--media-radius, 0px);
+  background-color: rgb(var(--color-background));
+}
+
+.zoora-categoria-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.zoora-categoria-media .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.zoora-categoria-card:hover .zoora-categoria-media img {
+  transform: scale(1.04);
+}
+
+.zoora-categoria-title {
+  padding: 1.2rem 0 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-heading-family);
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: rgb(var(--color-foreground));
+}
+
+/* ── Beneficios ─────────────────────────────────────────── */
+
+.zoora-beneficio-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+}
+
+.zoora-beneficio-item__icon {
+  width: 5.5rem;
+  height: 5.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.zoora-beneficio-item__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.zoora-beneficio-item__icon-emoji {
+  font-size: 3.5rem;
+  line-height: 1;
+  display: block;
+}
+
+.zoora-beneficio-item__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: var(--font-heading-family);
+  margin: 0 0 0.6rem;
+}
+
+.zoora-beneficio-item__text {
+  font-size: 1.3rem;
+  margin: 0;
+  opacity: 0.75;
+  line-height: 1.5;
+}
