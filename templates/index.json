@@ -92,6 +92,87 @@
         "padding_bottom": 36
       }
     },
+    "zoora_categorias_iconos_XRUTPG": {
+      "type": "zoora-categorias-iconos",
+      "blocks": {
+        "categoria_U7METN": {
+          "type": "categoria",
+          "settings": {
+            "collection": "figuras",
+            "icon_image": "shopify://shop_images/PineTools.com_dbb33f17-e601-47d9-a8db-3ea3827d470f.png",
+            "emoji": "🧴",
+            "title": "",
+            "link": ""
+          }
+        },
+        "categoria_TJUFNp": {
+          "type": "categoria",
+          "settings": {
+            "collection": "carteras-y-bolsitas",
+            "icon_image": "shopify://shop_images/PineTools.com_bf6fc935-049e-4e77-a0a9-3baeec18d0b2.png",
+            "emoji": "👜",
+            "title": "",
+            "link": ""
+          }
+        },
+        "categoria_3QjQ6V": {
+          "type": "categoria",
+          "settings": {
+            "collection": "bibliotecas",
+            "icon_image": "shopify://shop_images/PineTools.com_04fb7041-a892-4bf0-9d5b-fe2bce6da626.png",
+            "emoji": "",
+            "title": "",
+            "link": ""
+          }
+        },
+        "categoria_PE6zTL": {
+          "type": "categoria",
+          "settings": {
+            "collection": "los-minis",
+            "icon_image": "shopify://shop_images/PineTools.com_aa4a345a-9c28-4f38-81cb-e5884d8804d3.png",
+            "emoji": "💍",
+            "title": "Minis",
+            "link": ""
+          }
+        },
+        "categoria_mnngYD": {
+          "type": "categoria",
+          "settings": {
+            "collection": "almohadones-y-peluches",
+            "icon_image": "shopify://shop_images/PineTools.com_c63a526e-483e-4eae-954b-7ff9e16942a3.png",
+            "emoji": "🏠",
+            "title": "",
+            "link": ""
+          }
+        },
+        "categoria_VeX7b3": {
+          "type": "categoria",
+          "settings": {
+            "collection": "organizadores",
+            "icon_image": "shopify://shop_images/PineTools.com_7fee3929-d82f-4b41-968c-6a1c22a5706b.png",
+            "emoji": "🛍️",
+            "title": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "categoria_U7METN",
+        "categoria_TJUFNp",
+        "categoria_3QjQ6V",
+        "categoria_PE6zTL",
+        "categoria_mnngYD",
+        "categoria_VeX7b3"
+      ],
+      "name": "Categorías (íconos)",
+      "settings": {
+        "title": "Categorías",
+        "heading_size": "h2",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "universos": {
       "type": "zoora-universos",
       "blocks": {
@@ -305,6 +386,7 @@
   "order": [
     "slideshow",
     "featured_4",
+    "zoora_categorias_iconos_XRUTPG",
     "universos",
     "colecciones",
     "categorias",
