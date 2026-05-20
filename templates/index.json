@@ -116,6 +116,7 @@
         "universo_1",
         "universo_2"
       ],
+      "disabled": true,
       "settings": {
         "title": "Nuestros Universos",
         "heading_size": "h1",
