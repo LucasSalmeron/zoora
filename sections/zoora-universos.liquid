@@ -24,19 +24,19 @@
 <div class="zoora-universos zoora-universos-{{ section.id }} section-{{ section.id }}-padding">
   <div class="zoora-universos__grid">
     {%- for block in section.blocks -%}
-      <div class="zoora-universo-item" {{ block.shopify_attributes }}>
-        {%- if block.settings.button_link != blank -%}
-          <a href="{{ block.settings.button_link }}" class="zoora-universo-item__full-link" aria-label="{{ block.settings.heading | strip_html | escape }}" tabindex="-1"></a>
-        {%- endif -%}
+      {%- if block.settings.link != blank -%}
+        <a href="{{ block.settings.link }}" class="zoora-universo-item zoora-universo-item--link" {{ block.shopify_attributes }}>
+      {%- else -%}
+        <div class="zoora-universo-item" {{ block.shopify_attributes }}>
+      {%- endif -%}
+
         <div class="zoora-universo-item__media">
           {%- if block.settings.image != blank -%}
-            {%- assign img_loading = 'lazy' -%}
-            {%- if forloop.first -%}{%- assign img_loading = 'eager' -%}{%- endif -%}
             {{
               block.settings.image
               | image_url: width: 1500
               | image_tag:
-                loading: img_loading,
+                loading: forloop.first | if: 'eager', 'lazy',
                 sizes: '(min-width: 750px) 50vw, 100vw',
                 widths: '375, 550, 750, 1100, 1500',
                 alt: block.settings.image.alt
@@ -52,31 +52,11 @@
           aria-hidden="true"
         ></div>
 
-        <div class="zoora-universo-item__content">
-          {%- if block.settings.heading != blank -%}
-            <h2 class="zoora-universo-item__heading {{ block.settings.heading_size }}">
-              {{ block.settings.heading }}
-            </h2>
-          {%- endif -%}
-          {%- if block.settings.text != blank -%}
-            <div class="zoora-universo-item__text rte">
-              {{ block.settings.text }}
-            </div>
-          {%- endif -%}
-          {%- if block.settings.button_label != blank -%}
-            <a
-              {% if block.settings.button_link != blank %}
-                href="{{ block.settings.button_link }}"
-              {% else %}
-                role="link" aria-disabled="true"
-              {% endif %}
-              class="button {% if block.settings.button_style_secondary %}button--secondary{% else %}button--primary{% endif %}"
-            >
-              {{ block.settings.button_label | escape }}
-            </a>
-          {%- endif -%}
+      {%- if block.settings.link != blank -%}
+        </a>
+      {%- else -%}
         </div>
-      </div>
+      {%- endif -%}
     {%- endfor -%}
   </div>
 </div>
@@ -86,7 +66,7 @@
   "name": "Universos",
   "tag": "section",
   "class": "section",
-  "max_blocks": 2,
+  "max_blocks": 4,
   "disabled_on": {
     "groups": ["header", "footer"]
   },
@@ -146,7 +126,12 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Imagen de fondo"
+          "label": "Imagen"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace al hacer clic"
         },
         {
           "type": "range",
@@ -156,56 +141,7 @@
           "step": 5,
           "unit": "%",
           "label": "Oscuridad del overlay",
-          "default": 40
-        },
-        {
-          "type": "header",
-          "content": "Texto"
-        },
-        {
-          "type": "inline_richtext",
-          "id": "heading",
-          "label": "Título",
-          "default": "Universo"
-        },
-        {
-          "type": "select",
-          "id": "heading_size",
-          "label": "Tamaño del título",
-          "options": [
-            { "value": "h2", "label": "Pequeño" },
-            { "value": "h1", "label": "Mediano" },
-            { "value": "h0", "label": "Grande" },
-            { "value": "hxl", "label": "Extra grande" }
-          ],
-          "default": "h1"
-        },
-        {
-          "type": "richtext",
-          "id": "text",
-          "label": "Descripción",
-          "default": "<p>Descripción del universo</p>"
-        },
-        {
-          "type": "header",
-          "content": "Botón"
-        },
-        {
-          "type": "text",
-          "id": "button_label",
-          "label": "Texto del botón",
-          "default": "Explorar"
-        },
-        {
-          "type": "url",
-          "id": "button_link",
-          "label": "Link del botón"
-        },
-        {
-          "type": "checkbox",
-          "id": "button_style_secondary",
-          "label": "Estilo secundario del botón",
-          "default": false
+          "default": 0
         }
       ]
     }
@@ -214,24 +150,8 @@
     {
       "name": "Universos",
       "blocks": [
-        {
-          "type": "universo",
-          "settings": {
-            "heading": "Animalada Pop",
-            "text": "<p>Accesorios y objetos con el carácter de tus animales favoritos.</p>",
-            "button_label": "Explorar",
-            "overlay_opacity": 40
-          }
-        },
-        {
-          "type": "universo",
-          "settings": {
-            "heading": "Decoración Divertida",
-            "text": "<p>Dale vida a tu espacio con piezas únicas y llenas de personalidad.</p>",
-            "button_label": "Explorar",
-            "overlay_opacity": 40
-          }
-        }
+        { "type": "universo" },
+        { "type": "universo" }
       ]
     }
   ]
