@@ -188,6 +188,14 @@
             "link": ""
           }
         },
+        "categoria_XQPcPt": {
+          "type": "categoria",
+          "settings": {
+            "collection": "los-minis",
+            "title": "",
+            "link": ""
+          }
+        },
         "categoria_pcdTXX": {
           "type": "categoria",
           "settings": {
@@ -201,6 +209,7 @@
         "categoria_yVD7TF",
         "categoria_7zAxA6",
         "categoria_ypkCn8",
+        "categoria_XQPcPt",
         "categoria_pcdTXX"
       ],
       "settings": {
