@@ -2,6 +2,7 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'zoora-sections.css' | asset_url | stylesheet_tag }}
 
 {%- unless section.settings.quick_add == 'none' -%}
   {{ 'quick-add.css' | asset_url | stylesheet_tag }}
@@ -35,47 +36,73 @@
       </div>
     {%- endif -%}
 
-    {%- assign skip_styles = false -%}
-    <ul
-      class="grid product-grid contains-card contains-card--product{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} grid--4-col-desktop grid--2-col-tablet-down"
-      role="list"
-    >
-      {%- for block in section.blocks -%}
-        <li
-          class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {% if settings.animations_reveal_on_scroll %}
-            data-cascade
-            style="--animation-order: {{ forloop.index }};"
-          {% endif %}
-          {{ block.shopify_attributes }}
+    <slider-component class="zoora-carousel zoora-products-carousel{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {%- assign skip_styles = false -%}
+      <ul
+        class="grid product-grid contains-card contains-card--product{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} grid--4-col-desktop grid--2-col-tablet-down slider slider--everywhere grid--peek zoora-carousel-list"
+        id="Slider-{{ section.id }}"
+        role="list"
+      >
+        {%- for block in section.blocks -%}
+          <li
+            class="grid__item slider__slide"
+            id="Slide-{{ section.id }}-{{ forloop.index }}"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.product != blank -%}
+              {% render 'card-product',
+                card_product: block.settings.product,
+                media_aspect_ratio: section.settings.image_ratio,
+                image_shape: 'default',
+                lazy_load: forloop.index > 2,
+                show_secondary_image: section.settings.show_secondary_image,
+                show_vendor: false,
+                show_rating: false,
+                skip_styles: skip_styles,
+                section_id: section.id,
+                quick_add: section.settings.quick_add
+              %}
+            {%- else -%}
+              {%- assign placeholder_image = 'product-apparel-' | append: forloop.index -%}
+              {% render 'card-product',
+                media_aspect_ratio: section.settings.image_ratio,
+                image_shape: 'default',
+                lazy_load: false,
+                placeholder_image: placeholder_image,
+                skip_styles: skip_styles
+              %}
+            {%- endif -%}
+          </li>
+          {%- assign skip_styles = true -%}
+        {%- endfor -%}
+      </ul>
+      <div class="zoora-carousel-buttons slider-buttons">
+        <button
+          type="button"
+          class="slider-button slider-button--prev"
+          name="previous"
+          aria-label="{{ 'general.slider.previous_slide' | t }}"
+          aria-controls="Slider-{{ section.id }}"
         >
-          {%- if block.settings.product != blank -%}
-            {% render 'card-product',
-              card_product: block.settings.product,
-              media_aspect_ratio: section.settings.image_ratio,
-              image_shape: 'default',
-              lazy_load: forloop.index > 2,
-              show_secondary_image: section.settings.show_secondary_image,
-              show_vendor: false,
-              show_rating: false,
-              skip_styles: skip_styles,
-              section_id: section.id,
-              quick_add: section.settings.quick_add
-            %}
-          {%- else -%}
-            {%- assign placeholder_image = 'product-apparel-' | append: forloop.index -%}
-            {% render 'card-product',
-              media_aspect_ratio: section.settings.image_ratio,
-              image_shape: 'default',
-              lazy_load: false,
-              placeholder_image: placeholder_image,
-              skip_styles: skip_styles
-            %}
-          {%- endif -%}
-        </li>
-        {%- assign skip_styles = true -%}
-      {%- endfor -%}
-    </ul>
+          <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+        </button>
+        <div class="slider-counter caption">
+          <span class="slider-counter--current">1</span>
+          <span aria-hidden="true"> / </span>
+          <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+          <span class="slider-counter--total">{{ section.blocks.size }}</span>
+        </div>
+        <button
+          type="button"
+          class="slider-button slider-button--next"
+          name="next"
+          aria-label="{{ 'general.slider.next_slide' | t }}"
+          aria-controls="Slider-{{ section.id }}"
+        >
+          <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+        </button>
+      </div>
+    </slider-component>
 
     {%- if section.settings.button_label != blank -%}
       <div class="center{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="margin-top: 2.5rem;">
@@ -99,7 +126,7 @@
   "name": "4 Productos destacados",
   "tag": "section",
   "class": "section",
-  "max_blocks": 4,
+  "max_blocks": 8,
   "disabled_on": {
     "groups": ["header", "footer"]
   },

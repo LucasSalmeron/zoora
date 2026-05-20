@@ -80,7 +80,7 @@
   }
 }
 
-/* ── Categorías ─────────────────────────────────────────── */
+/* ── Categorías / Colecciones ───────────────────────────── */
 
 .zoora-categoria-card {
   display: block;
@@ -92,7 +92,7 @@
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: var(--media-radius, 0px);
-  background-color: rgb(var(--color-background));
+  background-color: #faf6f0;
 }
 
 .zoora-categoria-media img {
@@ -121,6 +121,43 @@
   text-align: center;
   letter-spacing: 0.02em;
   color: rgb(var(--color-foreground));
+}
+
+/* ── Carousel / Slider ─────────────────────────────────── */
+
+.zoora-carousel {
+  position: relative;
+  display: block;
+}
+
+.zoora-carousel-list {
+  /* inherits slider classes from component-slider.css */
+}
+
+.zoora-carousel-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Product carousel - give product cards a cream background */
+.zoora-products-carousel .card-wrapper {
+  background-color: #faf6f0;
+}
+
+/* Slideshow full-coverage clickable link */
+.banner__full-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+}
+
+.slideshow__text-wrapper {
+  position: relative;
+  z-index: 2;
 }
 
 /* ── Beneficios ─────────────────────────────────────────── */
@@ -167,4 +204,293 @@
   margin: 0;
   opacity: 0.75;
   line-height: 1.5;
+}
+
+/* ── Footer Zoora ────────────────────────────────────────── */
+
+.zoora-footer {
+  background-color: #faf6f0 !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.zoora-footer__main {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1.6fr;
+  gap: 5rem;
+  padding-top: 5rem;
+  padding-bottom: 4rem;
+}
+
+.zoora-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.zoora-footer__logo-link {
+  display: inline-block;
+}
+
+.zoora-footer__logo-link img {
+  max-height: 5rem;
+  width: auto;
+  object-fit: contain;
+}
+
+.zoora-footer__brand-headline {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-heading-family);
+  margin: 0;
+  color: rgb(var(--color-foreground));
+}
+
+.zoora-footer__brand-desc {
+  font-size: 1.3rem;
+  line-height: 1.65;
+  color: rgba(var(--color-foreground), 0.65);
+  margin: 0;
+}
+
+.zoora-footer__brand-desc p {
+  margin: 0;
+}
+
+.zoora-footer__social {
+  display: flex !important;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.4rem;
+  padding: 0;
+  list-style: none;
+}
+
+.zoora-footer__social .list-social__item {
+  list-style: none;
+}
+
+.zoora-footer__social .list-social__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.8rem;
+  height: 3.8rem;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.07);
+  transition: background-color 0.2s ease;
+  color: rgb(var(--color-foreground));
+  text-decoration: none;
+}
+
+.zoora-footer__social .list-social__link:hover {
+  background-color: rgba(0, 0, 0, 0.14);
+}
+
+.zoora-footer__social .icon {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.zoora-footer__col-heading {
+  font-size: 1.15rem;
+  font-family: var(--font-heading-family);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 1.8rem;
+  color: rgb(var(--color-foreground));
+}
+
+.zoora-footer__links,
+.zoora-footer__text-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.zoora-footer__link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.zoora-footer__link {
+  font-size: 1.35rem;
+  color: rgba(var(--color-foreground), 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  line-height: 1.4;
+}
+
+.zoora-footer__link:hover,
+.zoora-footer__link.active {
+  color: rgb(var(--color-foreground));
+}
+
+.zoora-footer__text-content {
+  font-size: 1.35rem;
+  line-height: 1.65;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.zoora-footer__newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.zoora-footer__newsletter-desc {
+  font-size: 1.35rem;
+  line-height: 1.55;
+  color: rgba(var(--color-foreground), 0.65);
+  margin: 0;
+}
+
+.zoora-footer__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.zoora-footer__form-row {
+  display: flex;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.zoora-footer__input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  padding: 1.1rem 1.4rem;
+  font-size: 1.35rem;
+  background: transparent;
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-body-family);
+}
+
+.zoora-footer__input::placeholder {
+  color: rgba(var(--color-foreground), 0.45);
+}
+
+.zoora-footer__submit {
+  border: none;
+  background: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+  padding: 0 1.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.zoora-footer__submit:hover {
+  opacity: 0.82;
+}
+
+.zoora-footer__submit .svg-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.zoora-footer__submit svg {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.zoora-footer__form-error {
+  color: #c0392b;
+  font-size: 1.2rem;
+  display: block;
+}
+
+.zoora-footer__form-success {
+  color: #27ae60;
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.zoora-footer__bottom {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 2rem 0;
+}
+
+.zoora-footer__bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.zoora-footer__copyright {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.zoora-footer__copyright .copyright__content {
+  font-size: 1.2rem;
+  color: rgba(var(--color-foreground), 0.55);
+}
+
+.zoora-footer__copyright a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.zoora-footer__copyright a:hover {
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+}
+
+.zoora-footer__payment .list-payment {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+.zoora-footer__payment .list-payment__item {
+  height: 2.4rem;
+  display: flex;
+  align-items: center;
+}
+
+.zoora-footer__payment .icon {
+  height: 2.4rem;
+  width: auto;
+}
+
+@media screen and (max-width: 989px) {
+  .zoora-footer__main {
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .zoora-footer__main {
+    grid-template-columns: 1fr;
+    gap: 2.8rem;
+    padding-top: 3.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .zoora-footer__bottom-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
 }
