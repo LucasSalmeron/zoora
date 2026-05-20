@@ -193,6 +193,100 @@
 }
 
 
+/* ── Categorías íconos ──────────────────────────────────── */
+
+.zoora-cat-icons-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.6rem 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.zoora-cat-icons-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.zoora-cat-icons-circle {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #faf6f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.zoora-cat-icons-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.zoora-cat-icons-circle .placeholder-svg {
+  width: 60%;
+  height: 60%;
+  display: block;
+  opacity: 0.4;
+}
+
+.zoora-cat-icons-link:hover .zoora-cat-icons-circle {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.zoora-cat-icons-emoji {
+  font-size: 3.2rem;
+  line-height: 1;
+  display: block;
+}
+
+.zoora-cat-icons-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-family: var(--font-heading-family);
+  text-align: center;
+  margin: 0;
+  line-height: 1.3;
+  color: rgb(var(--color-foreground));
+}
+
+@media screen and (max-width: 989px) {
+  .zoora-cat-icons-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .zoora-cat-icons-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem 0.8rem;
+  }
+
+  .zoora-cat-icons-circle {
+    width: 6.4rem;
+    height: 6.4rem;
+  }
+
+  .zoora-cat-icons-emoji {
+    font-size: 2.6rem;
+  }
+
+  .zoora-cat-icons-name {
+    font-size: 1.2rem;
+  }
+}
+
 /* ── Beneficios ─────────────────────────────────────────── */
 
 .zoora-beneficio-item {
