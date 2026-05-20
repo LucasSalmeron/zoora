@@ -12,18 +12,18 @@
     "slideshow": {
       "type": "slideshow",
       "blocks": {
-        "slide_1": {
+        "slide_X8KRhn": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/eaa76935-2f49-48b6-a977-3ae8e68428da.png",
-            "image_overlay_opacity": 20,
-            "heading": "Bienvenidos a Zoora",
+            "image": "shopify://shop_images/7ee5740e-1c84-4cd3-b0ab-adb05fb71004.png",
+            "image_overlay_opacity": 0,
+            "heading": "",
             "heading_size": "h1",
-            "subheading": "Objetos con alma animal",
-            "button_label": "Ver colección",
+            "subheading": "",
+            "button_label": "",
             "link": "",
             "button_style_secondary": false,
-            "show_text_box": true,
+            "show_text_box": false,
             "box_align": "middle-center",
             "text_alignment": "center",
             "text_alignment_mobile": "center",
@@ -33,13 +33,13 @@
         "slide_2": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/WhatsApp_Image_2026-05-19_at_11.24.11_PM.jpg",
+            "image": "shopify://shop_images/5694d5d1-2ff7-461a-94a3-fb69fddad41e.png",
             "image_overlay_opacity": 20,
             "heading": "",
             "heading_size": "h1",
             "subheading": "",
             "button_label": "",
-            "link": "",
+            "link": "shopify://collections/los-minis",
             "button_style_secondary": true,
             "show_text_box": false,
             "box_align": "middle-center",
@@ -50,12 +50,12 @@
         }
       },
       "block_order": [
-        "slide_1",
+        "slide_X8KRhn",
         "slide_2"
       ],
       "settings": {
         "layout": "full_bleed",
-        "slide_height": "small",
+        "slide_height": "medium",
         "slider_visual": "dots",
         "auto_rotate": true,
         "change_slides_speed": 5,
@@ -194,6 +194,7 @@
         "categoria_GMXHJW": {
           "type": "categoria",
           "settings": {
+            "collection": "",
             "title": "Categoría",
             "link": ""
           }
@@ -201,6 +202,7 @@
         "cat_1": {
           "type": "categoria",
           "settings": {
+            "collection": "",
             "image": "shopify://shop_images/N7A6814.jpg",
             "title": "Mueblecitos",
             "link": ""
@@ -209,6 +211,7 @@
         "cat_3": {
           "type": "categoria",
           "settings": {
+            "collection": "",
             "image": "shopify://shop_images/N7A7194.jpg",
             "title": "Carteras y Bolsitas",
             "link": "shopify://collections/carteras-mochilas-y-bolsos"
@@ -217,6 +220,7 @@
         "cat_2": {
           "type": "categoria",
           "settings": {
+            "collection": "",
             "image": "shopify://shop_images/N7A6973.jpg",
             "title": "Almohadones y Peluches",
             "link": "shopify://collections/almohadones-y-peluches"
