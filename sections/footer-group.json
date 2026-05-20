@@ -31,7 +31,7 @@
           "type": "link_list",
           "settings": {
             "heading": "Enlaces rápidos",
-            "menu": "footer"
+            "menu": "main-menu"
           }
         }
       },
