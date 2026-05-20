@@ -77,7 +77,6 @@
         "prod_3",
         "prod_4"
       ],
-      "disabled": true,
       "settings": {
         "title": "Productos destacados",
         "heading_size": "h2",
@@ -211,6 +210,12 @@
     "colecciones": {
       "type": "collection-list",
       "blocks": {
+        "featured_collection_N4xXbF": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
         "col_1": {
           "type": "featured_collection",
           "settings": {
@@ -231,11 +236,11 @@
         }
       },
       "block_order": [
+        "featured_collection_N4xXbF",
         "col_1",
         "col_2",
         "col_3"
       ],
-      "disabled": true,
       "settings": {
         "title": "Colecciones",
         "heading_size": "h1",
