@@ -169,28 +169,16 @@
     "featured_4": {
       "type": "zoora-featured-4",
       "blocks": {
-        "product_Mry76t": {
-          "type": "product",
-          "settings": {
-            "product": ""
-          }
-        },
-        "prod_1": {
-          "type": "product",
-          "settings": {
-            "product": "caballo-madera-rojo"
-          }
-        },
         "prod_2": {
           "type": "product",
           "settings": {
-            "product": "conejitos-orejones"
+            "product": "rana-pipi-phone"
           }
         },
         "prod_3": {
           "type": "product",
           "settings": {
-            "product": "mamushka-oso-polar"
+            "product": "mesa-mono"
           }
         },
         "prod_4": {
@@ -201,8 +189,6 @@
         }
       },
       "block_order": [
-        "product_Mry76t",
-        "prod_1",
         "prod_2",
         "prod_3",
         "prod_4"
