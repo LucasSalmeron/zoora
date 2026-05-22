@@ -65,6 +65,15 @@
     "zoora_categorias_iconos_XRUTPG": {
       "type": "zoora-categorias-iconos",
       "blocks": {
+        "categoria_Ubd9Vc": {
+          "type": "categoria",
+          "settings": {
+            "collection": "",
+            "emoji": "🛍️",
+            "title": "",
+            "link": ""
+          }
+        },
         "categoria_U7METN": {
           "type": "categoria",
           "settings": {
@@ -136,6 +145,7 @@
         }
       },
       "block_order": [
+        "categoria_Ubd9Vc",
         "categoria_U7METN",
         "categoria_TJUFNp",
         "categoria_3QjQ6V",
