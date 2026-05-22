@@ -1,0 +1,42 @@
+{%- assign card_url = block.settings.collection.url | default: block.settings.link -%}
+{%- assign card_title = block.settings.title | default: block.settings.collection.title -%}
+
+<a
+  class="zoora-mosaic-card"
+  {% if card_url != blank %}href="{{ card_url }}"{% else %}role="link" aria-disabled="true"{% endif %}
+  {% if card_title != blank %}aria-label="{{ card_title | escape }}"{% endif %}
+  {{ block.shopify_attributes }}
+>
+  <div class="zoora-mosaic-media">
+    {%- if block.settings.image != blank -%}
+      {{
+        block.settings.image
+        | image_url: width: 1400
+        | image_tag:
+          loading: 'lazy',
+          widths: '400, 700, 1000, 1400',
+          alt: card_title
+      }}
+    {%- elsif block.settings.collection.featured_image != blank -%}
+      {{
+        block.settings.collection.featured_image
+        | image_url: width: 1400
+        | image_tag:
+          loading: 'lazy',
+          widths: '400, 700, 1000, 1400',
+          alt: card_title
+      }}
+    {%- else -%}
+      {{- 'collection-apparel-1' | placeholder_svg_tag: 'placeholder-svg' -}}
+    {%- endif -%}
+  </div>
+  <div class="zoora-mosaic-overlay">
+    {%- if card_title != blank -%}
+      <p class="zoora-mosaic-name">{{ card_title | escape }}</p>
+    {%- endif -%}
+    {%- if block.settings.subtitle != blank -%}
+      <p class="zoora-mosaic-desc">{{ block.settings.subtitle | escape }}</p>
+    {%- endif -%}
+    <span class="zoora-mosaic-cta">{{ cta_label }}</span>
+  </div>
+</a>

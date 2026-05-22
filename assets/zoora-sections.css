@@ -129,6 +129,250 @@
   color: rgb(var(--color-foreground));
 }
 
+/* ── Colecciones Mosaico ────────────────────────────────── */
+
+.zoora-mosaic {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.zoora-mosaic-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 50rem;
+  gap: 1.2rem;
+}
+
+.zoora-mosaic-row--reversed {
+  grid-template-columns: 1fr 2fr;
+}
+
+.zoora-mosaic-row--reversed .zoora-mosaic-main {
+  order: 2;
+}
+
+.zoora-mosaic-row--reversed .zoora-mosaic-side {
+  order: 1;
+}
+
+.zoora-mosaic-main {
+  height: 100%;
+}
+
+.zoora-mosaic-side {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.zoora-mosaic-side-item {
+  flex: 1;
+  min-height: 0;
+}
+
+.zoora-mosaic-card {
+  display: block;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0.8rem;
+  text-decoration: none;
+  color: inherit;
+  background-color: #f5f0ea;
+}
+
+.zoora-mosaic-media {
+  position: absolute;
+  inset: 0;
+}
+
+.zoora-mosaic-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.zoora-mosaic-media .placeholder-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0.2;
+}
+
+.zoora-mosaic-card:hover .zoora-mosaic-media img {
+  transform: scale(1.05);
+}
+
+.zoora-mosaic-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2.4rem 2.4rem 3rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.62) 0%,
+    rgba(0, 0, 0, 0.18) 52%,
+    transparent 100%
+  );
+  color: #fff;
+  transition: background 0.4s ease;
+}
+
+.zoora-mosaic-card:hover .zoora-mosaic-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.25) 55%,
+    transparent 100%
+  );
+}
+
+.zoora-mosaic-name {
+  font-family: var(--font-heading-family);
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
+}
+
+.zoora-mosaic-side .zoora-mosaic-name {
+  font-size: 1.7rem;
+}
+
+.zoora-mosaic-desc {
+  font-size: 1.3rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+  opacity: 0.88;
+}
+
+.zoora-mosaic-cta {
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.zoora-mosaic-card:hover .zoora-mosaic-cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fila parcial: 1 o 2 bloques sobrantes */
+.zoora-mosaic-partial {
+  display: flex;
+  gap: 1.2rem;
+  height: 36rem;
+}
+
+.zoora-mosaic-partial-item {
+  flex: 1;
+}
+
+@media screen and (max-width: 989px) {
+  .zoora-mosaic-row {
+    grid-template-columns: 3fr 2fr;
+    grid-template-rows: 40rem;
+  }
+
+  .zoora-mosaic-row--reversed {
+    grid-template-columns: 2fr 3fr;
+  }
+
+  .zoora-mosaic-name {
+    font-size: 1.9rem;
+  }
+
+  .zoora-mosaic-side .zoora-mosaic-name {
+    font-size: 1.5rem;
+  }
+
+  .zoora-mosaic-partial {
+    height: 28rem;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .zoora-mosaic {
+    gap: 1rem;
+  }
+
+  .zoora-mosaic-row {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .zoora-mosaic-row--reversed .zoora-mosaic-main,
+  .zoora-mosaic-row--reversed .zoora-mosaic-side {
+    order: unset;
+  }
+
+  .zoora-mosaic-main {
+    height: auto;
+  }
+
+  .zoora-mosaic-main .zoora-mosaic-card {
+    height: 34rem;
+  }
+
+  .zoora-mosaic-side {
+    height: auto;
+    flex-direction: row;
+  }
+
+  .zoora-mosaic-side-item {
+    flex: 1;
+    height: 22rem;
+  }
+
+  .zoora-mosaic-side-item .zoora-mosaic-card {
+    height: 100%;
+  }
+
+  .zoora-mosaic-overlay {
+    padding: 1.6rem 1.6rem 2rem;
+  }
+
+  .zoora-mosaic-name {
+    font-size: 1.5rem;
+  }
+
+  .zoora-mosaic-side .zoora-mosaic-name {
+    font-size: 1.25rem;
+  }
+
+  .zoora-mosaic-desc {
+    display: none;
+  }
+
+  .zoora-mosaic-cta {
+    opacity: 1;
+    transform: none;
+  }
+
+  .zoora-mosaic-partial {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .zoora-mosaic-partial-item {
+    height: 26rem;
+  }
+}
+
 /* ── Títulos centrados ──────────────────────────────────── */
 
 .title-wrapper,

@@ -1,5 +1,4 @@
 {{ 'zoora-sections.css' | asset_url | stylesheet_tag }}
-{{ 'component-slider.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -14,13 +13,14 @@
   }
 {%- endstyle -%}
 
-{%- assign show_carousel = false -%}
-{%- if section.blocks.size > 3 -%}
-  {%- assign show_carousel = true -%}
-{%- endif -%}
+{%- assign total = section.blocks.size -%}
+{%- assign full_rows = total | divided_by: 3 -%}
+{%- assign remainder = total | modulo: 3 -%}
+{%- assign cta = section.settings.cta_label | default: 'Ver colección' -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width section-{{ section.id }}-padding">
+
     {%- if section.settings.title != blank -%}
       <div class="title-wrapper title-wrapper--no-top-margin">
         <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -29,130 +29,68 @@
       </div>
     {%- endif -%}
 
-    {%- if show_carousel -%}
-      <slider-component class="zoora-carousel{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-        <button type="button" class="zoora-carousel-btn slider-button slider-button--prev" name="previous" aria-label="{{ 'general.slider.previous_slide' | t }}" aria-controls="Slider-{{ section.id }}">
-          <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
-        </button>
-        <ul
-          class="zoora-carousel-list grid grid--3-col-desktop grid--2-col-tablet-down slider slider--everywhere"
-          id="Slider-{{ section.id }}"
-          role="list"
-        >
-          {%- for block in section.blocks -%}
-            <li
-              class="grid__item slider__slide"
-              id="Slide-{{ section.id }}-{{ forloop.index }}"
-              {{ block.shopify_attributes }}
-            >
-              {%- assign cat_url = block.settings.collection.url | default: block.settings.link -%}
-              <a
-                {% if cat_url != blank %}
-                  href="{{ cat_url }}"
-                {% else %}
-                  role="link" aria-disabled="true"
-                {% endif %}
-                class="zoora-categoria-card full-unstyled-link"
-              >
-                <div class="zoora-categoria-media">
-                  {%- if block.settings.image != blank -%}
-                    {{
-                      block.settings.image
-                      | image_url: width: 800
-                      | image_tag:
-                        loading: 'lazy',
-                        sizes: '(min-width: 990px) calc((var(--page-width, 1200px) - 10rem) / 3), (min-width: 750px) calc(50vw - 5rem), calc(100vw - 3rem)',
-                        widths: '375, 550, 750, 800',
-                        alt: block.settings.image.alt
-                    }}
-                  {%- elsif block.settings.collection.featured_image != blank -%}
-                    {{
-                      block.settings.collection.featured_image
-                      | image_url: width: 800
-                      | image_tag:
-                        loading: 'lazy',
-                        sizes: '(min-width: 990px) calc((var(--page-width, 1200px) - 10rem) / 3), (min-width: 750px) calc(50vw - 5rem), calc(100vw - 3rem)',
-                        widths: '375, 550, 750, 800',
-                        alt: block.settings.collection.featured_image.alt
-                    }}
-                  {%- else -%}
-                    {%- assign placeholder_index = forloop.index | modulo: 4 | plus: 1 -%}
-                    {{- 'collection-apparel-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' -}}
-                  {%- endif -%}
+    <div class="zoora-mosaic">
+
+      {%- comment %} Filas completas: 1 card grande + 2 chicas, alternando lado {%- endcomment -%}
+      {%- if full_rows > 0 -%}
+        {%- assign max_row = full_rows | minus: 1 -%}
+        {%- for row_idx in (0..max_row) -%}
+          {%- assign base = row_idx | times: 3 -%}
+          {%- assign b1i = base | plus: 1 -%}
+          {%- assign b2i = base | plus: 2 -%}
+          {%- assign b0 = section.blocks[base] -%}
+          {%- assign b1 = section.blocks[b1i] -%}
+          {%- assign b2 = section.blocks[b2i] -%}
+          {%- assign is_rev = row_idx | modulo: 2 -%}
+
+          <div class="zoora-mosaic-row{% if is_rev == 1 %} zoora-mosaic-row--reversed{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+
+            <div class="zoora-mosaic-main">
+              {%- render 'zoora-mosaic-card', block: b0, cta_label: cta -%}
+            </div>
+
+            <div class="zoora-mosaic-side">
+              {%- if b1 -%}
+                <div class="zoora-mosaic-side-item">
+                  {%- render 'zoora-mosaic-card', block: b1, cta_label: cta -%}
                 </div>
-                {%- assign cat_title = block.settings.title | default: block.settings.collection.title -%}
-                {%- if cat_title != blank -%}
-                  <p class="zoora-categoria-title">{{ cat_title | escape }}</p>
-                {%- endif -%}
-              </a>
-            </li>
-          {%- endfor -%}
-        </ul>
-        <button type="button" class="zoora-carousel-btn slider-button slider-button--next" name="next" aria-label="{{ 'general.slider.next_slide' | t }}" aria-controls="Slider-{{ section.id }}">
-          <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
-        </button>
-      </slider-component>
-    {%- else -%}
-      <ul class="grid grid--3-col-desktop grid--2-col-tablet-down" role="list">
-        {%- for block in section.blocks -%}
-          <li
-            class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-            {% if settings.animations_reveal_on_scroll %}
-              data-cascade
-              style="--animation-order: {{ forloop.index }};"
-            {% endif %}
-            {{ block.shopify_attributes }}
-          >
-            {%- assign cat_url = block.settings.collection.url | default: block.settings.link -%}
-            <a
-              {% if cat_url != blank %}
-                href="{{ cat_url }}"
-              {% else %}
-                role="link" aria-disabled="true"
-              {% endif %}
-              class="zoora-categoria-card full-unstyled-link"
-            >
-              <div class="zoora-categoria-media">
-                {%- if block.settings.image != blank -%}
-                  {{
-                    block.settings.image
-                    | image_url: width: 800
-                    | image_tag:
-                      loading: 'lazy',
-                      sizes: '(min-width: 990px) calc((var(--page-width, 1200px) - 10rem) / 3), (min-width: 750px) calc(50vw - 5rem), calc(100vw - 3rem)',
-                      widths: '375, 550, 750, 800',
-                      alt: block.settings.image.alt
-                  }}
-                {%- elsif block.settings.collection.featured_image != blank -%}
-                  {{
-                    block.settings.collection.featured_image
-                    | image_url: width: 800
-                    | image_tag:
-                      loading: 'lazy',
-                      sizes: '(min-width: 990px) calc((var(--page-width, 1200px) - 10rem) / 3), (min-width: 750px) calc(50vw - 5rem), calc(100vw - 3rem)',
-                      widths: '375, 550, 750, 800',
-                      alt: block.settings.collection.featured_image.alt
-                  }}
-                {%- else -%}
-                  {%- assign placeholder_index = forloop.index | modulo: 4 | plus: 1 -%}
-                  {{- 'collection-apparel-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' -}}
-                {%- endif -%}
-              </div>
-              {%- assign cat_title = block.settings.title | default: block.settings.collection.title -%}
-              {%- if cat_title != blank -%}
-                <p class="zoora-categoria-title">{{ cat_title | escape }}</p>
               {%- endif -%}
-            </a>
-          </li>
+              {%- if b2 -%}
+                <div class="zoora-mosaic-side-item">
+                  {%- render 'zoora-mosaic-card', block: b2, cta_label: cta -%}
+                </div>
+              {%- endif -%}
+            </div>
+
+          </div>
         {%- endfor -%}
-      </ul>
-    {%- endif -%}
+      {%- endif -%}
+
+      {%- comment %} Bloques sobrantes (1 o 2) en fila parcial {%- endcomment -%}
+      {%- if remainder > 0 -%}
+        {%- assign rem_start = full_rows | times: 3 -%}
+        <div class="zoora-mosaic-partial{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+          {%- for ri in (0..1) -%}
+            {%- if ri < remainder -%}
+              {%- assign bi = rem_start | plus: ri -%}
+              {%- assign br = section.blocks[bi] -%}
+              {%- if br -%}
+                <div class="zoora-mosaic-partial-item">
+                  {%- render 'zoora-mosaic-card', block: br, cta_label: cta -%}
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "Categorías",
+  "name": "Colecciones",
   "tag": "section",
   "class": "section",
   "max_blocks": 12,
@@ -164,7 +102,7 @@
       "type": "inline_richtext",
       "id": "title",
       "label": "Título",
-      "default": "Categorías"
+      "default": "Colecciones"
     },
     {
       "type": "select",
@@ -176,6 +114,12 @@
         { "value": "h0", "label": "Grande" }
       ],
       "default": "h2"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texto del botón",
+      "default": "Ver colección"
     },
     {
       "type": "color_scheme",
@@ -211,7 +155,7 @@
   "blocks": [
     {
       "type": "categoria",
-      "name": "Categoría",
+      "name": "Colección",
       "settings": [
         {
           "type": "collection",
@@ -221,12 +165,17 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Imagen (opcional, sobreescribe la imagen de la colección)"
+          "label": "Imagen (sobreescribe la imagen de la colección)"
         },
         {
           "type": "text",
           "id": "title",
-          "label": "Título (opcional, sobreescribe el nombre de la colección)"
+          "label": "Título (sobreescribe el nombre de la colección)"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Bajada o subtítulo (opcional)"
         },
         {
           "type": "url",
@@ -238,11 +187,11 @@
   ],
   "presets": [
     {
-      "name": "Categorías",
+      "name": "Colecciones",
       "blocks": [
-        { "type": "categoria", "settings": { "title": "Categoría 1" } },
-        { "type": "categoria", "settings": { "title": "Categoría 2" } },
-        { "type": "categoria", "settings": { "title": "Categoría 3" } }
+        { "type": "categoria", "settings": { "title": "Decoración" } },
+        { "type": "categoria", "settings": { "title": "Iluminación" } },
+        { "type": "categoria", "settings": { "title": "Textiles" } }
       ]
     }
   ]
