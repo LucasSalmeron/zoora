@@ -14,6 +14,7 @@
       "blocks": {
         "slide_X8KRhn": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/7ee5740e-1c84-4cd3-b0ab-adb05fb71004.png",
             "image_mobile": "shopify://shop_images/N7A7080_5c01a4f3-e8af-475c-858e-6fb15ca6ba8b.jpg",
