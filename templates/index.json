@@ -303,10 +303,53 @@
         "padding_bottom": 36
       }
     },
+    "mas_productos": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "elegidos",
+        "products_to_show": 10,
+        "title": "Elegidos",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 5,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-a3ffe54b-6ec1-4122-a54a-0d2c87fa2c9d",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "button_style": "outline",
+        "view_all_collection": "elegidos",
+        "view_all_label": "Ver todos los productos",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "categorias": {
       "type": "zoora-categorias",
       "blocks": {
-        "categoria_KfzXPU": {
+        "categoria_ypkCn8": {
+          "type": "categoria",
+          "settings": {
+            "collection": "animalushka",
+            "image": "shopify://shop_images/f83009b6-e36c-4bc4-b8fd-aee8f5983aa3.png",
+            "title": "",
+            "subtitle": "",
+            "link": "",
+            "text_position": "top",
+            "image_darkness": 15
+          }
+        },
+        "categoria_cjDTK7": {
           "type": "categoria",
           "settings": {
             "collection": "",
@@ -340,16 +383,15 @@
             "image_darkness": 10
           }
         },
-        "categoria_ypkCn8": {
+        "categoria_KfzXPU": {
           "type": "categoria",
           "settings": {
-            "collection": "animalushka",
-            "image": "shopify://shop_images/f83009b6-e36c-4bc4-b8fd-aee8f5983aa3.png",
+            "collection": "",
             "title": "",
             "subtitle": "",
             "link": "",
-            "text_position": "top",
-            "image_darkness": 15
+            "text_position": "bottom",
+            "image_darkness": 0
           }
         },
         "categoria_7zAxA6": {
@@ -366,10 +408,11 @@
         }
       },
       "block_order": [
-        "categoria_KfzXPU",
+        "categoria_ypkCn8",
+        "categoria_cjDTK7",
         "categoria_q4bNwR",
         "categoria_yVD7TF",
-        "categoria_ypkCn8",
+        "categoria_KfzXPU",
         "categoria_7zAxA6"
       ],
       "settings": {
@@ -380,37 +423,6 @@
         "split_ratio": "3-2",
         "partial_row_height": 30,
         "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "mas_productos": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "elegidos",
-        "products_to_show": 10,
-        "title": "Elegidos",
-        "heading_size": "h1",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 5,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-a3ffe54b-6ec1-4122-a54a-0d2c87fa2c9d",
-        "image_ratio": "square",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "button_style": "outline",
-        "view_all_collection": "elegidos",
-        "view_all_label": "Ver todos los productos",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -472,8 +484,8 @@
     "featured_4",
     "universos",
     "colecciones",
-    "categorias",
     "mas_productos",
+    "categorias",
     "beneficios"
   ]
 }
