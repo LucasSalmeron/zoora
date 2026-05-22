@@ -51,7 +51,7 @@
       ],
       "settings": {
         "layout": "full_bleed",
-        "full_image_display": true,
+        "full_image_display": false,
         "slide_height": "medium",
         "slider_visual": "dots",
         "auto_rotate": true,
