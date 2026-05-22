@@ -78,11 +78,29 @@
               if section.index == 1
                 assign fetch_priority = 'high'
               endif
+              assign pos_x = block.settings.image_position_x | default: 'center'
+              assign pos_y = block.settings.image_position_y | default: 'center'
+              assign img_style = 'object-position: ' | append: pos_x | append: ' ' | append: pos_y
             -%}
-            {%- if forloop.first -%}
-              {{ block.settings.image | image_url: width: 3840 | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority }}
+            {%- if block.settings.image_mobile != blank -%}
+              <picture>
+                <source
+                  media="(max-width: 749px)"
+                  srcset="{{ block.settings.image_mobile | image_url: width: 375 }} 375w, {{ block.settings.image_mobile | image_url: width: 550 }} 550w, {{ block.settings.image_mobile | image_url: width: 750 }} 750w"
+                  sizes="100vw"
+                >
+                {%- if forloop.first -%}
+                  {{ block.settings.image | image_url: width: 3840 | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority, style: img_style }}
+                {%- else -%}
+                  {{ block.settings.image | image_url: width: 3840 | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths, style: img_style }}
+                {%- endif -%}
+              </picture>
             {%- else -%}
-              {{ block.settings.image | image_url: width: 3840 | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths }}
+              {%- if forloop.first -%}
+                {{ block.settings.image | image_url: width: 3840 | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority, style: img_style }}
+              {%- else -%}
+                {{ block.settings.image | image_url: width: 3840 | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths, style: img_style }}
+              {%- endif -%}
             {%- endif -%}
           {%- else -%}
             {%- assign placeholder_slide = forloop.index | modulo: 2 -%}
@@ -262,6 +280,39 @@
           "type": "image_picker",
           "id": "image",
           "label": "t:sections.slideshow.blocks.slide.settings.image.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Imagen para móvil (opcional)",
+          "info": "Se muestra en pantallas menores a 750px. Recomendado: formato vertical o cuadrado."
+        },
+        {
+          "type": "header",
+          "content": "Punto focal"
+        },
+        {
+          "type": "select",
+          "id": "image_position_x",
+          "label": "Posición horizontal",
+          "options": [
+            { "value": "left", "label": "Izquierda" },
+            { "value": "center", "label": "Centro" },
+            { "value": "right", "label": "Derecha" }
+          ],
+          "default": "center",
+          "info": "Controla qué parte se ve cuando la imagen se recorta en pantallas angostas"
+        },
+        {
+          "type": "select",
+          "id": "image_position_y",
+          "label": "Posición vertical",
+          "options": [
+            { "value": "top", "label": "Arriba" },
+            { "value": "center", "label": "Centro" },
+            { "value": "bottom", "label": "Abajo" }
+          ],
+          "default": "center"
         },
         {
           "type": "url",
