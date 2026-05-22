@@ -29,9 +29,7 @@
     {%- else -%}
       {{- 'collection-apparel-1' | placeholder_svg_tag: 'placeholder-svg' -}}
     {%- endif -%}
-  {%- if block.settings.image_darkness > 0 -%}
-    <div class="zoora-mosaic-darkness" style="opacity: {{ block.settings.image_darkness | divided_by: 100.0 }};"></div>
-  {%- endif -%}
+  <div class="zoora-mosaic-darkness" style="opacity: {{ block.settings.image_darkness | default: 0 | divided_by: 100.0 }};"></div>
   </div>
   <div class="zoora-mosaic-overlay zoora-mosaic-overlay--{{ block.settings.text_position | default: 'bottom' }}">
     {%- if card_title != blank -%}
