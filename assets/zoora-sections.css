@@ -215,11 +215,13 @@
   transform: scale(1.05);
 }
 
-.zoora-mosaic-darkness {
+.zoora-mosaic-media::after {
+  content: '';
   position: absolute;
   inset: 0;
   background: #000;
   pointer-events: none;
+  opacity: 0;
 }
 
 .zoora-mosaic-overlay {

@@ -1,7 +1,14 @@
 {%- assign card_url = block.settings.collection.url | default: block.settings.link -%}
 {%- assign card_title = block.settings.title | default: block.settings.collection.title -%}
 
+<style>
+  #zoora-mosaic-card-{{ block.id }} .zoora-mosaic-media::after {
+    opacity: {{ block.settings.image_darkness | default: 0 | divided_by: 100.0 }};
+  }
+</style>
+
 <a
+  id="zoora-mosaic-card-{{ block.id }}"
   class="zoora-mosaic-card"
   {% if card_url != blank %}href="{{ card_url }}"{% else %}role="link" aria-disabled="true"{% endif %}
   {% if card_title != blank %}aria-label="{{ card_title | escape }}"{% endif %}
@@ -29,7 +36,6 @@
     {%- else -%}
       {{- 'collection-apparel-1' | placeholder_svg_tag: 'placeholder-svg' -}}
     {%- endif -%}
-  <div class="zoora-mosaic-darkness" style="opacity: {{ block.settings.image_darkness | default: 0 | divided_by: 100.0 }};"></div>
   </div>
   <div class="zoora-mosaic-overlay zoora-mosaic-overlay--{{ block.settings.text_position | default: 'bottom' }}">
     {%- if card_title != blank -%}
