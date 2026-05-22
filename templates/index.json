@@ -284,7 +284,7 @@
             "subtitle": "",
             "link": "",
             "text_position": "top",
-            "image_opacity": 100
+            "image_darkness": 0
           }
         },
         "categoria_ypkCn8": {
@@ -296,7 +296,7 @@
             "subtitle": "",
             "link": "",
             "text_position": "bottom",
-            "image_opacity": 20
+            "image_darkness": 80
           }
         },
         "categoria_7zAxA6": {
@@ -308,7 +308,7 @@
             "subtitle": "",
             "link": "",
             "text_position": "bottom",
-            "image_opacity": 100
+            "image_darkness": 0
           }
         }
       },
