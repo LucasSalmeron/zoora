@@ -200,6 +200,8 @@
       "settings": {
         "title": "Especialmente para vos",
         "heading_size": "h1",
+        "columns_desktop": 5,
+        "columns_mobile": "2",
         "image_ratio": "square",
         "show_secondary_image": true,
         "quick_add": "none",
