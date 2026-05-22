@@ -23,26 +23,17 @@
   {%- endstyle -%}
 {%- endif -%}
 
-{%- if section.settings.full_image_display -%}
-  {%- style -%}
+{%- style -%}
+  #Slider-{{ section.id }} {
+    min-height: 0;
+    aspect-ratio: {{ section.settings.aspect_ratio }};
+  }
+  @media screen and (max-width: 749px) {
     #Slider-{{ section.id }} {
-      min-height: 0;
-      height: auto;
+      aspect-ratio: {{ section.settings.aspect_ratio_mobile }};
     }
-    #Slider-{{ section.id }} .slideshow__slide {
-      height: auto;
-    }
-    #Slider-{{ section.id }} .banner__media {
-      position: relative;
-      height: auto;
-    }
-    #Slider-{{ section.id }} .banner__media img {
-      position: relative;
-      width: 100%;
-      height: auto;
-    }
-  {%- endstyle -%}
-{%- endif -%}
+  }
+{%- endstyle -%}
 
 <slideshow-component
   class="slider-mobile-gutter{% if section.settings.layout == 'grid' %} page-width{% endif %}"
@@ -235,11 +226,35 @@
       "label": "t:sections.slideshow.settings.layout.label"
     },
     {
-      "type": "checkbox",
-      "id": "full_image_display",
-      "label": "Mostrar imagen completa (sin recorte)",
-      "info": "La altura se adapta a cada imagen. Recomendado si tus imágenes se ven cortadas en otras pantallas.",
-      "default": false
+      "type": "header",
+      "content": "Proporción de aspecto"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "Escritorio",
+      "info": "Hacé todas tus imágenes en esta proporción para que nunca se recorten",
+      "options": [
+        { "value": "4/1", "label": "4:1 — Ultra panorámico" },
+        { "value": "3/1", "label": "3:1 — Muy panorámico" },
+        { "value": "2/1", "label": "2:1 — Panorámico" },
+        { "value": "16/9", "label": "16:9 — Widescreen" },
+        { "value": "3/2", "label": "3:2 — Estándar" }
+      ],
+      "default": "3/1"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio_mobile",
+      "label": "Móvil",
+      "options": [
+        { "value": "2/1", "label": "2:1 — Panorámico" },
+        { "value": "16/9", "label": "16:9 — Widescreen" },
+        { "value": "4/3", "label": "4:3 — Estándar" },
+        { "value": "1/1", "label": "1:1 — Cuadrado" },
+        { "value": "3/4", "label": "3:4 — Vertical" }
+      ],
+      "default": "1/1"
     },
     {
       "type": "select",
