@@ -2,6 +2,7 @@
 
 {%- style -%}
   .section-{{ section.id }}-padding {
+    --items-per-row: {{ section.settings.items_per_row }};
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
@@ -9,6 +10,11 @@
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }}-padding {
+      --items-per-row: {{ section.settings.items_per_row_mobile }};
     }
   }
 {%- endstyle -%}
@@ -112,6 +118,28 @@
       "id": "color_scheme",
       "label": "Esquema de color",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Distribución"
+    },
+    {
+      "type": "range",
+      "id": "items_per_row",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "label": "Categorías por fila (escritorio)",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "items_per_row_mobile",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "label": "Categorías por fila (móvil)",
+      "default": 3
     },
     {
       "type": "header",

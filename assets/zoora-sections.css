@@ -196,12 +196,19 @@
 /* ── Categorías íconos ──────────────────────────────────── */
 
 .zoora-cat-icons-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1.6rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 1.6rem;
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.zoora-cat-icons-item {
+  flex: 0 0 calc(100% / var(--items-per-row, 6));
+  display: flex;
+  justify-content: center;
 }
 
 .zoora-cat-icons-link {
@@ -261,16 +268,9 @@
   color: rgb(var(--color-foreground));
 }
 
-@media screen and (max-width: 989px) {
-  .zoora-cat-icons-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
 @media screen and (max-width: 749px) {
   .zoora-cat-icons-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.4rem 0.8rem;
+    row-gap: 1.4rem;
   }
 
   .zoora-cat-icons-circle {
