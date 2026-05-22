@@ -42,7 +42,7 @@
       </button>
       {%- assign skip_styles = false -%}
       <ul
-        class="grid product-grid contains-card contains-card--product{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} grid--4-col-desktop grid--2-col-tablet-down slider slider--everywhere zoora-carousel-list"
+        class="grid product-grid contains-card contains-card--product{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down slider slider--everywhere zoora-carousel-list"
         id="Slider-{{ section.id }}"
         role="list"
       >
@@ -139,6 +139,25 @@
     {
       "type": "header",
       "content": "Tarjetas de producto"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Columnas (escritorio)",
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columnas (móvil)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "2"
     },
     {
       "type": "select",
