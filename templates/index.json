@@ -210,7 +210,7 @@
       "settings": {
         "title": "Especialmente para vos",
         "heading_size": "h1",
-        "columns_desktop": 5,
+        "columns_desktop": 3,
         "columns_mobile": "2",
         "image_ratio": "square",
         "show_secondary_image": true,
@@ -257,81 +257,6 @@
         "section_height_mobile": "320px",
         "padding_top": 16,
         "padding_bottom": 0
-      }
-    },
-    "colecciones": {
-      "type": "collection-list",
-      "blocks": {
-        "featured_collection_N4xXbF": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": ""
-          }
-        },
-        "col_1": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "animalushka"
-          }
-        },
-        "col_2": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "la-vida-secreta-de-las-ranas"
-          }
-        },
-        "col_3": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "ovejas-de-jardin"
-          }
-        }
-      },
-      "block_order": [
-        "featured_collection_N4xXbF",
-        "col_1",
-        "col_2",
-        "col_3"
-      ],
-      "disabled": true,
-      "settings": {
-        "title": "Colecciones",
-        "heading_size": "h1",
-        "color_scheme": "scheme-1",
-        "show_view_all": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "mas_productos": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "elegidos",
-        "products_to_show": 10,
-        "title": "Elegidos",
-        "heading_size": "h1",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 5,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-a3ffe54b-6ec1-4122-a54a-0d2c87fa2c9d",
-        "image_ratio": "square",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "button_style": "outline",
-        "view_all_collection": "elegidos",
-        "view_all_label": "Ver todos los productos",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
       }
     },
     "categorias": {
@@ -419,10 +344,85 @@
         "title": "Colecciones",
         "heading_size": "h1",
         "cta_label": "Ver colección",
-        "row_height": 36,
-        "split_ratio": "3-2",
+        "row_height": 30,
+        "split_ratio": "2-1",
         "partial_row_height": 30,
         "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "colecciones": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_N4xXbF": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "col_1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "animalushka"
+          }
+        },
+        "col_2": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "la-vida-secreta-de-las-ranas"
+          }
+        },
+        "col_3": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "ovejas-de-jardin"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_N4xXbF",
+        "col_1",
+        "col_2",
+        "col_3"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "Colecciones",
+        "heading_size": "h1",
+        "color_scheme": "scheme-1",
+        "show_view_all": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "mas_productos": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "elegidos",
+        "products_to_show": 10,
+        "title": "Elegidos",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 5,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-a3ffe54b-6ec1-4122-a54a-0d2c87fa2c9d",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "button_style": "outline",
+        "view_all_collection": "elegidos",
+        "view_all_label": "Ver todos los productos",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -483,9 +483,9 @@
     "zoora_categorias_iconos_XRUTPG",
     "featured_4",
     "universos",
+    "categorias",
     "colecciones",
     "mas_productos",
-    "categorias",
     "beneficios"
   ]
 }
