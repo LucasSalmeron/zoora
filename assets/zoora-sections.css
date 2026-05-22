@@ -1,3 +1,11 @@
+/* ── Slideshow ──────────────────────────────────────────── */
+
+.slideshow__slide-link {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
 /* ── Universos ──────────────────────────────────────────── */
 
 .zoora-universos__grid {
