@@ -51,7 +51,7 @@
       ],
       "settings": {
         "layout": "full_bleed",
-        "aspect_ratio": "2/1",
+        "aspect_ratio": "4/1",
         "aspect_ratio_mobile": "2/1",
         "slide_height": "medium",
         "slider_visual": "dots",
