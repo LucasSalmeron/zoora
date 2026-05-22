@@ -217,27 +217,64 @@
 
 .zoora-mosaic-overlay {
   position: absolute;
-  bottom: 0;
   left: 0;
   right: 0;
   padding: 2.4rem 2.4rem 3rem;
+  color: #fff;
+  transition: background 0.4s ease;
+}
+
+.zoora-mosaic-overlay--bottom {
+  bottom: 0;
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.62) 0%,
     rgba(0, 0, 0, 0.18) 52%,
     transparent 100%
   );
-  color: #fff;
-  transition: background 0.4s ease;
 }
 
-.zoora-mosaic-card:hover .zoora-mosaic-overlay {
+.zoora-mosaic-card:hover .zoora-mosaic-overlay--bottom {
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.72) 0%,
     rgba(0, 0, 0, 0.25) 55%,
     transparent 100%
   );
+}
+
+.zoora-mosaic-overlay--top {
+  top: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.62) 0%,
+    rgba(0, 0, 0, 0.18) 52%,
+    transparent 100%
+  );
+}
+
+.zoora-mosaic-card:hover .zoora-mosaic-overlay--top {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.25) 55%,
+    transparent 100%
+  );
+}
+
+.zoora-mosaic-overlay--center {
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.zoora-mosaic-card:hover .zoora-mosaic-overlay--center {
+  background: rgba(0, 0, 0, 0.42);
 }
 
 .zoora-mosaic-name {

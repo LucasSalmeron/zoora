@@ -30,7 +30,7 @@
       {{- 'collection-apparel-1' | placeholder_svg_tag: 'placeholder-svg' -}}
     {%- endif -%}
   </div>
-  <div class="zoora-mosaic-overlay">
+  <div class="zoora-mosaic-overlay zoora-mosaic-overlay--{{ block.settings.text_position | default: 'bottom' }}">
     {%- if card_title != blank -%}
       <p class="zoora-mosaic-name">{{ card_title | escape }}</p>
     {%- endif -%}
