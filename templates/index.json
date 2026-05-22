@@ -43,55 +43,6 @@
         "accessibility_info": "Carrusel de imágenes"
       }
     },
-    "featured_4": {
-      "type": "zoora-featured-4",
-      "blocks": {
-        "prod_1": {
-          "type": "product",
-          "settings": {
-            "product": "caballo-madera-rojo"
-          }
-        },
-        "prod_2": {
-          "type": "product",
-          "settings": {
-            "product": "conejitos-orejones"
-          }
-        },
-        "prod_3": {
-          "type": "product",
-          "settings": {
-            "product": "mamushka-oso-polar"
-          }
-        },
-        "prod_4": {
-          "type": "product",
-          "settings": {
-            "product": "fruit-transformation-alpaca-doll"
-          }
-        }
-      },
-      "block_order": [
-        "prod_1",
-        "prod_2",
-        "prod_3",
-        "prod_4"
-      ],
-      "settings": {
-        "title": "Productos destacados",
-        "heading_size": "h1",
-        "image_ratio": "square",
-        "show_secondary_image": true,
-        "quick_add": "standard",
-        "button_label": "",
-        "button_link": "",
-        "view_all_collection": "",
-        "view_all_label": "Ver todos los productos",
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "zoora_categorias_iconos_XRUTPG": {
       "type": "zoora-categorias-iconos",
       "blocks": {
@@ -181,6 +132,55 @@
         "color_scheme": "",
         "items_per_row": 8,
         "items_per_row_mobile": 4,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_4": {
+      "type": "zoora-featured-4",
+      "blocks": {
+        "prod_1": {
+          "type": "product",
+          "settings": {
+            "product": "caballo-madera-rojo"
+          }
+        },
+        "prod_2": {
+          "type": "product",
+          "settings": {
+            "product": "conejitos-orejones"
+          }
+        },
+        "prod_3": {
+          "type": "product",
+          "settings": {
+            "product": "mamushka-oso-polar"
+          }
+        },
+        "prod_4": {
+          "type": "product",
+          "settings": {
+            "product": "fruit-transformation-alpaca-doll"
+          }
+        }
+      },
+      "block_order": [
+        "prod_1",
+        "prod_2",
+        "prod_3",
+        "prod_4"
+      ],
+      "settings": {
+        "title": "Especialmente para vos",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "show_secondary_image": true,
+        "quick_add": "standard",
+        "button_label": "",
+        "button_link": "",
+        "view_all_collection": "",
+        "view_all_label": "Ver todos los productos",
+        "color_scheme": "scheme-1",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -387,14 +387,14 @@
         "heading_size": "h2",
         "color_scheme": "scheme-1",
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 0
       }
     }
   },
   "order": [
     "slideshow",
-    "featured_4",
     "zoora_categorias_iconos_XRUTPG",
+    "featured_4",
     "universos",
     "colecciones",
     "categorias",
