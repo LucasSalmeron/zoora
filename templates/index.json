@@ -158,6 +158,12 @@
     "featured_4": {
       "type": "zoora-featured-4",
       "blocks": {
+        "product_Mry76t": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
         "prod_1": {
           "type": "product",
           "settings": {
@@ -184,6 +190,7 @@
         }
       },
       "block_order": [
+        "product_Mry76t",
         "prod_1",
         "prod_2",
         "prod_3",
