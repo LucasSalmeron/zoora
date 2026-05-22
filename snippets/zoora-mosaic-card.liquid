@@ -7,7 +7,7 @@
   {% if card_title != blank %}aria-label="{{ card_title | escape }}"{% endif %}
   {{ block.shopify_attributes }}
 >
-  <div class="zoora-mosaic-media" {% if block.settings.image_opacity != blank and block.settings.image_opacity != 100 %}style="opacity: {{ block.settings.image_opacity | divided_by: 100.0 }};"{% endif %}>
+  <div class="zoora-mosaic-media">
     {%- if block.settings.image != blank -%}
       {{
         block.settings.image
@@ -29,6 +29,9 @@
     {%- else -%}
       {{- 'collection-apparel-1' | placeholder_svg_tag: 'placeholder-svg' -}}
     {%- endif -%}
+  {%- if block.settings.image_darkness > 0 -%}
+    <div class="zoora-mosaic-darkness" style="opacity: {{ block.settings.image_darkness | divided_by: 100.0 }};"></div>
+  {%- endif -%}
   </div>
   <div class="zoora-mosaic-overlay zoora-mosaic-overlay--{{ block.settings.text_position | default: 'bottom' }}">
     {%- if card_title != blank -%}
