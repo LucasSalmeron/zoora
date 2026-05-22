@@ -1,14 +1,48 @@
 {{ 'zoora-sections.css' | asset_url | stylesheet_tag }}
 
+{%- assign split = section.settings.split_ratio | default: '1-1' -%}
+{%- if split == '2-1' -%}
+  {%- assign main_col = '2fr' -%}
+  {%- assign side_col = '1fr' -%}
+{%- elsif split == '3-2' -%}
+  {%- assign main_col = '3fr' -%}
+  {%- assign side_col = '2fr' -%}
+{%- else -%}
+  {%- assign main_col = '1fr' -%}
+  {%- assign side_col = '1fr' -%}
+{%- endif -%}
+{%- assign row_h = section.settings.row_height | default: 44 -%}
+{%- assign row_h_tablet = row_h | times: 0.82 | round: 0 -%}
+{%- assign partial_h = section.settings.partial_row_height | default: 30 -%}
+{%- assign partial_h_tablet = partial_h | times: 0.82 | round: 0 -%}
+
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
+  .section-{{ section.id }}-padding .zoora-mosaic-row {
+    grid-template-columns: {{ main_col }} {{ side_col }};
+    grid-template-rows: {{ row_h }}rem;
+  }
+  .section-{{ section.id }}-padding .zoora-mosaic-row--reversed {
+    grid-template-columns: {{ side_col }} {{ main_col }};
+  }
+  .section-{{ section.id }}-padding .zoora-mosaic-partial {
+    height: {{ partial_h }}rem;
+  }
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  @media screen and (max-width: 989px) {
+    .section-{{ section.id }}-padding .zoora-mosaic-row {
+      grid-template-rows: {{ row_h_tablet }}rem;
+    }
+    .section-{{ section.id }}-padding .zoora-mosaic-partial {
+      height: {{ partial_h_tablet }}rem;
     }
   }
 {%- endstyle -%}
@@ -120,6 +154,41 @@
       "id": "cta_label",
       "label": "Texto del botón",
       "default": "Ver colección"
+    },
+    {
+      "type": "header",
+      "content": "Tamaños y distribución"
+    },
+    {
+      "type": "range",
+      "id": "row_height",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "rem",
+      "label": "Altura de fila (escritorio)",
+      "default": 44
+    },
+    {
+      "type": "select",
+      "id": "split_ratio",
+      "label": "Proporción grande / pequeño",
+      "options": [
+        { "value": "1-1", "label": "1:1 — Partido al medio" },
+        { "value": "2-1", "label": "2:1 — Grande / Pequeño" },
+        { "value": "3-2", "label": "3:2 — Grande / Mediano" }
+      ],
+      "default": "1-1"
+    },
+    {
+      "type": "range",
+      "id": "partial_row_height",
+      "min": 15,
+      "max": 60,
+      "step": 2,
+      "unit": "rem",
+      "label": "Altura fila parcial (1 o 2 colecciones)",
+      "default": 30
     },
     {
       "type": "color_scheme",

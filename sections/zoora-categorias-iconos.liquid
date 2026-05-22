@@ -1,10 +1,22 @@
 {{ 'zoora-sections.css' | asset_url | stylesheet_tag }}
 
+{%- assign icon_sz = section.settings.icon_size | default: 8 -%}
+{%- assign icon_sz_mobile = icon_sz | times: 0.8 | round: 1 -%}
+{%- assign emoji_sz = icon_sz | times: 0.4 | round: 1 -%}
+{%- assign emoji_sz_mobile = icon_sz | times: 0.325 | round: 1 -%}
+
 {%- style -%}
   .section-{{ section.id }}-padding {
     --items-per-row: {{ section.settings.items_per_row }};
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  .section-{{ section.id }}-padding .zoora-cat-icons-circle {
+    width: {{ icon_sz }}rem;
+    height: {{ icon_sz }}rem;
+  }
+  .section-{{ section.id }}-padding .zoora-cat-icons-emoji {
+    font-size: {{ emoji_sz }}rem;
   }
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
@@ -15,6 +27,13 @@
   @media screen and (max-width: 749px) {
     .section-{{ section.id }}-padding {
       --items-per-row: {{ section.settings.items_per_row_mobile }};
+    }
+    .section-{{ section.id }}-padding .zoora-cat-icons-circle {
+      width: {{ icon_sz_mobile }}rem;
+      height: {{ icon_sz_mobile }}rem;
+    }
+    .section-{{ section.id }}-padding .zoora-cat-icons-emoji {
+      font-size: {{ emoji_sz_mobile }}rem;
     }
   }
 {%- endstyle -%}
@@ -140,6 +159,21 @@
       "step": 1,
       "label": "Categorías por fila (móvil)",
       "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Tamaño del ícono"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 4,
+      "max": 16,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Tamaño del círculo (escritorio)",
+      "info": "En móvil se reduce automáticamente al 80%",
+      "default": 8
     },
     {
       "type": "header",

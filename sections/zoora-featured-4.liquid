@@ -63,7 +63,8 @@
                 show_rating: false,
                 skip_styles: skip_styles,
                 section_id: section.id,
-                quick_add: section.settings.quick_add
+                quick_add: section.settings.quick_add,
+                card_button_style: section.settings.button_style
               %}
             {%- else -%}
               {%- assign placeholder_image = 'product-apparel-' | append: forloop.index -%}
@@ -159,12 +160,23 @@
     {
       "type": "select",
       "id": "quick_add",
-      "label": "Compra rápida",
+      "label": "Botón «Agregar al carrito»",
       "options": [
-        { "value": "none", "label": "Desactivado" },
-        { "value": "standard", "label": "Activado" }
+        { "value": "none", "label": "Sin botón" },
+        { "value": "standard", "label": "Mostrar botón" }
       ],
       "default": "standard"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Estilo del botón",
+      "options": [
+        { "value": "outline", "label": "Contorno" },
+        { "value": "solid", "label": "Sólido" }
+      ],
+      "default": "outline",
+      "info": "Solo aplica cuando el botón está activado"
     },
     {
       "type": "header",
