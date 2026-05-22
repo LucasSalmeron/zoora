@@ -7,7 +7,7 @@
   {% if card_title != blank %}aria-label="{{ card_title | escape }}"{% endif %}
   {{ block.shopify_attributes }}
 >
-  <div class="zoora-mosaic-media">
+  <div class="zoora-mosaic-media" {% if block.settings.image_opacity != blank and block.settings.image_opacity != 100 %}style="opacity: {{ block.settings.image_opacity | divided_by: 100.0 }};"{% endif %}>
     {%- if block.settings.image != blank -%}
       {{
         block.settings.image
