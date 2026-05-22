@@ -12,6 +12,14 @@
     "slideshow": {
       "type": "slideshow",
       "blocks": {
+        "slide_79A9aX": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2026-05-20_at_8.49.20_PM.jpg",
+            "link": "shopify://products/creative-dinosaur-egg",
+            "image_overlay_opacity": 0
+          }
+        },
         "slide_X8KRhn": {
           "type": "slide",
           "settings": {
@@ -30,6 +38,7 @@
         }
       },
       "block_order": [
+        "slide_79A9aX",
         "slide_X8KRhn",
         "slide_2"
       ],
@@ -270,15 +279,7 @@
           "type": "categoria",
           "settings": {
             "collection": "la-vida-secreta-de-las-ranas",
-            "title": "",
-            "subtitle": "",
-            "link": ""
-          }
-        },
-        "categoria_7zAxA6": {
-          "type": "categoria",
-          "settings": {
-            "collection": "ovejas-de-jardin",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-05-21_at_1.18.07_PM.jpg",
             "title": "",
             "subtitle": "",
             "link": ""
@@ -293,12 +294,22 @@
             "subtitle": "",
             "link": ""
           }
+        },
+        "categoria_7zAxA6": {
+          "type": "categoria",
+          "settings": {
+            "collection": "ovejas-de-jardin",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-05-21_at_12.56.01_PM.jpg",
+            "title": "",
+            "subtitle": "",
+            "link": ""
+          }
         }
       },
       "block_order": [
         "categoria_yVD7TF",
-        "categoria_7zAxA6",
-        "categoria_ypkCn8"
+        "categoria_ypkCn8",
+        "categoria_7zAxA6"
       ],
       "settings": {
         "title": "Colecciones",
