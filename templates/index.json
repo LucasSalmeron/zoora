@@ -12,19 +12,19 @@
     "slideshow": {
       "type": "slideshow",
       "blocks": {
-        "slide_79A9aX": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/c528acb4-b729-414d-a59e-31b64d812118.png",
-            "link": "shopify://products/creative-dinosaur-egg",
-            "image_overlay_opacity": 0
-          }
-        },
         "slide_X8KRhn": {
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/7ee5740e-1c84-4cd3-b0ab-adb05fb71004.png",
             "link": "",
+            "image_overlay_opacity": 0
+          }
+        },
+        "slide_79A9aX": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/c528acb4-b729-414d-a59e-31b64d812118.png",
+            "link": "shopify://products/creative-dinosaur-egg",
             "image_overlay_opacity": 0
           }
         },
@@ -38,8 +38,8 @@
         }
       },
       "block_order": [
-        "slide_79A9aX",
         "slide_X8KRhn",
+        "slide_79A9aX",
         "slide_2"
       ],
       "settings": {
