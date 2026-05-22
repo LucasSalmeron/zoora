@@ -282,7 +282,9 @@
             "image": "shopify://shop_images/WhatsApp_Image_2026-05-21_at_1.18.07_PM.jpg",
             "title": "",
             "subtitle": "",
-            "link": ""
+            "link": "",
+            "text_position": "top",
+            "image_opacity": 100
           }
         },
         "categoria_ypkCn8": {
@@ -292,7 +294,9 @@
             "image": "shopify://shop_images/f83009b6-e36c-4bc4-b8fd-aee8f5983aa3.png",
             "title": "",
             "subtitle": "",
-            "link": ""
+            "link": "",
+            "text_position": "bottom",
+            "image_opacity": 20
           }
         },
         "categoria_7zAxA6": {
@@ -302,7 +306,9 @@
             "image": "shopify://shop_images/WhatsApp_Image_2026-05-21_at_12.56.01_PM.jpg",
             "title": "",
             "subtitle": "",
-            "link": ""
+            "link": "",
+            "text_position": "bottom",
+            "image_opacity": 100
           }
         }
       },
