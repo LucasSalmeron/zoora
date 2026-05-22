@@ -17,7 +17,7 @@
           "settings": {
             "image": "shopify://shop_images/7ee5740e-1c84-4cd3-b0ab-adb05fb71004.png",
             "image_mobile": "shopify://shop_images/N7A7080_5c01a4f3-e8af-475c-858e-6fb15ca6ba8b.jpg",
-            "image_position_x": "center",
+            "image_position_x": "right",
             "image_position_y": "center",
             "link": "",
             "image_overlay_opacity": 0
@@ -27,7 +27,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/c528acb4-b729-414d-a59e-31b64d812118.png",
-            "image_position_x": "center",
+            "image_position_x": "left",
             "image_position_y": "center",
             "link": "shopify://products/creative-dinosaur-egg",
             "image_overlay_opacity": 0
@@ -37,7 +37,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/5694d5d1-2ff7-461a-94a3-fb69fddad41e.png",
-            "image_position_x": "center",
+            "image_position_x": "left",
             "image_position_y": "center",
             "link": "shopify://collections/los-minis",
             "image_overlay_opacity": 0
