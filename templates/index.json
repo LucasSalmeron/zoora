@@ -295,7 +295,7 @@
             "title": "",
             "subtitle": "",
             "link": "",
-            "text_position": "bottom",
+            "text_position": "top",
             "image_darkness": 80
           }
         },
@@ -307,7 +307,7 @@
             "title": "",
             "subtitle": "",
             "link": "",
-            "text_position": "bottom",
+            "text_position": "top",
             "image_darkness": 0
           }
         }
