@@ -23,6 +23,27 @@
   {%- endstyle -%}
 {%- endif -%}
 
+{%- if section.settings.full_image_display -%}
+  {%- style -%}
+    #Slider-{{ section.id }} {
+      min-height: 0;
+      height: auto;
+    }
+    #Slider-{{ section.id }} .slideshow__slide {
+      height: auto;
+    }
+    #Slider-{{ section.id }} .banner__media {
+      position: relative;
+      height: auto;
+    }
+    #Slider-{{ section.id }} .banner__media img {
+      position: relative;
+      width: 100%;
+      height: auto;
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
 <slideshow-component
   class="slider-mobile-gutter{% if section.settings.layout == 'grid' %} page-width{% endif %}"
   role="region"
@@ -212,6 +233,13 @@
       ],
       "default": "full_bleed",
       "label": "t:sections.slideshow.settings.layout.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_image_display",
+      "label": "Mostrar imagen completa (sin recorte)",
+      "info": "La altura se adapta a cada imagen. Recomendado si tus imágenes se ven cortadas en otras pantallas.",
+      "default": false
     },
     {
       "type": "select",
