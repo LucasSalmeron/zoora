@@ -107,6 +107,73 @@
     {%- endfor -%}
   </div>
 
+  <div class="slideshow__controls slideshow__controls--top">
+    <div class="slideshow__control-wrapper slider-buttons no-js-hidden">
+      <button
+        type="button"
+        class="slider-button slider-button--prev"
+        name="previous"
+        aria-label="{{ 'general.slider.previous_slide' | t }}"
+        aria-controls="Slider-{{ section.id }}"
+      >
+        <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+      </button>
+
+      {%- if section.settings.slider_visual == 'counter' -%}
+        <div class="slider-counter caption">
+          <span class="slider-counter--current">1</span>
+          <span aria-hidden="true"> / </span>
+          <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+          <span class="slider-counter--total">{{ section.blocks.size }}</span>
+        </div>
+      {%- elsif section.settings.slider_visual == 'numbers' -%}
+        <div class="slider-counter slider-counter--dots caption">
+          {%- for block in section.blocks -%}
+            <button
+              class="slider-counter__link slider-counter__link--number link caption-with-letter-spacing{% if forloop.first %} slider-counter__link--active{% endif %}"
+              aria-label="{{ 'sections.slideshow.load_slide' | t }} {{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
+              data-page="{{ forloop.index }}"
+            >
+              <span class="visually-hidden">{{ 'sections.slideshow.load_slide' | t }} {{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}</span>
+              {{- forloop.index -}}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <div class="slider-counter slider-counter--dots">
+          {%- for block in section.blocks -%}
+            <button
+              class="slider-counter__link link{% if forloop.first %} slider-counter__link--active{% endif %}"
+              aria-label="{{ 'sections.slideshow.load_slide' | t }} {{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
+              data-page="{{ forloop.index }}"
+            ></button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <button
+        type="button"
+        class="slider-button slider-button--next"
+        name="next"
+        aria-label="{{ 'general.slider.next_slide' | t }}"
+        aria-controls="Slider-{{ section.id }}"
+      >
+        <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+      </button>
+
+      {%- if section.settings.auto_rotate -%}
+        <button
+          type="button"
+          class="slideshow__autoplay slider-button"
+          aria-label="{{ 'sections.slideshow.pause_slideshow' | t }}"
+        >
+          <span class="svg-wrapper">{{- 'icon-play.svg' | inline_asset_content -}}</span>
+          <span class="svg-wrapper">{{- 'icon-pause.svg' | inline_asset_content -}}</span>
+        </button>
+      {%- endif -%}
+    </div>
+  </div>
+
 </slideshow-component>
 
 {%- if request.design_mode -%}
