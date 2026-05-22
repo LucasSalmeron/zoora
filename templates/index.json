@@ -12,6 +12,16 @@
     "slideshow": {
       "type": "slideshow",
       "blocks": {
+        "slide_jaj7Tp": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_22_may_2026_18_45_30.png",
+            "image_position_x": "center",
+            "image_position_y": "center",
+            "link": "",
+            "image_overlay_opacity": 0
+          }
+        },
         "slide_AREHNa": {
           "type": "slide",
           "settings": {
@@ -55,6 +65,7 @@
         }
       },
       "block_order": [
+        "slide_jaj7Tp",
         "slide_AREHNa",
         "slide_X8KRhn",
         "slide_79A9aX",
