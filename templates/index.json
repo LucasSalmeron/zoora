@@ -306,6 +306,28 @@
     "categorias": {
       "type": "zoora-categorias",
       "blocks": {
+        "categoria_KfzXPU": {
+          "type": "categoria",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "subtitle": "",
+            "link": "",
+            "text_position": "bottom",
+            "image_darkness": 0
+          }
+        },
+        "categoria_q4bNwR": {
+          "type": "categoria",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "subtitle": "",
+            "link": "",
+            "text_position": "bottom",
+            "image_darkness": 0
+          }
+        },
         "categoria_yVD7TF": {
           "type": "categoria",
           "settings": {
@@ -344,6 +366,8 @@
         }
       },
       "block_order": [
+        "categoria_KfzXPU",
+        "categoria_q4bNwR",
         "categoria_yVD7TF",
         "categoria_ypkCn8",
         "categoria_7zAxA6"
