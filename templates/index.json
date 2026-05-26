@@ -182,7 +182,7 @@
         "title": "Categorías",
         "heading_size": "h1",
         "color_scheme": "",
-        "items_per_row": 8,
+        "items_per_row": 6,
         "items_per_row_mobile": 4,
         "icon_size": 12,
         "padding_top": 36,
