@@ -27,6 +27,24 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }}-padding .zoora-carousel-btn:hover:not([disabled]) {
+      background-color: rgb(var(--color-background));
+      border-color: rgba(var(--color-foreground), 0.2);
+    }
+    .section-{{ section.id }}-padding .zoora-carousel-btn:hover:not([disabled]) .icon {
+      color: rgb(var(--color-foreground));
+      fill: rgb(var(--color-foreground));
+    }
+    .section-{{ section.id }}-padding .zoora-carousel-btn:active:not([disabled]) {
+      background-color: rgb(var(--color-foreground));
+      border-color: rgb(var(--color-foreground));
+    }
+    .section-{{ section.id }}-padding .zoora-carousel-btn:active:not([disabled]) .icon {
+      color: rgb(var(--color-background));
+      fill: rgb(var(--color-background));
+    }
+  }
   @media screen and (min-width: 990px) {
     .section-{{ section.id }}-padding .zoora-carousel {
       display: block !important;
