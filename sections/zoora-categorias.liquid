@@ -45,6 +45,11 @@
       height: {{ partial_h_tablet }}rem;
     }
   }
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }}-padding .zoora-categoria-media {
+      aspect-ratio: 1 / 1;
+    }
+  }
 {%- endstyle -%}
 
 {%- assign items_per_row = section.settings.items_per_row | default: 3 | plus: 0 -%}

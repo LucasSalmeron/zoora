@@ -127,12 +127,6 @@
   transform: scale(1.04);
 }
 
-@media screen and (max-width: 749px) {
-  .zoora-categoria-media {
-    aspect-ratio: 1 / 1;
-  }
-}
-
 .zoora-categoria-title {
   padding: 1.2rem 0 0.5rem;
   font-size: 1.5rem;
