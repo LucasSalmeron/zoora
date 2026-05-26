@@ -245,6 +245,56 @@
         "padding_bottom": 0
       }
     },
+    "beneficios": {
+      "type": "zoora-beneficios",
+      "blocks": {
+        "ben_1": {
+          "type": "beneficio",
+          "settings": {
+            "emoji": "🔒",
+            "title": "Compra segura",
+            "text": "Tus datos y pagos siempre protegidos."
+          }
+        },
+        "ben_2": {
+          "type": "beneficio",
+          "settings": {
+            "emoji": "🚚",
+            "title": "Envío gratis",
+            "text": "En compras a partir de cierto monto."
+          }
+        },
+        "ben_3": {
+          "type": "beneficio",
+          "settings": {
+            "emoji": "🛡️",
+            "title": "Datos protegidos",
+            "text": "Tu privacidad es nuestra prioridad."
+          }
+        },
+        "ben_4": {
+          "type": "beneficio",
+          "settings": {
+            "emoji": "↩️",
+            "title": "Cambios y devoluciones",
+            "text": "Política flexible para tu tranquilidad."
+          }
+        }
+      },
+      "block_order": [
+        "ben_1",
+        "ben_2",
+        "ben_3",
+        "ben_4"
+      ],
+      "settings": {
+        "title": "¿Por qué elegirnos?",
+        "heading_size": "h2",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
     "categorias": {
       "type": "zoora-categorias",
       "blocks": {
@@ -346,56 +396,6 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
-    },
-    "beneficios": {
-      "type": "zoora-beneficios",
-      "blocks": {
-        "ben_1": {
-          "type": "beneficio",
-          "settings": {
-            "emoji": "🔒",
-            "title": "Compra segura",
-            "text": "Tus datos y pagos siempre protegidos."
-          }
-        },
-        "ben_2": {
-          "type": "beneficio",
-          "settings": {
-            "emoji": "🚚",
-            "title": "Envío gratis",
-            "text": "En compras a partir de cierto monto."
-          }
-        },
-        "ben_3": {
-          "type": "beneficio",
-          "settings": {
-            "emoji": "🛡️",
-            "title": "Datos protegidos",
-            "text": "Tu privacidad es nuestra prioridad."
-          }
-        },
-        "ben_4": {
-          "type": "beneficio",
-          "settings": {
-            "emoji": "↩️",
-            "title": "Cambios y devoluciones",
-            "text": "Política flexible para tu tranquilidad."
-          }
-        }
-      },
-      "block_order": [
-        "ben_1",
-        "ben_2",
-        "ben_3",
-        "ben_4"
-      ],
-      "settings": {
-        "title": "¿Por qué elegirnos?",
-        "heading_size": "h2",
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 0
-      }
     }
   },
   "order": [
@@ -403,8 +403,8 @@
     "zoora_categorias_iconos_XRUTPG",
     "featured_4",
     "universos",
-    "categorias",
     "beneficios",
+    "categorias",
     "mas_productos"
   ]
 }
