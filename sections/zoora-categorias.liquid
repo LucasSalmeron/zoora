@@ -16,6 +16,9 @@
 {%- assign partial_h = section.settings.partial_row_height | default: 30 -%}
 {%- assign partial_h_tablet = partial_h | times: 0.82 | round: 0 -%}
 
+{%- assign grid_h = section.settings.grid_row_height | default: 35 -%}
+{%- assign grid_h_mobile = grid_h | times: 0.8 | round: 0 -%}
+
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -31,6 +34,9 @@
   .section-{{ section.id }}-padding .zoora-mosaic-partial {
     height: {{ partial_h }}rem;
   }
+  .section-{{ section.id }}-grid-item {
+    height: {{ grid_h }}rem;
+  }
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
@@ -45,12 +51,20 @@
       height: {{ partial_h_tablet }}rem;
     }
   }
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }}-grid-item {
+      height: {{ grid_h_mobile }}rem;
+    }
+  }
 {%- endstyle -%}
 
 {%- assign total = section.blocks.size -%}
 {%- assign full_rows = total | divided_by: 3 -%}
 {%- assign remainder = total | modulo: 3 -%}
 {%- assign cta = section.settings.cta_label | default: 'Ver colección' -%}
+{%- assign layout = section.settings.layout | default: 'mosaic' -%}
+{%- assign cols_desktop = section.settings.columns_desktop | default: '3' -%}
+{%- assign cols_mobile  = section.settings.columns_mobile  | default: '2' -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width section-{{ section.id }}-padding">
@@ -62,6 +76,19 @@
         </h2>
       </div>
     {%- endif -%}
+
+    {%- if layout == 'grid' -%}
+      <ul class="grid grid--{{ cols_desktop }}-col-desktop grid--{{ cols_mobile }}-col-tablet-down" role="list">
+        {%- for block in section.blocks -%}
+          <li
+            class="grid__item section-{{ section.id }}-grid-item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {% if settings.animations_reveal_on_scroll %}data-cascade style="--animation-order: {{ forloop.index }};"{% endif %}
+          >
+            {%- render 'zoora-mosaic-card', block: block, cta_label: cta -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
 
     <div class="zoora-mosaic">
 
@@ -119,6 +146,9 @@
       {%- endif -%}
 
     </div>
+
+    {%- endif -%}
+
   </div>
 </div>
 
@@ -157,7 +187,51 @@
     },
     {
       "type": "header",
-      "content": "Tamaños y distribución"
+      "content": "Disposición"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Tipo de disposición",
+      "options": [
+        { "value": "mosaic", "label": "Mosaico (grande + pequeñas)" },
+        { "value": "grid", "label": "Grilla (columnas iguales)" }
+      ],
+      "default": "mosaic"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columnas en escritorio (grilla)",
+      "options": [
+        { "value": "2", "label": "2 columnas" },
+        { "value": "3", "label": "3 columnas" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columnas en mobile (grilla)",
+      "options": [
+        { "value": "1", "label": "1 columna" },
+        { "value": "2", "label": "2 columnas" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "grid_row_height",
+      "min": 20,
+      "max": 65,
+      "step": 2,
+      "unit": "rem",
+      "label": "Altura de cards (grilla)",
+      "default": 35
+    },
+    {
+      "type": "header",
+      "content": "Tamaños y distribución (mosaico)"
     },
     {
       "type": "range",
