@@ -46,8 +46,16 @@
     }
   }
   @media screen and (max-width: 749px) {
-    .section-{{ section.id }}-padding .zoora-categoria-media {
+    .section-{{ section.id }}-padding .zoora-mosaic-card {
       aspect-ratio: 1 / 1;
+      height: auto;
+    }
+    .section-{{ section.id }}-padding .zoora-mosaic-main .zoora-mosaic-card,
+    .section-{{ section.id }}-padding .zoora-mosaic-side-item .zoora-mosaic-card {
+      height: auto;
+    }
+    .section-{{ section.id }}-padding .zoora-mosaic-side-item {
+      height: auto;
     }
   }
 {%- endstyle -%}
