@@ -26,7 +26,7 @@
         "slide_79A9aX": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/c528acb4-b729-414d-a59e-31b64d812118.png",
+            "image": "shopify://shop_images/03af298a-58ed-48f4-a817-fae7121f09be_c9fd235b-5d77-4239-b1c0-1f314d8d9b7a.png",
             "image_mobile": "shopify://shop_images/5a3da28f-58d3-4515-a35e-e12e44639e37_1.png",
             "image_position_x": "left",
             "image_position_y": "center",
@@ -37,7 +37,8 @@
         "slide_2": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/5694d5d1-2ff7-461a-94a3-fb69fddad41e.png",
+            "image": "shopify://shop_images/5694d5d1-2ff7-461a-94a3-fb69fddad41e_1_700cf206-2e14-4c76-bc9a-069aec9e3cb5.png",
+            "image_mobile": "shopify://shop_images/8137e7ef-f094-40a2-9f1f-f415f8806054.png",
             "image_position_x": "left",
             "image_position_y": "center",
             "link": "shopify://collections/los-minis",
