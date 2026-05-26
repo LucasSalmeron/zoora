@@ -16,6 +16,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/7ee5740e-1c84-4cd3-b0ab-adb05fb71004.png",
+            "image_mobile": "shopify://shop_images/b193a2aa-4007-4372-bf87-cf10b388234c.png",
             "image_position_x": "right",
             "image_position_y": "center",
             "link": "",
@@ -26,6 +27,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/c528acb4-b729-414d-a59e-31b64d812118.png",
+            "image_mobile": "shopify://shop_images/5a3da28f-58d3-4515-a35e-e12e44639e37_1.png",
             "image_position_x": "left",
             "image_position_y": "center",
             "link": "shopify://products/creative-dinosaur-egg",
