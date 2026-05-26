@@ -172,6 +172,18 @@
     "featured_4": {
       "type": "zoora-featured-4",
       "blocks": {
+        "product_fQzdK6": {
+          "type": "product",
+          "settings": {
+            "product": "modern-simple-cartoon-rabbit-ornaments"
+          }
+        },
+        "product_ey98E8": {
+          "type": "product",
+          "settings": {
+            "product": "animal-shaped-rabbit-kindergarten-school-creative-childrens-bookshelf"
+          }
+        },
         "prod_2": {
           "type": "product",
           "settings": {
@@ -192,6 +204,8 @@
         }
       },
       "block_order": [
+        "product_fQzdK6",
+        "product_ey98E8",
         "prod_2",
         "prod_3",
         "prod_4"
