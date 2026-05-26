@@ -127,6 +127,7 @@
         },
         "categoria_PE6zTL": {
           "type": "categoria",
+          "disabled": true,
           "settings": {
             "collection": "los-minis",
             "icon_image": "shopify://shop_images/PineTools.com_aa4a345a-9c28-4f38-81cb-e5884d8804d3.png",
@@ -157,6 +158,7 @@
         },
         "categoria_6YaXL4": {
           "type": "categoria",
+          "disabled": true,
           "settings": {
             "collection": "",
             "emoji": "🛍️",
