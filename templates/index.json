@@ -16,7 +16,6 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/7ee5740e-1c84-4cd3-b0ab-adb05fb71004.png",
-            "image_mobile": "shopify://shop_images/N7A7080_5c01a4f3-e8af-475c-858e-6fb15ca6ba8b.jpg",
             "image_position_x": "right",
             "image_position_y": "center",
             "link": "",
@@ -52,7 +51,7 @@
       "settings": {
         "layout": "full_bleed",
         "aspect_ratio": "3/1",
-        "aspect_ratio_mobile": "2/1",
+        "aspect_ratio_mobile": "1/1",
         "slide_height": "medium",
         "slider_visual": "dots",
         "auto_rotate": true,
@@ -198,7 +197,7 @@
         "title": "Especialmente para vos",
         "heading_size": "h1",
         "columns_desktop": 3,
-        "columns_mobile": "2",
+        "columns_mobile": "1",
         "image_ratio": "square",
         "show_secondary_image": true,
         "quick_add": "none",
@@ -317,52 +316,6 @@
         "padding_bottom": 36
       }
     },
-    "colecciones": {
-      "type": "collection-list",
-      "blocks": {
-        "featured_collection_N4xXbF": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": ""
-          }
-        },
-        "col_1": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "animalushka"
-          }
-        },
-        "col_2": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "la-vida-secreta-de-las-ranas"
-          }
-        },
-        "col_3": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "ovejas-de-jardin"
-          }
-        }
-      },
-      "block_order": [
-        "featured_collection_N4xXbF",
-        "col_1",
-        "col_2",
-        "col_3"
-      ],
-      "disabled": true,
-      "settings": {
-        "title": "Colecciones",
-        "heading_size": "h1",
-        "columns_desktop": "3",
-        "columns_mobile": "2",
-        "color_scheme": "scheme-1",
-        "show_view_all": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "mas_productos": {
       "type": "featured-collection",
       "settings": {
@@ -451,7 +404,6 @@
     "featured_4",
     "universos",
     "categorias",
-    "colecciones",
     "mas_productos",
     "beneficios"
   ]
