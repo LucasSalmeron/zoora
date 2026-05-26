@@ -16,9 +16,6 @@
 {%- assign partial_h = section.settings.partial_row_height | default: 30 -%}
 {%- assign partial_h_tablet = partial_h | times: 0.82 | round: 0 -%}
 
-{%- assign grid_h = section.settings.grid_row_height | default: 35 -%}
-{%- assign grid_h_mobile = grid_h | times: 0.8 | round: 0 -%}
-
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -34,9 +31,6 @@
   .section-{{ section.id }}-padding .zoora-mosaic-partial {
     height: {{ partial_h }}rem;
   }
-  .section-{{ section.id }}-grid-item {
-    height: {{ grid_h }}rem;
-  }
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
@@ -51,20 +45,13 @@
       height: {{ partial_h_tablet }}rem;
     }
   }
-  @media screen and (max-width: 749px) {
-    .section-{{ section.id }}-grid-item {
-      height: {{ grid_h_mobile }}rem;
-    }
-  }
 {%- endstyle -%}
 
+{%- assign items_per_row = section.settings.items_per_row | default: 3 | plus: 0 -%}
 {%- assign total = section.blocks.size -%}
-{%- assign full_rows = total | divided_by: 3 -%}
-{%- assign remainder = total | modulo: 3 -%}
+{%- assign full_rows = total | divided_by: items_per_row -%}
+{%- assign remainder = total | modulo: items_per_row -%}
 {%- assign cta = section.settings.cta_label | default: 'Ver colección' -%}
-{%- assign layout = section.settings.layout | default: 'mosaic' -%}
-{%- assign cols_desktop = section.settings.columns_desktop | default: '3' -%}
-{%- assign cols_mobile  = section.settings.columns_mobile  | default: '2' -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width section-{{ section.id }}-padding">
@@ -77,31 +64,15 @@
       </div>
     {%- endif -%}
 
-    {%- if layout == 'grid' -%}
-      <ul class="grid grid--{{ cols_desktop }}-col-desktop grid--{{ cols_mobile }}-col-tablet-down" role="list">
-        {%- for block in section.blocks -%}
-          <li
-            class="grid__item section-{{ section.id }}-grid-item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-            {% if settings.animations_reveal_on_scroll %}data-cascade style="--animation-order: {{ forloop.index }};"{% endif %}
-          >
-            {%- render 'zoora-mosaic-card', block: block, cta_label: cta -%}
-          </li>
-        {%- endfor -%}
-      </ul>
-    {%- else -%}
-
     <div class="zoora-mosaic">
 
-      {%- comment %} Filas completas: 1 card grande + 2 chicas, alternando lado {%- endcomment -%}
       {%- if full_rows > 0 -%}
         {%- assign max_row = full_rows | minus: 1 -%}
         {%- for row_idx in (0..max_row) -%}
-          {%- assign base = row_idx | times: 3 -%}
+          {%- assign base = row_idx | times: items_per_row -%}
           {%- assign b1i = base | plus: 1 -%}
-          {%- assign b2i = base | plus: 2 -%}
           {%- assign b0 = section.blocks[base] -%}
           {%- assign b1 = section.blocks[b1i] -%}
-          {%- assign b2 = section.blocks[b2i] -%}
           {%- assign is_rev = row_idx | modulo: 2 -%}
 
           <div class="zoora-mosaic-row{% if is_rev == 1 %} zoora-mosaic-row--reversed{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -116,10 +87,14 @@
                   {%- render 'zoora-mosaic-card', block: b1, cta_label: cta -%}
                 </div>
               {%- endif -%}
-              {%- if b2 -%}
-                <div class="zoora-mosaic-side-item">
-                  {%- render 'zoora-mosaic-card', block: b2, cta_label: cta -%}
-                </div>
+              {%- if items_per_row == 3 -%}
+                {%- assign b2i = base | plus: 2 -%}
+                {%- assign b2 = section.blocks[b2i] -%}
+                {%- if b2 -%}
+                  <div class="zoora-mosaic-side-item">
+                    {%- render 'zoora-mosaic-card', block: b2, cta_label: cta -%}
+                  </div>
+                {%- endif -%}
               {%- endif -%}
             </div>
 
@@ -127,28 +102,23 @@
         {%- endfor -%}
       {%- endif -%}
 
-      {%- comment %} Bloques sobrantes (1 o 2) en fila parcial {%- endcomment -%}
       {%- if remainder > 0 -%}
-        {%- assign rem_start = full_rows | times: 3 -%}
+        {%- assign rem_start = full_rows | times: items_per_row -%}
         <div class="zoora-mosaic-partial{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-          {%- for ri in (0..1) -%}
-            {%- if ri < remainder -%}
-              {%- assign bi = rem_start | plus: ri -%}
-              {%- assign br = section.blocks[bi] -%}
-              {%- if br -%}
-                <div class="zoora-mosaic-partial-item">
-                  {%- render 'zoora-mosaic-card', block: br, cta_label: cta -%}
-                </div>
-              {%- endif -%}
+          {%- assign max_rem = remainder | minus: 1 -%}
+          {%- for ri in (0..max_rem) -%}
+            {%- assign bi = rem_start | plus: ri -%}
+            {%- assign br = section.blocks[bi] -%}
+            {%- if br -%}
+              <div class="zoora-mosaic-partial-item">
+                {%- render 'zoora-mosaic-card', block: br, cta_label: cta -%}
+              </div>
             {%- endif -%}
           {%- endfor -%}
         </div>
       {%- endif -%}
 
     </div>
-
-    {%- endif -%}
-
   </div>
 </div>
 
@@ -187,51 +157,17 @@
     },
     {
       "type": "header",
-      "content": "Disposición"
+      "content": "Tamaños y distribución"
     },
     {
       "type": "select",
-      "id": "layout",
-      "label": "Tipo de disposición",
+      "id": "items_per_row",
+      "label": "Colecciones por fila (escritorio)",
       "options": [
-        { "value": "mosaic", "label": "Mosaico (grande + pequeñas)" },
-        { "value": "grid", "label": "Grilla (columnas iguales)" }
-      ],
-      "default": "mosaic"
-    },
-    {
-      "type": "select",
-      "id": "columns_desktop",
-      "label": "Columnas en escritorio (grilla)",
-      "options": [
-        { "value": "2", "label": "2 columnas" },
-        { "value": "3", "label": "3 columnas" }
+        { "value": "2", "label": "2 por fila — 1 grande + 1 chica" },
+        { "value": "3", "label": "3 por fila — 1 grande + 2 chicas" }
       ],
       "default": "3"
-    },
-    {
-      "type": "select",
-      "id": "columns_mobile",
-      "label": "Columnas en mobile (grilla)",
-      "options": [
-        { "value": "1", "label": "1 columna" },
-        { "value": "2", "label": "2 columnas" }
-      ],
-      "default": "2"
-    },
-    {
-      "type": "range",
-      "id": "grid_row_height",
-      "min": 20,
-      "max": 65,
-      "step": 2,
-      "unit": "rem",
-      "label": "Altura de cards (grilla)",
-      "default": 35
-    },
-    {
-      "type": "header",
-      "content": "Tamaños y distribución (mosaico)"
     },
     {
       "type": "range",
@@ -261,7 +197,7 @@
       "max": 60,
       "step": 2,
       "unit": "rem",
-      "label": "Altura fila parcial (1 o 2 colecciones)",
+      "label": "Altura fila parcial (1 o 2 colecciones sobrantes)",
       "default": 30
     },
     {
