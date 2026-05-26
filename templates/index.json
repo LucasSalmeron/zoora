@@ -397,6 +397,8 @@
       "settings": {
         "title": "Colecciones",
         "heading_size": "h1",
+        "columns_desktop": "3",
+        "columns_mobile": "2",
         "color_scheme": "scheme-1",
         "show_view_all": false,
         "padding_top": 36,
