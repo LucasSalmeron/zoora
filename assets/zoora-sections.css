@@ -127,6 +127,12 @@
   transform: scale(1.04);
 }
 
+@media screen and (max-width: 749px) {
+  .zoora-categoria-media {
+    aspect-ratio: 1 / 1;
+  }
+}
+
 .zoora-categoria-title {
   padding: 1.2rem 0 0.5rem;
   font-size: 1.5rem;
@@ -483,6 +489,18 @@
 .zoora-carousel-btn .icon {
   width: 2rem;
   height: 2rem;
+}
+
+@media screen and (max-width: 749px) {
+  .zoora-carousel-btn {
+    width: 3.2rem;
+    height: 3.2rem;
+    min-width: 3.2rem;
+  }
+  .zoora-carousel-btn .icon {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
 }
 
 /* Product carousel - give product cards a cream background */
