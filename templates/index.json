@@ -275,19 +275,7 @@
           "type": "categoria",
           "settings": {
             "collection": "la-vida-secreta-de-las-ranas",
-            "image": "shopify://shop_images/N7A7451-Editar_bd83bd43-5f35-47e6-82cd-3030f8f7cbd4.jpg",
-            "title": "",
-            "subtitle": "",
-            "link": "",
-            "text_position": "top",
-            "image_darkness": 10
-          }
-        },
-        "categoria_7zAxA6": {
-          "type": "categoria",
-          "settings": {
-            "collection": "ovejas-de-jardin",
-            "image": "shopify://shop_images/N7A6706-Editar_554c9bb6-ccce-4d5d-bc77-853f21ab1d57.jpg",
+            "image": "shopify://shop_images/618dab35-45d9-4024-95d7-7022e76836f3.png",
             "title": "",
             "subtitle": "",
             "link": "",
@@ -295,11 +283,11 @@
             "image_darkness": 5
           }
         },
-        "categoria_ypkCn8": {
+        "categoria_7zAxA6": {
           "type": "categoria",
           "settings": {
-            "collection": "animalushka",
-            "image": "shopify://shop_images/f83009b6-e36c-4bc4-b8fd-aee8f5983aa3.png",
+            "collection": "ovejas-de-jardin",
+            "image": "shopify://shop_images/ChatGPT_Image_26_may_2026_11_45_30.png",
             "title": "",
             "subtitle": "",
             "link": "",
@@ -307,15 +295,28 @@
             "image_darkness": 15
           }
         },
-        "categoria_cjDTK7": {
+        "categoria_ypkCn8": {
           "type": "categoria",
           "settings": {
-            "collection": "los-minis",
+            "collection": "animalushka",
+            "image": "shopify://shop_images/f83009b6-e36c-4bc4-b8fd-aee8f5983aa3_42875664-cb90-47d5-a02a-7f4a2672103e.png",
             "title": "",
             "subtitle": "",
             "link": "",
             "text_position": "top",
             "image_darkness": 10
+          }
+        },
+        "categoria_cjDTK7": {
+          "type": "categoria",
+          "settings": {
+            "collection": "los-minis",
+            "image": "shopify://shop_images/ChatGPT_Image_26_may_2026_12_02_41.png",
+            "title": "",
+            "subtitle": "",
+            "link": "",
+            "text_position": "top",
+            "image_darkness": 0
           }
         }
       },
