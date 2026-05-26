@@ -271,6 +271,30 @@
     "categorias": {
       "type": "zoora-categorias",
       "blocks": {
+        "categoria_yVD7TF": {
+          "type": "categoria",
+          "settings": {
+            "collection": "la-vida-secreta-de-las-ranas",
+            "image": "shopify://shop_images/N7A7451-Editar_bd83bd43-5f35-47e6-82cd-3030f8f7cbd4.jpg",
+            "title": "",
+            "subtitle": "",
+            "link": "",
+            "text_position": "top",
+            "image_darkness": 10
+          }
+        },
+        "categoria_7zAxA6": {
+          "type": "categoria",
+          "settings": {
+            "collection": "ovejas-de-jardin",
+            "image": "shopify://shop_images/N7A6706-Editar_554c9bb6-ccce-4d5d-bc77-853f21ab1d57.jpg",
+            "title": "",
+            "subtitle": "",
+            "link": "",
+            "text_position": "top",
+            "image_darkness": 5
+          }
+        },
         "categoria_ypkCn8": {
           "type": "categoria",
           "settings": {
@@ -286,73 +310,26 @@
         "categoria_cjDTK7": {
           "type": "categoria",
           "settings": {
-            "collection": "",
-            "title": "",
-            "subtitle": "",
-            "link": "",
-            "text_position": "bottom",
-            "image_darkness": 0
-          }
-        },
-        "categoria_q4bNwR": {
-          "type": "categoria",
-          "settings": {
-            "collection": "",
-            "title": "",
-            "subtitle": "",
-            "link": "",
-            "text_position": "bottom",
-            "image_darkness": 0
-          }
-        },
-        "categoria_yVD7TF": {
-          "type": "categoria",
-          "settings": {
-            "collection": "la-vida-secreta-de-las-ranas",
-            "image": "shopify://shop_images/N7A7451-Editar_bd83bd43-5f35-47e6-82cd-3030f8f7cbd4.jpg",
+            "collection": "los-minis",
             "title": "",
             "subtitle": "",
             "link": "",
             "text_position": "top",
             "image_darkness": 10
           }
-        },
-        "categoria_KfzXPU": {
-          "type": "categoria",
-          "settings": {
-            "collection": "",
-            "title": "",
-            "subtitle": "",
-            "link": "",
-            "text_position": "bottom",
-            "image_darkness": 0
-          }
-        },
-        "categoria_7zAxA6": {
-          "type": "categoria",
-          "settings": {
-            "collection": "ovejas-de-jardin",
-            "image": "shopify://shop_images/N7A6706-Editar_554c9bb6-ccce-4d5d-bc77-853f21ab1d57.jpg",
-            "title": "",
-            "subtitle": "",
-            "link": "",
-            "text_position": "top",
-            "image_darkness": 5
-          }
         }
       },
       "block_order": [
-        "categoria_ypkCn8",
-        "categoria_cjDTK7",
-        "categoria_q4bNwR",
         "categoria_yVD7TF",
-        "categoria_KfzXPU",
-        "categoria_7zAxA6"
+        "categoria_7zAxA6",
+        "categoria_ypkCn8",
+        "categoria_cjDTK7"
       ],
       "settings": {
         "title": "Colecciones",
         "heading_size": "h1",
         "cta_label": "Ver colección",
+        "items_per_row": "2",
         "row_height": 30,
         "split_ratio": "2-1",
         "partial_row_height": 30,
