@@ -14,10 +14,27 @@
   }
 {%- endstyle -%}
 
+{%- assign cols_desktop = section.settings.columns_desktop | default: 3 | plus: 0 -%}
+{%- assign cols_mobile  = section.settings.columns_mobile  | default: 2 | plus: 0 -%}
+
 {%- assign show_carousel = false -%}
-{%- if section.blocks.size > 3 -%}
+{%- if section.blocks.size > cols_desktop -%}
   {%- assign show_carousel = true -%}
 {%- endif -%}
+
+{%- if cols_desktop == 2 -%}
+  {%- assign img_sizes = '(min-width: 990px) calc((var(--page-width, 1600px) - 8rem) / 2), ' -%}
+{%- else -%}
+  {%- assign img_sizes = '(min-width: 990px) calc((var(--page-width, 1600px) - 10rem) / 3), ' -%}
+{%- endif -%}
+{%- if cols_mobile == 1 -%}
+  {%- assign img_sizes = img_sizes | append: '(min-width: 750px) calc(100vw - 5rem), calc(100vw - 3rem)' -%}
+{%- else -%}
+  {%- assign img_sizes = img_sizes | append: '(min-width: 750px) calc(50vw - 5rem), calc(50vw - 2rem)' -%}
+{%- endif -%}
+
+{%- assign grid_desktop_class = 'grid--' | append: cols_desktop | append: '-col-desktop' -%}
+{%- assign grid_mobile_class  = 'grid--' | append: cols_mobile  | append: '-col-tablet-down' -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width section-{{ section.id }}-padding">
@@ -37,7 +54,7 @@
           <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
         </button>
         <ul
-          class="zoora-carousel-list grid grid--3-col-desktop grid--2-col-tablet-down slider slider--everywhere"
+          class="zoora-carousel-list grid {{ grid_desktop_class }} {{ grid_mobile_class }} slider slider--everywhere"
           id="Slider-{{ section.id }}"
           role="list"
         >
@@ -59,7 +76,7 @@
                       | image_url: width: 800
                       | image_tag:
                         loading: 'lazy',
-                        sizes: '(min-width: 990px) calc((var(--page-width, 1200px) - 10rem) / 3), (min-width: 750px) calc(50vw - 5rem), calc(100vw - 3rem)',
+                        sizes: img_sizes,
                         widths: '375, 550, 750, 800',
                         alt: collection.featured_image.alt | default: collection.title
                     }}
@@ -78,7 +95,7 @@
         </button>
       </slider-component>
     {%- else -%}
-      <ul class="grid grid--3-col-desktop grid--2-col-tablet-down" role="list">
+      <ul class="grid {{ grid_desktop_class }} {{ grid_mobile_class }}" role="list">
         {%- for block in section.blocks -%}
           <li
             class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
@@ -100,7 +117,7 @@
                     | image_url: width: 800
                     | image_tag:
                       loading: 'lazy',
-                      sizes: '(min-width: 990px) calc((var(--page-width, 1200px) - 10rem) / 3), (min-width: 750px) calc(50vw - 5rem), calc(100vw - 3rem)',
+                      sizes: img_sizes,
                       widths: '375, 550, 750, 800',
                       alt: collection.featured_image.alt | default: collection.title
                   }}
@@ -161,6 +178,26 @@
       ],
       "default": "h1",
       "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columnas en escritorio",
+      "options": [
+        { "value": "2", "label": "2 columnas" },
+        { "value": "3", "label": "3 columnas" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columnas en mobile",
+      "options": [
+        { "value": "1", "label": "1 columna" },
+        { "value": "2", "label": "2 columnas" }
+      ],
+      "default": "2"
     },
     {
       "type": "color_scheme",

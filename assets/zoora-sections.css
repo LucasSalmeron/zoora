@@ -634,8 +634,8 @@
 /* ── Footer Zoora ────────────────────────────────────────── */
 
 .zoora-footer {
-  background-color: #faf6f0 !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
 }
 
 .zoora-footer__main {
@@ -701,14 +701,14 @@
   width: 3.8rem;
   height: 3.8rem;
   border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.07);
+  background-color: rgba(var(--color-foreground), 0.1);
   transition: background-color 0.2s ease;
   color: rgb(var(--color-foreground));
   text-decoration: none;
 }
 
 .zoora-footer__social .list-social__link:hover {
-  background-color: rgba(0, 0, 0, 0.14);
+  background-color: rgba(var(--color-foreground), 0.2);
 }
 
 .zoora-footer__social .icon {
@@ -781,10 +781,10 @@
 
 .zoora-footer__form-row {
   display: flex;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(var(--color-foreground), 0.2);
   border-radius: 6px;
   overflow: hidden;
-  background: #ffffff;
+  background: rgba(var(--color-foreground), 0.06);
 }
 
 .zoora-footer__input {
@@ -843,7 +843,7 @@
 }
 
 .zoora-footer__bottom {
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 1px solid rgba(var(--color-foreground), 0.12);
   padding: 2rem 0;
 }
 
