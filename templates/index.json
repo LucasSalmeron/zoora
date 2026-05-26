@@ -86,15 +86,6 @@
     "zoora_categorias_iconos_XRUTPG": {
       "type": "zoora-categorias-iconos",
       "blocks": {
-        "categoria_Ubd9Vc": {
-          "type": "categoria",
-          "settings": {
-            "collection": "mesitas-y-puf",
-            "emoji": "🛍️",
-            "title": "",
-            "link": ""
-          }
-        },
         "categoria_U7METN": {
           "type": "categoria",
           "settings": {
@@ -105,12 +96,31 @@
             "link": ""
           }
         },
+        "categoria_mnngYD": {
+          "type": "categoria",
+          "settings": {
+            "collection": "almohadones-y-peluches",
+            "icon_image": "shopify://shop_images/PineTools.com_c63a526e-483e-4eae-954b-7ff9e16942a3.png",
+            "emoji": "🏠",
+            "title": "",
+            "link": ""
+          }
+        },
         "categoria_TJUFNp": {
           "type": "categoria",
           "settings": {
             "collection": "carteras-y-bolsitas",
             "icon_image": "shopify://shop_images/PineTools.com_bf6fc935-049e-4e77-a0a9-3baeec18d0b2.png",
             "emoji": "👜",
+            "title": "",
+            "link": ""
+          }
+        },
+        "categoria_Ubd9Vc": {
+          "type": "categoria",
+          "settings": {
+            "collection": "mesitas-y-puf",
+            "emoji": "🛍️",
             "title": "",
             "link": ""
           }
@@ -136,16 +146,6 @@
             "link": ""
           }
         },
-        "categoria_mnngYD": {
-          "type": "categoria",
-          "settings": {
-            "collection": "almohadones-y-peluches",
-            "icon_image": "shopify://shop_images/PineTools.com_c63a526e-483e-4eae-954b-7ff9e16942a3.png",
-            "emoji": "🏠",
-            "title": "",
-            "link": ""
-          }
-        },
         "categoria_VeX7b3": {
           "type": "categoria",
           "settings": {
@@ -168,12 +168,12 @@
         }
       },
       "block_order": [
-        "categoria_Ubd9Vc",
         "categoria_U7METN",
+        "categoria_mnngYD",
         "categoria_TJUFNp",
+        "categoria_Ubd9Vc",
         "categoria_3QjQ6V",
         "categoria_PE6zTL",
-        "categoria_mnngYD",
         "categoria_VeX7b3",
         "categoria_6YaXL4"
       ],
