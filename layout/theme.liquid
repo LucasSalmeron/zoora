@@ -460,6 +460,7 @@
         {n:'Comfortaa',                   w:[300,400,500,600,700]},
         {n:'Cormorant',                   w:[300,400,500,600,700], i:true},
         {n:'Cormorant Garamond',          w:[300,400,500,600,700], i:true},
+        {n:'Courier New',                  w:[400,700], i:true, sys:true},
         {n:'Covered By Your Grace',       w:[400]},
         {n:'Crimson Pro',                 w:[200,300,400,500,600,700,800,900], i:true},
         {n:'Crimson Text',                w:[400,600,700], i:true},
@@ -648,6 +649,7 @@
       var origHeadingWeight= getComputedStyle(root).getPropertyValue('--font-heading-weight').trim();
 
       function loadFont(font, withItalic) {
+        if (font.sys) return;
         var key = font.n + (withItalic ? ':i' : '');
         if (loadedFonts[key]) return;
         loadedFonts[key] = true;
