@@ -426,6 +426,7 @@
         {n:'Archivo',                     w:[100,200,300,400,500,600,700,800,900], i:true},
         {n:'Archivo Black',               w:[400]},
         {n:'Archivo Narrow',              w:[400,500,600,700], i:true},
+        {n:'Arial',                       w:[400,700], i:true, sys:true},
         {n:'Arimo',                       w:[400,500,600,700], i:true},
         {n:'Arsenal',                     w:[400,700], i:true},
         {n:'Arvo',                        w:[400,700], i:true},
@@ -483,6 +484,7 @@
         {n:'Funnel Display',              w:[300,400,500,600,700,800]},
         {n:'Funnel Sans',                 w:[300,400,500,600,700,800], i:true},
         {n:'Fustat',                      w:[200,300,400,500,600,700,800]},
+        {n:'Garamond',                    w:[400,700], i:true, sys:true},
         {n:'Geist',                       w:[100,200,300,400,500,600,700,800,900]},
         {n:'Geist Mono',                  w:[100,200,300,400,500,600,700,800,900]},
         {n:'Gelasio',                     w:[400,500,600,700], i:true},
@@ -523,6 +525,7 @@
         {n:'Liter',                       w:[400]},
         {n:'Lobster Two',                 w:[400,700], i:true},
         {n:'Lora',                        w:[400,500,600,700], i:true},
+        {n:'Lucida Grande',               w:[400,700], sys:true},
         {n:'Manrope',                     w:[200,300,400,500,600,700,800]},
         {n:'Manuale',                     w:[400,500,600,700], i:true},
         {n:'Marcellus',                   w:[400]},
@@ -533,6 +536,8 @@
         {n:'Michroma',                    w:[400]},
         {n:'Modak',                       w:[400]},
         {n:'Mona Sans',                   w:[200,300,400,500,600,700,800,900], i:true},
+        {n:'Monaco',                      w:[400,700], sys:true},
+        {n:'Mono',                        w:[400], sys:true, family:'monospace'},
         {n:'Montagu Slab',                w:[100,200,300,400,500,600,700]},
         {n:'Montserrat',                  w:[100,200,300,400,500,600,700,800,900], i:true},
         {n:'Muli',                        w:[200,300,400,500,600,700,800,900], i:true},
@@ -553,6 +558,7 @@
         {n:'Outfit',                      w:[100,200,300,400,500,600,700,800,900]},
         {n:'Ovo',                         w:[400]},
         {n:'Pacifico',                    w:[400]},
+        {n:'Palatino',                    w:[400,700], i:true, sys:true},
         {n:'Passion One',                 w:[400,700,900]},
         {n:'Petrona',                     w:[100,200,300,400,500,600,700,800,900], i:true},
         {n:'Pinyon Script',               w:[400]},
@@ -599,8 +605,10 @@
         {n:'Saira Condensed',             w:[100,200,300,400,500,600,700,800,900]},
         {n:'Saira Extra Condensed',       w:[100,200,300,400,500,600,700,800,900]},
         {n:'Saira Semi Condensed',        w:[100,200,300,400,500,600,700,800,900]},
+        {n:'Sans-serif',                  w:[400,700], i:true, sys:true, family:'sans-serif'},
         {n:'Schibsted Grotesk',           w:[400,500,600,700,800,900], i:true},
         {n:'Sedgwick Ave',                w:[400]},
+        {n:'Serif',                       w:[400], sys:true, family:'serif'},
         {n:'Shadows Into Light',          w:[400]},
         {n:'Shadows Into Light Two',      w:[400]},
         {n:'Shantell Sans',               w:[300,400,500,600,700,800], i:true},
@@ -619,11 +627,14 @@
         {n:'Space Mono',                  w:[400,700], i:true},
         {n:'Spectral',                    w:[200,300,400,500,600,700,800], i:true},
         {n:'Syne',                        w:[400,500,600,700,800]},
+        {n:'System UI',                   w:[400,700], i:true, sys:true, family:'system-ui'},
         {n:'Tenor Sans',                  w:[400]},
         {n:'Tilt Warp',                   w:[400]},
+        {n:'Times New Roman',             w:[400,700], i:true, sys:true},
         {n:'Titan One',                   w:[400]},
         {n:'Titillium Web',               w:[200,300,400,600,700,900], i:true},
         {n:'Tomorrow',                    w:[100,200,300,400,500,600,700,800,900], i:true},
+        {n:'Trebuchet MS',                w:[400,700], i:true, sys:true},
         {n:'Trispace',                    w:[300,400,500,600,700,800]},
         {n:'Ubuntu',                      w:[300,400,500,700], i:true},
         {n:'Unbounded',                   w:[200,300,400,500,600,700,800,900]},
@@ -707,7 +718,7 @@
           loadFont(font, false);
           activeWeight = font.w.indexOf(400) > -1 ? 400 : font.w[0];
           renderWeights(weightsEl, font, activeWeight);
-          root.style.setProperty(familyVar, "'" + name + "', sans-serif");
+          root.style.setProperty(familyVar, font.family || ("'" + name + "', sans-serif"));
           root.style.setProperty(weightVar, activeWeight);
           italicEl.checked = false;
           root.style.setProperty(styleVar, 'normal');
