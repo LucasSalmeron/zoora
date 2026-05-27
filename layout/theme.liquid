@@ -372,5 +372,266 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <!-- TYPOGRAPHY TESTER - REMOVE BEFORE LAUNCH -->
+    <div id="typo-tester" style="position:fixed;bottom:20px;right:20px;z-index:99999;background:#fff;border:1px solid #ddd;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,0.18);font-family:system-ui,-apple-system,sans-serif;font-size:12px;width:290px;color:#222;">
+      <div id="typo-tester-header" style="padding:10px 14px;background:#111;color:#fff;border-radius:9px 9px 0 0;cursor:move;display:flex;justify-content:space-between;align-items:center;user-select:none;">
+        <span style="font-weight:600;letter-spacing:0.04em;font-size:12px;">Tipografias</span>
+        <button id="typo-toggle" style="background:none;border:none;color:#fff;cursor:pointer;font-size:20px;padding:0;line-height:1;width:24px;text-align:center;">−</button>
+      </div>
+      <div id="typo-tester-body" style="max-height:78vh;overflow-y:auto;padding:14px;">
+
+        <div style="font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#888;margin-bottom:8px;">Body</div>
+        <input id="tt-body-search" type="text" placeholder="Buscar fuente..." style="width:100%;padding:5px 8px;border:1px solid #ddd;border-radius:5px;font-size:12px;margin-bottom:4px;box-sizing:border-box;">
+        <select id="tt-body-select" size="5" style="width:100%;border:1px solid #ddd;border-radius:5px;font-size:12px;margin-bottom:8px;box-sizing:border-box;"></select>
+        <div id="tt-body-weights" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;min-height:26px;"></div>
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;margin-bottom:16px;"><input type="checkbox" id="tt-body-italic"> <em>Italic</em></label>
+
+        <hr style="border:none;border-top:1px solid #eee;margin:0 0 14px;">
+
+        <div style="font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#888;margin-bottom:8px;">Heading</div>
+        <input id="tt-heading-search" type="text" placeholder="Buscar fuente..." style="width:100%;padding:5px 8px;border:1px solid #ddd;border-radius:5px;font-size:12px;margin-bottom:4px;box-sizing:border-box;">
+        <select id="tt-heading-select" size="5" style="width:100%;border:1px solid #ddd;border-radius:5px;font-size:12px;margin-bottom:8px;box-sizing:border-box;"></select>
+        <div id="tt-heading-weights" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;min-height:26px;"></div>
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;margin-bottom:16px;"><input type="checkbox" id="tt-heading-italic"> <em>Italic</em></label>
+
+        <hr style="border:none;border-top:1px solid #eee;margin:0 0 14px;">
+
+        <div style="font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#888;margin-bottom:10px;">Tamaño</div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Body</span><span id="tt-body-scale-val" style="font-weight:600;">100%</span></div>
+        <input id="tt-body-scale" type="range" min="75" max="150" value="100" style="width:100%;margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Heading</span><span id="tt-heading-scale-val" style="font-weight:600;">100%</span></div>
+        <input id="tt-heading-scale" type="range" min="75" max="200" value="100" style="width:100%;margin-bottom:14px;">
+
+        <button id="tt-reset" style="width:100%;padding:8px;background:#f5f5f5;border:1px solid #ddd;border-radius:5px;cursor:pointer;font-size:12px;font-weight:500;">Resetear todo</button>
+      </div>
+    </div>
+
+    <script>
+    (function() {
+      var FONTS = [
+        {n:'Assistant',       w:[200,300,400,500,600,700,800]},
+        {n:'Barlow',          w:[100,200,300,400,500,600,700,800,900], i:true},
+        {n:'Barlow Condensed',w:[100,200,300,400,500,600,700,800,900], i:true},
+        {n:'Baskervville',    w:[400], i:true},
+        {n:'Be Vietnam Pro',  w:[100,200,300,400,500,600,700,800,900], i:true},
+        {n:'Bodoni Moda',     w:[400,500,600,700,800,900], i:true},
+        {n:'Cabin',           w:[400,500,600,700], i:true},
+        {n:'Cormorant',       w:[300,400,500,600,700], i:true},
+        {n:'Cormorant Garamond',w:[300,400,500,600,700], i:true},
+        {n:'DM Sans',         w:[100,200,300,400,500,600,700,800,900], i:true},
+        {n:'DM Serif Display',w:[400], i:true},
+        {n:'Epilogue',        w:[100,200,300,400,500,600,700,800,900], i:true},
+        {n:'Figtree',         w:[300,400,500,600,700,800,900], i:true},
+        {n:'Forum',           w:[400]},
+        {n:'Fraunces',        w:[100,200,300,400,500,600,700,800,900], i:true},
+        {n:'Gothic A1',       w:[100,200,300,400,500,600,700,800,900]},
+        {n:'IBM Plex Mono',   w:[100,200,300,400,500,600,700], i:true},
+        {n:'IBM Plex Sans',   w:[100,200,300,400,500,600,700], i:true},
+        {n:'IBM Plex Serif',  w:[100,200,300,400,500,600,700], i:true},
+        {n:'Italiana',        w:[400]},
+        {n:'Josefin Sans',    w:[100,200,300,400,500,600,700], i:true},
+        {n:'Josefin Slab',    w:[100,200,300,400,500,600,700], i:true},
+        {n:'Jost',            w:[100,200,300,400,500,600,700,800,900], i:true},
+        {n:'Karla',           w:[200,300,400,500,600,700,800], i:true},
+        {n:'Lato',            w:[100,300,400,700,900], i:true},
+        {n:'Libre Baskerville',w:[400,700], i:true},
+        {n:'Libre Franklin',  w:[100,200,300,400,500,600,700,800,900], i:true},
+        {n:'Lora',            w:[400,500,600,700], i:true},
+        {n:'Manrope',         w:[200,300,400,500,600,700,800]},
+        {n:'Marcellus',       w:[400]},
+        {n:'Merriweather',    w:[300,400,700,900], i:true},
+        {n:'Merriweather Sans',w:[300,400,500,600,700,800], i:true},
+        {n:'Montserrat',      w:[100,200,300,400,500,600,700,800,900], i:true},
+        {n:'Nunito',          w:[200,300,400,500,600,700,800,900], i:true},
+        {n:'Nunito Sans',     w:[200,300,400,500,600,700,800,900], i:true},
+        {n:'Open Sans',       w:[300,400,500,600,700,800], i:true},
+        {n:'Oswald',          w:[200,300,400,500,600,700]},
+        {n:'Outfit',          w:[100,200,300,400,500,600,700,800,900]},
+        {n:'Playfair Display',w:[400,500,600,700,800,900], i:true},
+        {n:'Plus Jakarta Sans',w:[200,300,400,500,600,700,800], i:true},
+        {n:'Poppins',         w:[100,200,300,400,500,600,700,800,900], i:true},
+        {n:'Quattrocento',    w:[400,700]},
+        {n:'Quattrocento Sans',w:[400,700], i:true},
+        {n:'Quicksand',       w:[300,400,500,600,700]},
+        {n:'Raleway',         w:[100,200,300,400,500,600,700,800,900], i:true},
+        {n:'Roboto',          w:[100,300,400,500,700,900], i:true},
+        {n:'Roboto Condensed',w:[100,200,300,400,500,600,700,800,900], i:true},
+        {n:'Roboto Mono',     w:[100,200,300,400,500,600,700], i:true},
+        {n:'Roboto Slab',     w:[100,200,300,400,500,600,700,800,900]},
+        {n:'Rufina',          w:[400,700]},
+        {n:'Sora',            w:[100,200,300,400,500,600,700,800]},
+        {n:'Space Grotesk',   w:[300,400,500,600,700]},
+        {n:'Space Mono',      w:[400,700], i:true},
+        {n:'Spectral',        w:[200,300,400,500,600,700,800], i:true},
+        {n:'Tenor Sans',      w:[400]},
+        {n:'Titillium Web',   w:[200,300,400,600,700,900], i:true},
+        {n:'Ubuntu',          w:[300,400,500,700], i:true},
+        {n:'Work Sans',       w:[100,200,300,400,500,600,700,800,900], i:true},
+      ];
+
+      var WL = {100:'Thin',200:'XLight',300:'Light',400:'Regular',500:'Medium',600:'SemiBold',700:'Bold',800:'XBold',900:'Black'};
+      var loadedFonts = {};
+      var root = document.documentElement;
+      var origBodyFamily   = getComputedStyle(root).getPropertyValue('--font-body-family').trim();
+      var origHeadingFamily= getComputedStyle(root).getPropertyValue('--font-heading-family').trim();
+      var origBodyScale    = getComputedStyle(root).getPropertyValue('--font-body-scale').trim();
+      var origHeadingScale = getComputedStyle(root).getPropertyValue('--font-heading-scale').trim();
+      var origBodyWeight   = getComputedStyle(root).getPropertyValue('--font-body-weight').trim();
+      var origHeadingWeight= getComputedStyle(root).getPropertyValue('--font-heading-weight').trim();
+
+      function loadFont(font, withItalic) {
+        var key = font.n + (withItalic ? ':i' : '');
+        if (loadedFonts[key]) return;
+        loadedFonts[key] = true;
+        var familyParam = font.n.replace(/ /g, '+');
+        var url;
+        if (withItalic && font.i) {
+          var pairs = font.w.map(function(w){ return '0,'+w+';1,'+w; }).join(';');
+          url = 'https://fonts.googleapis.com/css2?family=' + familyParam + ':ital,wght@' + pairs + '&display=swap';
+        } else {
+          url = 'https://fonts.googleapis.com/css2?family=' + familyParam + ':wght@' + font.w.join(';') + '&display=swap';
+        }
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = url;
+        document.head.appendChild(link);
+      }
+
+      function populateSelect(sel, filter) {
+        var current = sel.value;
+        sel.innerHTML = FONTS
+          .filter(function(f){ return f.n.toLowerCase().indexOf(filter.toLowerCase()) > -1; })
+          .map(function(f){ return '<option value="' + f.n + '">' + f.n + '</option>'; })
+          .join('');
+        if (current) {
+          for (var i = 0; i < sel.options.length; i++) {
+            if (sel.options[i].value === current) { sel.selectedIndex = i; break; }
+          }
+        }
+      }
+
+      function renderWeights(container, font, activeWeight) {
+        container.innerHTML = font.w.map(function(w) {
+          var active = w === activeWeight;
+          return '<button data-w="' + w + '" style="padding:3px 7px;border:1px solid ' + (active ? '#111' : '#ddd') + ';border-radius:4px;cursor:pointer;background:' + (active ? '#111' : '#f5f5f5') + ';color:' + (active ? '#fff' : '#222') + ';font-size:11px;">' + (WL[w] || w) + '</button>';
+        }).join('');
+      }
+
+      function setup(prefix, familyVar, weightVar, styleVar) {
+        var searchEl  = document.getElementById('tt-' + prefix + '-search');
+        var selectEl  = document.getElementById('tt-' + prefix + '-select');
+        var weightsEl = document.getElementById('tt-' + prefix + '-weights');
+        var italicEl  = document.getElementById('tt-' + prefix + '-italic');
+        var activeWeight = null;
+
+        populateSelect(selectEl, '');
+
+        searchEl.addEventListener('input', function() {
+          populateSelect(selectEl, this.value);
+        });
+
+        selectEl.addEventListener('change', function() {
+          var name = this.value;
+          var font = FONTS.find(function(f){ return f.n === name; });
+          if (!font) return;
+          loadFont(font, false);
+          activeWeight = font.w.indexOf(400) > -1 ? 400 : font.w[0];
+          renderWeights(weightsEl, font, activeWeight);
+          root.style.setProperty(familyVar, "'" + name + "', sans-serif");
+          root.style.setProperty(weightVar, activeWeight);
+          italicEl.checked = false;
+          root.style.setProperty(styleVar, 'normal');
+        });
+
+        weightsEl.addEventListener('click', function(e) {
+          var btn = e.target.closest('button');
+          if (!btn) return;
+          activeWeight = parseInt(btn.dataset.w);
+          var name = selectEl.value;
+          var font = FONTS.find(function(f){ return f.n === name; });
+          if (font) renderWeights(weightsEl, font, activeWeight);
+          root.style.setProperty(weightVar, activeWeight);
+        });
+
+        italicEl.addEventListener('change', function() {
+          var name = selectEl.value;
+          var font = FONTS.find(function(f){ return f.n === name; });
+          if (font && this.checked) loadFont(font, true);
+          root.style.setProperty(styleVar, this.checked ? 'italic' : 'normal');
+        });
+
+        return function reset() {
+          selectEl.selectedIndex = -1;
+          weightsEl.innerHTML = '';
+          italicEl.checked = false;
+          searchEl.value = '';
+          populateSelect(selectEl, '');
+          activeWeight = null;
+        };
+      }
+
+      var resetBody    = setup('body',    '--font-body-family',    '--font-body-weight',    '--font-body-style');
+      var resetHeading = setup('heading', '--font-heading-family', '--font-heading-weight', '--font-heading-style');
+
+      document.getElementById('tt-body-scale').addEventListener('input', function() {
+        document.getElementById('tt-body-scale-val').textContent = this.value + '%';
+        var s = (this.value / 100).toFixed(2);
+        root.style.setProperty('--font-body-scale', s);
+        document.querySelector('html').style.fontSize = 'calc(' + s + ' * 62.5%)';
+      });
+
+      document.getElementById('tt-heading-scale').addEventListener('input', function() {
+        document.getElementById('tt-heading-scale-val').textContent = this.value + '%';
+        root.style.setProperty('--font-heading-scale', (this.value / 100).toFixed(2));
+      });
+
+      document.getElementById('typo-toggle').addEventListener('click', function() {
+        var body = document.getElementById('typo-tester-body');
+        var hidden = body.style.display === 'none';
+        body.style.display = hidden ? 'block' : 'none';
+        this.textContent = hidden ? '−' : '+';
+      });
+
+      document.getElementById('tt-reset').addEventListener('click', function() {
+        root.style.setProperty('--font-body-family',    origBodyFamily);
+        root.style.setProperty('--font-heading-family', origHeadingFamily);
+        root.style.setProperty('--font-body-scale',     origBodyScale);
+        root.style.setProperty('--font-heading-scale',  origHeadingScale);
+        root.style.setProperty('--font-body-weight',    origBodyWeight);
+        root.style.setProperty('--font-heading-weight', origHeadingWeight);
+        root.style.setProperty('--font-body-style',     'normal');
+        root.style.setProperty('--font-heading-style',  'normal');
+        document.querySelector('html').style.fontSize = '';
+        document.getElementById('tt-body-scale').value = 100;
+        document.getElementById('tt-heading-scale').value = 100;
+        document.getElementById('tt-body-scale-val').textContent = '100%';
+        document.getElementById('tt-heading-scale-val').textContent = '100%';
+        resetBody();
+        resetHeading();
+      });
+
+      // Drag
+      var panel = document.getElementById('typo-tester');
+      var header = document.getElementById('typo-tester-header');
+      var dragging = false, sx, sy, sl, sb;
+      header.addEventListener('mousedown', function(e) {
+        if (e.target.tagName === 'BUTTON') return;
+        dragging = true;
+        sx = e.clientX; sy = e.clientY;
+        var r = panel.getBoundingClientRect();
+        sl = r.left; sb = window.innerHeight - r.bottom;
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', function(e) {
+        if (!dragging) return;
+        panel.style.left   = (sl + e.clientX - sx) + 'px';
+        panel.style.right  = 'auto';
+        panel.style.bottom = (sb - (e.clientY - sy)) + 'px';
+      });
+      document.addEventListener('mouseup', function() { dragging = false; });
+    })();
+    </script>
+    <!-- END TYPOGRAPHY TESTER -->
   </body>
 </html>
