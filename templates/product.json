@@ -59,6 +59,7 @@
         "buy_buttons",
         "share"
       ],
+      "custom_css": [],
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-11929eb4-ca5d-4b09-ae1b-1c3465496417",
