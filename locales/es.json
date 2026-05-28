@@ -397,7 +397,7 @@
     }
   },
   "localization": {
-    "country_label": "País/región",
+    "country_label": "País",
     "language_label": "Idioma",
     "update_language": "Actualizar idioma",
     "update_country": "Actualizar país/región",
