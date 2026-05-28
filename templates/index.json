@@ -112,6 +112,7 @@
           "type": "categoria",
           "settings": {
             "collection": "mesitas-y-puf",
+            "icon_image": "shopify://shop_images/PineTools.com_d6f4a492-cca2-4224-b224-4ed1b78772ef.png",
             "emoji": "🛍️",
             "title": "",
             "link": ""
