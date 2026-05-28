@@ -295,14 +295,14 @@
       }
     },
     "cart": {
-      "title": "Tu carrito",
-      "caption": "Artículos en el carrito",
+      "title": "Tu pedido",
+      "caption": "Artículos en tu pedido",
       "remove_title": "Eliminar {{ title }}",
       "note": "Instrucciones especiales del pedido",
       "checkout": "Pagar pedido",
-      "empty": "Tu carrito esta vacío",
-      "cart_error": "Hubo un error al actualizar tu carrito de compra. Inténtalo de nuevo.",
-      "cart_quantity_error_html": "Solo puedes agregar {{ quantity }} de este artículo a tu carrito.",
+      "empty": "Tu pedido esta vacío",
+      "cart_error": "Hubo un error al actualizar tu pedido. Inténtalo de nuevo.",
+      "cart_quantity_error_html": "Solo puedes agregar {{ quantity }} de este artículo a tu pedido.",
       "headings": {
         "product": "Producto",
         "price": "Precio",
@@ -370,7 +370,7 @@
     },
     "quick_order_list": {
       "product_total": "Subtotal de productos",
-      "view_cart": "Ver carrito",
+      "view_cart": "Ver tu pedido",
       "each": "{{ money }}/unidad",
       "product": "Producto",
       "variant": "Variante",
@@ -387,10 +387,10 @@
       },
       "product_variants": "Variantes de producto",
       "total_items": "Total de artículos",
-      "remove_all_items_confirmation": "¿Eliminar los {{ quantity }} artículos del carrito?",
+      "remove_all_items_confirmation": "¿Eliminar los {{ quantity }} artículos del pedido?",
       "remove_all": "Eliminar todos",
       "cancel": "Cancelar",
-      "remove_all_single_item_confirmation": "¿Eliminar 1 artículo de tu carrito?",
+      "remove_all_single_item_confirmation": "¿Eliminar 1 artículo de tu pedido?",
       "min_error": "Este artículo tiene un mínimo de {{ min }}.",
       "max_error": "Este artículo tiene un máximo de {{ max }}.",
       "step_error": "Solo puedes agregar este artículo en incrementos de {{ step }}"
