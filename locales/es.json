@@ -116,7 +116,7 @@
   },
   "products": {
     "product": {
-      "add_to_cart": "Lo Quiero",
+      "add_to_cart": "LO QUIERO",
       "description": "Descripción",
       "on_sale": "Oferta",
       "quantity": {
@@ -168,7 +168,7 @@
       "nested_label": "{{ title }} para {{ parent_title }}",
       "view_full_details": "Ver todos los detalles",
       "shipping_policy_html": "Los <a href=\"{{ link }}\">gastos de envío</a> se calculan en la pantalla de pago.",
-      "choose_options": "Lo Quiero",
+      "choose_options": "LO QUIERO",
       "choose_product_options": "Elegir opciones para {{ product_name }}",
       "value_unavailable": "{{ option_value }}: no disponible",
       "variant_sold_out_or_unavailable": "Variante agotada o no disponible",
@@ -400,10 +400,10 @@
     "country_label": "País",
     "language_label": "Idioma",
     "update_language": "Actualizar idioma",
-    "update_country": "Actualizar país/región",
+    "update_country": "Actualizar país",
     "search": "Buscar",
-    "popular_countries_regions": "Países o regiones populares",
-    "country_results_count": "{{ count }} países o regiones encontrados"
+    "popular_countries_regions": "Países populares",
+    "country_results_count": "{{ count }} países encontrados"
   },
   "customer": {
     "account": {
