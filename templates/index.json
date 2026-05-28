@@ -12,6 +12,17 @@
     "slideshow": {
       "type": "slideshow",
       "blocks": {
+        "slide_EXYJ9G": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2026-05-27_at_5.06.26_PM.jpg",
+            "image_mobile": "shopify://shop_images/ChatGPT_Image_28_may_2026_03_53_10.png",
+            "image_position_x": "center",
+            "image_position_y": "center",
+            "link": "",
+            "image_overlay_opacity": 0
+          }
+        },
         "slide_X8KRhn": {
           "type": "slide",
           "settings": {
@@ -47,6 +58,7 @@
         }
       },
       "block_order": [
+        "slide_EXYJ9G",
         "slide_X8KRhn",
         "slide_79A9aX",
         "slide_2"
