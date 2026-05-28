@@ -37,28 +37,39 @@
   <div class="zoora-footer__main page-width">
 
     <div class="zoora-footer__brand">
-      {%- if settings.brand_image != blank -%}
-        <a href="{{ routes.root_url }}" class="zoora-footer__logo-link">
-          {%- assign brand_image_height = settings.brand_image_width | divided_by: settings.brand_image.aspect_ratio -%}
-          {{
-            settings.brand_image
-            | image_url: width: 400
-            | image_tag:
-              loading: 'lazy',
-              widths: '100, 150, 200, 300, 400',
-              width: settings.brand_image_width,
-              height: brand_image_height
-          }}
-        </a>
-      {%- endif -%}
       {%- if settings.brand_headline != blank -%}
         <p class="zoora-footer__brand-headline">{{ settings.brand_headline }}</p>
       {%- endif -%}
       {%- if settings.brand_description != blank -%}
         <div class="zoora-footer__brand-desc rte">{{ settings.brand_description }}</div>
       {%- endif -%}
-      {%- if has_social_icons and section.settings.show_social -%}
-        {%- render 'social-icons', class: 'zoora-footer__social list-social' -%}
+      {%- if section.settings.show_social -%}
+        <div class="zoora-footer__social-cards">
+          {%- if settings.social_instagram_link != blank -%}
+            {%- assign ig_handle = settings.social_instagram_link | split: 'instagram.com/' | last | remove: '/' -%}
+            <a href="{{ settings.social_instagram_link }}" class="zoora-social-card zoora-social-card--instagram" target="_blank" rel="noopener noreferrer">
+              <span class="zoora-social-card__icon">
+                {{- 'icon-instagram.svg' | inline_asset_content -}}
+              </span>
+              <span class="zoora-social-card__info">
+                <span class="zoora-social-card__title">Seguinos en Instagram</span>
+                <span class="zoora-social-card__handle">@{{ ig_handle }}</span>
+              </span>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_whatsapp_link != blank -%}
+            {%- assign wa_number = settings.social_whatsapp_link | split: 'wa.me/' | last | split: '?' | first -%}
+            <a href="{{ settings.social_whatsapp_link }}" class="zoora-social-card zoora-social-card--whatsapp" target="_blank" rel="noopener noreferrer">
+              <span class="zoora-social-card__icon">
+                {{- 'icon-whatsapp.svg' | inline_asset_content -}}
+              </span>
+              <span class="zoora-social-card__info">
+                <span class="zoora-social-card__title">Escribinos por WhatsApp</span>
+                <span class="zoora-social-card__handle">+{{ wa_number }}</span>
+              </span>
+            </a>
+          {%- endif -%}
+        </div>
       {%- endif -%}
     </div>
 
