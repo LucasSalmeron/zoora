@@ -98,7 +98,11 @@
             {{ address | format_address }}
 
             {%- if address.phone.size > 0 -%}
-              <p>{{ address.phone }}</p>
+              {%- assign wa_number = address.phone | remove: '+' | remove: ' ' | remove: '-' | remove: '(' | remove: ')' | remove: '.' -%}
+              <a href="https://wa.me/{{ wa_number }}" target="_blank" rel="noopener noreferrer" class="pickup-whatsapp-btn">
+                <span class="svg-wrapper">{{- 'icon-whatsapp.svg' | inline_asset_content -}}</span>
+                Escribir por WhatsApp
+              </a>
             {%- endif -%}
           </address>
         </li>
