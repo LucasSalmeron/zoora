@@ -789,13 +789,16 @@ class SliderComponent extends HTMLElement {
 
     if (this.enableSliderLooping) return;
 
-    if (this.isSlideVisible(this.sliderItemsToShow[0]) && this.slider.scrollLeft === 0) {
+    const atStart = this.slider.scrollLeft <= 1;
+    const atEnd = this.slider.scrollLeft + this.slider.clientWidth >= this.slider.scrollWidth - 1;
+
+    if (this.isSlideVisible(this.sliderItemsToShow[0]) && atStart) {
       this.prevButton.setAttribute('disabled', 'disabled');
     } else {
       this.prevButton.removeAttribute('disabled');
     }
 
-    if (this.isSlideVisible(this.sliderItemsToShow[this.sliderItemsToShow.length - 1])) {
+    if (this.isSlideVisible(this.sliderItemsToShow[this.sliderItemsToShow.length - 1]) || atEnd) {
       this.nextButton.setAttribute('disabled', 'disabled');
     } else {
       this.nextButton.removeAttribute('disabled');
@@ -804,7 +807,7 @@ class SliderComponent extends HTMLElement {
 
   isSlideVisible(element, offset = 0) {
     const lastVisibleSlide = this.slider.clientWidth + this.slider.scrollLeft - offset;
-    return element.offsetLeft + element.clientWidth <= lastVisibleSlide && element.offsetLeft >= this.slider.scrollLeft;
+    return element.offsetLeft + element.clientWidth <= lastVisibleSlide + 1 && element.offsetLeft >= this.slider.scrollLeft - 1;
   }
 
   onButtonClick(event) {
