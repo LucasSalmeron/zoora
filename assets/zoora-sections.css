@@ -877,7 +877,7 @@
 
 .zoora-footer__copyright .copyright__content {
   font-size: 1.2rem;
-  color: rgba(var(--color-foreground), 0.55);
+  color: rgba(var(--color-foreground), 0.7);
 }
 
 .zoora-footer__copyright a {
@@ -963,7 +963,7 @@
 }
 
 .zoora-social-card--whatsapp {
-  background-color: #25d366;
+  background-color: #075E54;
 }
 
 .zoora-social-card__icon {
