@@ -38,6 +38,8 @@
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
   endif
+assign precio_sin_impuestos = price | times: 100 | divided_by: 121
+
 -%}
 
 {%- unless target == null and placeholder == null -%}
@@ -108,6 +110,9 @@
           {{ money_price }}
         </span>
       </div>
+      <div class="precio-sin-impuestos">
+  {{ precio_sin_impuestos | money }} PRECIO SIN IMPUESTOS NACIONALES
+</div>
       {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
         {% render 'unit-price', price: product.selected_or_first_available_variant.unit_price, measurement: product.selected_or_first_available_variant.unit_price_measurement %}
       {%- endif -%}
