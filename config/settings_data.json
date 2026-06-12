@@ -420,7 +420,8 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".card__heading {font-size: 1.4rem; /* ajustá este valor */}"
+      ".card__heading {font-size: 1.4rem; /* ajustá este valor */}",
+      ".precio-sin-impuestos {font-size: 0.75em; opacity: 0.75; margin-top: 4px; line-height: 1.2;}"
     ]
   }
 }
