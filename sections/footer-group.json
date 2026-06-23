@@ -27,15 +27,23 @@
             "heading": "Categorías",
             "menu": "menu-universos-copia"
           }
+        },
+        "link_list_gcFRNB": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Enlaces rápidos",
+            "menu": "ayuda"
+          }
         }
       },
       "block_order": [
         "link_list_xaPLBt",
-        "link_list_YfB64r"
+        "link_list_YfB64r",
+        "link_list_gcFRNB"
       ],
       "settings": {
         "color_scheme": "scheme-1",
-        "newsletter_enable": true,
+        "newsletter_enable": false,
         "newsletter_heading": "Sumate a nuestro newsletter",
         "enable_follow_on_shop": false,
         "show_social": true,
