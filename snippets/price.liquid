@@ -110,9 +110,11 @@ assign precio_sin_impuestos = price | times: 100 | divided_by: 121
           {{ money_price }}
         </span>
       </div>
-      <div class="precio-sin-impuestos">
-  {{ precio_sin_impuestos | money }} PRECIO SIN IMPUESTOS NACIONALES
-</div>
+      {%- if show_price_without_tax -%}
+        <div class="precio-sin-impuestos">
+          {{ precio_sin_impuestos | money }} PRECIO SIN IMPUESTOS NACIONALES
+        </div>
+      {%- endif -%}
       {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
         {% render 'unit-price', price: product.selected_or_first_available_variant.unit_price, measurement: product.selected_or_first_available_variant.unit_price_measurement %}
       {%- endif -%}
