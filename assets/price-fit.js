@@ -1,42 +1,23 @@
-function fitPrice(container) {
-  ['price__regular', 'price__sale'].forEach(function (cls) {
-    var el = container.querySelector('.' + cls);
-    if (!el || getComputedStyle(el).display === 'none') return;
+window.addEventListener('load', function () {
+  document.querySelectorAll('.price-item').forEach(function (span) {
+    span.style.fontSize = '';
 
-    var item = el.querySelector('.price-item');
-    if (!item) return;
+    var card = span.closest('.price');
+    if (!card) return;
 
-    item.style.fontSize = '';
+    var cardWidth = card.offsetWidth;
+    if (!cardWidth) return;
 
-    // Temporarily force single line to get the true text width
-    var savedWS = item.style.whiteSpace;
-    item.style.whiteSpace = 'nowrap';
-    var naturalWidth = item.getBoundingClientRect().width;
-    item.style.whiteSpace = savedWS;
+    // Force inline-block + nowrap to measure real text width
+    span.style.display = 'inline-block';
+    span.style.whiteSpace = 'nowrap';
+    var textWidth = span.offsetWidth;
+    span.style.display = '';
+    span.style.whiteSpace = '';
 
-    var containerWidth = container.getBoundingClientRect().width;
-    if (!containerWidth || naturalWidth <= containerWidth) return;
+    if (textWidth <= cardWidth) return;
 
-    var currentSize = parseFloat(getComputedStyle(item).fontSize);
-    var newSize = Math.max(currentSize * (containerWidth / naturalWidth) * 0.95, 8);
-    item.style.fontSize = newSize + 'px';
-  });
-}
-
-function fitAllPrices(root) {
-  (root || document).querySelectorAll('.price').forEach(fitPrice);
-}
-
-var ro = new ResizeObserver(function (entries) {
-  entries.forEach(function (entry) {
-    fitPrice(entry.target);
+    var fs = parseFloat(getComputedStyle(span).fontSize);
+    span.style.fontSize = Math.max(fs * cardWidth / textWidth * 0.92, 8) + 'px';
   });
 });
-
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.price').forEach(function (el) {
-    ro.observe(el);
-  });
-});
-
-document.addEventListener('variant:changed', fitAllPrices);
