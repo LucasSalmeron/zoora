@@ -56,7 +56,7 @@
   flex-wrap: nowrap;
   align-items: baseline;
   gap: 0.5rem;
-  white-space: nowrap;
+  overflow: hidden;
 }
 
 .price__sale,
@@ -84,7 +84,7 @@
   flex-wrap: nowrap;
   align-items: baseline;
   gap: 0.5rem;
-  white-space: nowrap;
+  overflow: hidden;
 }
 
 .price--center {
