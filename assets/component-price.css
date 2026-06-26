@@ -51,7 +51,12 @@
 
 .price--sold-out .price__availability,
 .price__regular {
-  display: block;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  white-space: nowrap;
 }
 
 .price__sale,
@@ -74,9 +79,12 @@
 }
 
 .price--on-sale .price__sale {
-  display: initial;
+  display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  white-space: nowrap;
 }
 
 .price--center {
