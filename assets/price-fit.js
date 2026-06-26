@@ -3,20 +3,23 @@ function fitPrice(container) {
     var el = container.querySelector('.' + cls);
     if (!el || getComputedStyle(el).display === 'none') return;
 
-    el.style.fontSize = '';
-
     var item = el.querySelector('.price-item');
     if (!item) return;
 
+    item.style.fontSize = '';
+
+    // Temporarily force single line to get the true text width
+    var savedWS = item.style.whiteSpace;
+    item.style.whiteSpace = 'nowrap';
+    var naturalWidth = item.getBoundingClientRect().width;
+    item.style.whiteSpace = savedWS;
+
     var containerWidth = container.getBoundingClientRect().width;
-    if (!containerWidth) return;
+    if (!containerWidth || naturalWidth <= containerWidth) return;
 
-    var itemWidth = item.getBoundingClientRect().width;
-    if (itemWidth <= containerWidth) return;
-
-    var currentSize = parseFloat(getComputedStyle(el).fontSize);
-    var newSize = Math.max(currentSize * (containerWidth / itemWidth) * 0.95, 8);
-    el.style.fontSize = newSize + 'px';
+    var currentSize = parseFloat(getComputedStyle(item).fontSize);
+    var newSize = Math.max(currentSize * (containerWidth / naturalWidth) * 0.95, 8);
+    item.style.fontSize = newSize + 'px';
   });
 }
 
@@ -36,6 +39,4 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-document.addEventListener('variant:changed', function () {
-  fitAllPrices();
-});
+document.addEventListener('variant:changed', fitAllPrices);
