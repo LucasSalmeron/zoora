@@ -1,25 +1,41 @@
-function fitPriceElements(root) {
-  (root || document).querySelectorAll('.price__regular, .price__sale').forEach(function (el) {
-    if (getComputedStyle(el).display === 'none') return;
+function fitPrice(container) {
+  ['price__regular', 'price__sale'].forEach(function (cls) {
+    var el = container.querySelector('.' + cls);
+    if (!el || getComputedStyle(el).display === 'none') return;
+
     el.style.fontSize = '';
-    var parent = el.closest('.price');
-    if (!parent) return;
-    var maxWidth = parent.clientWidth;
-    if (!maxWidth) return;
-    var size = parseFloat(getComputedStyle(el).fontSize);
-    while (el.scrollWidth > maxWidth && size > 8) {
-      size -= 0.5;
-      el.style.fontSize = size + 'px';
-    }
+
+    var item = el.querySelector('.price-item');
+    if (!item) return;
+
+    var containerWidth = container.getBoundingClientRect().width;
+    if (!containerWidth) return;
+
+    var itemWidth = item.getBoundingClientRect().width;
+    if (itemWidth <= containerWidth) return;
+
+    var currentSize = parseFloat(getComputedStyle(el).fontSize);
+    var newSize = Math.max(currentSize * (containerWidth / itemWidth) * 0.95, 8);
+    el.style.fontSize = newSize + 'px';
   });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  fitPriceElements();
+function fitAllPrices(root) {
+  (root || document).querySelectorAll('.price').forEach(fitPrice);
+}
 
-  document.querySelectorAll('.price').forEach(function (el) {
-    new MutationObserver(function () {
-      fitPriceElements(el);
-    }).observe(el, { childList: true, subtree: true, characterData: true });
+var ro = new ResizeObserver(function (entries) {
+  entries.forEach(function (entry) {
+    fitPrice(entry.target);
   });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.price').forEach(function (el) {
+    ro.observe(el);
+  });
+});
+
+document.addEventListener('variant:changed', function () {
+  fitAllPrices();
 });
