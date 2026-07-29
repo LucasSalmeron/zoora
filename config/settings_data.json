@@ -159,8 +159,8 @@
           "textSelector": "Finalizar compra",
           "textSelector2": "Check out, checkout, check-out, pagar pedido, pagar ahora, comprar ahora, agregar al pedido",
           "selector": ":is(button,input)[name=\"checkout\"]",
-          "message": "Finalizar compra",
-          "position": "before",
+          "message": "Comprar por Transferencia (10% de descuento)",
+          "position": "after",
           "customliquid": "{% comment %}\n<style>\nbutton {\n  background: #000000;\n}\n</style>\n{% endcomment %}"
         }
       }
