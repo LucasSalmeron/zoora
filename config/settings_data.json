@@ -151,6 +151,18 @@
         "type": "shopify://apps/mercado-pago-antifraud-plus/blocks/embed-block/b19ea721-f94a-4308-bee5-0057c043bac5",
         "disabled": false,
         "settings": {}
+      },
+      "15188581332139481108": {
+        "type": "shopify://apps/scala-discounts/blocks/cartButton/24748891-1ee0-454d-bfde-d80e65983c18",
+        "disabled": false,
+        "settings": {
+          "textSelector": "Finalizar compra",
+          "textSelector2": "Check out, checkout, check-out, pagar pedido, pagar ahora, comprar ahora, agregar al pedido",
+          "selector": ":is(button,input)[name=\"checkout\"]",
+          "message": "Finalizar compra",
+          "position": "before",
+          "customliquid": "{% comment %}\n<style>\nbutton {\n  background: #000000;\n}\n</style>\n{% endcomment %}"
+        }
       }
     },
     "color_schemes": {
