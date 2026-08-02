@@ -20,7 +20,7 @@
 
 .price .price-item {
   display: inline-block;
-  margin: 0 1rem 0 0;
+  margin: 0;
 }
 
 .price__regular .price-item--regular {
@@ -49,14 +49,20 @@
   }
 }
 
-.price--sold-out .price__availability,
-.price__regular {
+.price--sold-out .price__availability {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: baseline;
   gap: 0.5rem;
   white-space: nowrap;
+}
+
+.price__regular {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
 }
 
 .price__sale,
@@ -80,11 +86,9 @@
 
 .price--on-sale .price__sale {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: baseline;
-  gap: 0.5rem;
-  white-space: nowrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
 }
 
 .price--center {
