@@ -146,6 +146,13 @@
       }
     },
     "content_for_index": [],
+    "blocks": {
+      "12948015482042402483": {
+        "type": "shopify://apps/mercado-pago-antifraud-plus/blocks/embed-block/b19ea721-f94a-4308-bee5-0057c043bac5",
+        "disabled": false,
+        "settings": {}
+      }
+    },
     "color_schemes": {
       "scheme-1": {
         "settings": {
@@ -218,7 +225,7 @@
           "background": "#f9f9f6",
           "background_gradient": "linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(250, 247, 242, 1) 100%)",
           "text": "#121212",
-          "button": "#9bf66c",
+          "button": "#FFB33A",
           "button_label": "#000000",
           "secondary_button_label": "#121212",
           "shadow": "#121212"
