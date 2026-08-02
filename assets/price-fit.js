@@ -1,3 +1,24 @@
+function measureTextWidth(span, computedStyle) {
+  measureTextWidth.canvas = measureTextWidth.canvas || document.createElement('canvas');
+  var ctx = measureTextWidth.canvas.getContext('2d');
+
+  ctx.font =
+    computedStyle.font ||
+    [
+      computedStyle.fontStyle,
+      computedStyle.fontVariant,
+      computedStyle.fontWeight,
+      computedStyle.fontSize,
+      computedStyle.fontFamily,
+    ].join(' ');
+
+  if ('letterSpacing' in ctx) {
+    ctx.letterSpacing = computedStyle.letterSpacing;
+  }
+
+  return ctx.measureText(span.textContent.trim()).width;
+}
+
 function fitPriceItems() {
   document.querySelectorAll('.price-item').forEach(function (span) {
     span.style.fontSize = '';
@@ -8,10 +29,11 @@ function fitPriceItems() {
     var cardWidth = card.offsetWidth;
     if (!cardWidth) return;
 
-    var textWidth = span.offsetWidth;
+    var computedStyle = getComputedStyle(span);
+    var textWidth = measureTextWidth(span, computedStyle);
     if (textWidth <= cardWidth) return;
 
-    var fs = parseFloat(getComputedStyle(span).fontSize);
+    var fs = parseFloat(computedStyle.fontSize);
     span.style.fontSize = Math.max(fs * cardWidth / textWidth * 0.92, 8) + 'px';
   });
 }
