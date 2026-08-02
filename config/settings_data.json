@@ -225,7 +225,7 @@
           "background": "#f9f9f6",
           "background_gradient": "linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(250, 247, 242, 1) 100%)",
           "text": "#121212",
-          "button": "#FFB33A",
+          "button": "#ffb33a",
           "button_label": "#000000",
           "secondary_button_label": "#121212",
           "shadow": "#121212"
@@ -427,7 +427,8 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".precio-sin-impuestos {display: block; font-size: 12px; line-height: 1.2; opacity: 0.75; margin-top: 4px;}"
+      ".precio-sin-impuestos {display: block; font-size: 12px; line-height: 1.2; opacity: 0.75; margin-top: 4px;}",
+      ".badge--sale,.badge[data-badge-type=\"sale\"],.product__badge--sale,.card__badge .badge {display: none !important;}"
     ]
   }
 }
