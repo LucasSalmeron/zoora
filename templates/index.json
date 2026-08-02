@@ -197,7 +197,7 @@
         "prod_3": {
           "type": "product",
           "settings": {
-            "product": "mesa-mono"
+            "product": "gatos-graficos"
           }
         },
         "prod_4": {
