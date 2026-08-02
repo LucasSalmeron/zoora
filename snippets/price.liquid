@@ -80,8 +80,11 @@ assign precio_sin_impuestos = price | times: 100 | divided_by: 121
                 {{- 'products.product.price.regular_price' | t -}}
               </span>
               <span>
-                <s class="price-item price-item--regular variant-item__old-price">
+                <s class="price-item price-item--regular variant-item__old-price price-item--full">
                   {{ money_compare_at_price }}
+                </s>
+                <s class="price-item price-item--regular variant-item__old-price price-item--mobile-min">
+                  {{ money_compare_at_price_min }}
                 </s>
               </span>
             {%- endunless -%}
@@ -95,8 +98,11 @@ assign precio_sin_impuestos = price | times: 100 | divided_by: 121
           </span>
         {%- else -%}
           <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
-          <span class="price-item price-item--regular">
+          <span class="price-item price-item--regular price-item--full">
             {{ money_price }}
+          </span>
+          <span class="price-item price-item--regular price-item--mobile-min">
+            {{ money_price_min }}
           </span>
         {%- endif -%}
       </div>
@@ -104,14 +110,20 @@ assign precio_sin_impuestos = price | times: 100 | divided_by: 121
         {%- unless product.price_varies == false and product.compare_at_price_varies %}
           <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
           <span>
-            <s class="price-item price-item--regular">
+            <s class="price-item price-item--regular price-item--full">
               {{ money_compare_at_price }}
+            </s>
+            <s class="price-item price-item--regular price-item--mobile-min">
+              {{ money_compare_at_price_min }}
             </s>
           </span>
         {%- endunless -%}
         <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
-        <span class="price-item price-item--sale price-item--last">
+        <span class="price-item price-item--sale price-item--last price-item--full">
           {{ money_price }}
+        </span>
+        <span class="price-item price-item--sale price-item--last price-item--mobile-min">
+          {{ money_price_min }}
         </span>
       </div>
       {%- if show_price_without_tax -%}
