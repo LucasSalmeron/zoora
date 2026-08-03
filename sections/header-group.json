@@ -20,10 +20,50 @@
             "text": "BIENVENIDO A ZOORA",
             "link": ""
           }
+        },
+        "announcement_HhJYQP": {
+          "type": "announcement",
+          "settings": {
+            "text": "PROMO APERTURA: 20% OFF EN TODOS LOS PRODUCTOS",
+            "link": ""
+          }
+        },
+        "announcement_77LbFg": {
+          "type": "announcement",
+          "settings": {
+            "text": "10% DE DESCUENTO POR TRANSFERENCIA",
+            "link": ""
+          }
+        },
+        "announcement_VbqkPD": {
+          "type": "announcement",
+          "settings": {
+            "text": "ENVIO GRATIS EN CAPITAL FEDERAL",
+            "link": ""
+          }
+        },
+        "announcement_7YwEKx": {
+          "type": "announcement",
+          "settings": {
+            "text": "3 CUOTAS SIN INTERES A PARTIR DE $300.000.",
+            "link": ""
+          }
+        },
+        "announcement_TEKLYj": {
+          "type": "announcement",
+          "settings": {
+            "text": "6 CUOTAS SIN INTERES A PARTIR DE $500.000",
+            "link": ""
+          }
         }
       },
       "block_order": [
-        "announcement-bar-0"
+        "announcement-bar-0",
+        "announcement_HhJYQP",
+        "announcement_77LbFg",
+        "announcement_VbqkPD",
+        "announcement_7YwEKx",
+        "announcement_TEKLYj"
       ],
       "settings": {
         "auto_rotate": true,
