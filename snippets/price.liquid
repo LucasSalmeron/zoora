@@ -51,7 +51,8 @@
     assign money_compare_at_price = money_compare_at_price_min | append: ' - ' | append: money_compare_at_price_max
   endif
 assign precio_sin_impuestos = price | times: 100 | divided_by: 121
-
+assign installments_count = 3
+assign installment_amount = price | divided_by: installments_count
 -%}
 
 {%- unless target == null and placeholder == null -%}
@@ -143,6 +144,11 @@ assign precio_sin_impuestos = price | times: 100 | divided_by: 121
       <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
         {{ 'products.product.sold_out' | t }}
       </span>
+    {%- endif -%}
+    {%- if price > 0 -%}
+      <div class="price__installments">
+        {{ installments_count }} cuotas sin interés de {{ installment_amount | money }}
+      </div>
     {%- endif -%}
   </div>
 {% endunless %}
