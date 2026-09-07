@@ -50,9 +50,17 @@
   if target == product and product.compare_at_price_varies
     assign money_compare_at_price = money_compare_at_price_min | append: ' - ' | append: money_compare_at_price_max
   endif
-assign precio_sin_impuestos = price | times: 100 | divided_by: 121
-assign installments_count = 3
-assign installment_amount = price | divided_by: installments_count
+  assign money_price_short = money_price
+  assign money_compare_at_price_short = money_compare_at_price
+  if target == product and product.price_varies
+    assign money_price_short = money_price_min
+  endif
+  if target == product and product.compare_at_price_varies
+    assign money_compare_at_price_short = money_compare_at_price_min
+  endif
+
+  assign installments_count = 3
+  assign installment_amount = price | divided_by: installments_count
 -%}
 
 {%- unless target == null and placeholder == null -%}
@@ -85,7 +93,7 @@ assign installment_amount = price | divided_by: installments_count
                   {{ money_compare_at_price }}
                 </s>
                 <s class="price-item price-item--regular variant-item__old-price price-item--mobile-min">
-                  {{ money_compare_at_price_min }}
+                  {{ money_compare_at_price_short }}
                 </s>
               </span>
             {%- endunless -%}
@@ -103,7 +111,7 @@ assign installment_amount = price | divided_by: installments_count
             {{ money_price }}
           </span>
           <span class="price-item price-item--regular price-item--mobile-min">
-            {{ money_price_min }}
+            {{ money_price_short }}
           </span>
         {%- endif -%}
       </div>
@@ -115,7 +123,7 @@ assign installment_amount = price | divided_by: installments_count
               {{ money_compare_at_price }}
             </s>
             <s class="price-item price-item--regular price-item--mobile-min">
-              {{ money_compare_at_price_min }}
+              {{ money_compare_at_price_short }}
             </s>
           </span>
         {%- endunless -%}
@@ -124,14 +132,9 @@ assign installment_amount = price | divided_by: installments_count
           {{ money_price }}
         </span>
         <span class="price-item price-item--sale price-item--last price-item--mobile-min">
-          {{ money_price_min }}
+          {{ money_price_short }}
         </span>
       </div>
-      {%- if show_price_without_tax -%}
-        <div class="precio-sin-impuestos">
-          {{ precio_sin_impuestos | money }} PRECIO SIN IMPUESTOS NACIONALES
-        </div>
-      {%- endif -%}
       {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
         {% render 'unit-price', price: product.selected_or_first_available_variant.unit_price, measurement: product.selected_or_first_available_variant.unit_price_measurement %}
       {%- endif -%}
