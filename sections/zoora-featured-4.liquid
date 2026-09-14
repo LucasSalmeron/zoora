@@ -94,19 +94,7 @@
             {{ block.shopify_attributes }}
           >
             {%- if block.settings.product != blank -%}
-              {% render 'card-product',
-                card_product: block.settings.product,
-                media_aspect_ratio: section.settings.image_ratio,
-                image_shape: 'default',
-                lazy_load: forloop.index > 2,
-                show_secondary_image: section.settings.show_secondary_image,
-                show_vendor: false,
-                show_rating: false,
-                skip_styles: skip_styles,
-                section_id: section.id,
-                quick_add: section.settings.quick_add,
-                card_button_style: section.settings.button_style
-              %}
+              {% render 'card-product', card_product: block.settings.product, media_aspect_ratio: section.settings.image_ratio, image_shape: 'default', lazy_load: forloop.index, show_secondary_image: section.settings.show_secondary_image, show_vendor: false, show_rating: false, skip_styles: skip_styles, section_id: section.id, quick_add: section.settings.quick_add, card_button_style: section.settings.button_style %}
             {%- else -%}
               {%- assign placeholder_image = 'product-apparel-' | append: forloop.index -%}
               {% render 'card-product',
@@ -325,3 +313,30 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'card-product',
+                    card_product: block.settings.product,
+                    media_aspect_ratio: section.settings.image_ratio,
+                    image_shape: 'default',
+                    lazy_load: forloop.index > 2,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    show_vendor: false,
+                    show_rating: false,
+                    skip_styles: skip_styles,
+                    section_id: section.id,
+                    quick_add: section.settings.quick_add,
+                    card_button_style: section.settings.button_style
+                  %}
+  to: "{% render 'card-product', card_product: block.settings.product, media_aspect_ratio:
+    section.settings.image_ratio, image_shape: 'default', lazy_load: forloop.index,
+    show_secondary_image: section.settings.show_secondary_image, show_vendor: false,
+    show_rating: false, skip_styles: skip_styles, section_id: section.id, quick_add:
+    section.settings.quick_add, card_button_style: section.settings.button_style %}"
+  position: 4498..4903
+{% endcomment %}
