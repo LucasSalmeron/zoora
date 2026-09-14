@@ -74,6 +74,36 @@
       padding-top: 0.5rem;
     }
   }
+
+  /* Keep the top-level header menu on one line, even with 3+ items */
+  @media screen and (min-width: 990px) {
+    .header__inline-menu > .list-menu--inline {
+      flex-wrap: nowrap;
+    }
+
+    .header__inline-menu > .list-menu--inline > li {
+      flex: 0 0 auto;
+    }
+
+    .header__inline-menu > .list-menu--inline > li > .header__menu-item,
+    .header__inline-menu > .list-menu--inline > li > header-menu > details > summary.header__menu-item {
+      white-space: nowrap;
+    }
+  }
+
+  /* Tighten spacing on narrower desktops so the items still fit beside the logo */
+  @media screen and (min-width: 990px) and (max-width: 1249px) {
+    .header__inline-menu > .list-menu--inline > li > .header__menu-item,
+    .header__inline-menu > .list-menu--inline > li > header-menu > details > summary.header__menu-item {
+      font-size: 1.4rem;
+      padding-left: 0.6rem;
+      padding-right: 0.6rem;
+    }
+
+    .header__inline-menu > .list-menu--inline > li > header-menu > details > summary.header__menu-item {
+      padding-right: 2.2rem;
+    }
+  }
 </style>
 
 {%- style -%}
