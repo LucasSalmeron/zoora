@@ -28,17 +28,10 @@
             "link": ""
           }
         },
-        "announcement_77LbFg": {
-          "type": "announcement",
-          "settings": {
-            "text": "10% DE DESCUENTO POR TRANSFERENCIA",
-            "link": ""
-          }
-        },
         "announcement_VbqkPD": {
           "type": "announcement",
           "settings": {
-            "text": "ENVIO GRATIS EN CAPITAL FEDERAL",
+            "text": "ENVIO GRATIS A TODA LA ARGENTINA",
             "link": ""
           }
         },
@@ -60,7 +53,6 @@
       "block_order": [
         "announcement-bar-0",
         "announcement_HhJYQP",
-        "announcement_77LbFg",
         "announcement_VbqkPD",
         "announcement_7YwEKx",
         "announcement_TEKLYj"
