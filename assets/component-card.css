@@ -593,3 +593,11 @@
     clip-path: polygon(var(--shape--blob-5));
   }
 }
+
+/* Reserve two lines for the product title so cards whose title fits on one
+   line keep their price aligned with the card next to them. */
+.product-card-wrapper .card:not(.card--horizontal) .card__heading:not(.card__heading--placeholder) {
+  min-height: calc(2em * (1 + 0.3 / max(1, var(--font-heading-scale))));
+  min-height: 2lh;
+}
+
