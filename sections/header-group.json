@@ -23,6 +23,7 @@
         },
         "announcement_HhJYQP": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "PROMO APERTURA: 20% OFF EN TODOS LOS PRODUCTOS",
             "link": ""

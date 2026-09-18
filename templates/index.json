@@ -25,6 +25,7 @@
         },
         "slide_QDycLE": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_17_sept_2026_15_25_23.png",
             "image_mobile": "shopify://shop_images/ChatGPT_Image_17_sept_2026_15_27_38.png",
