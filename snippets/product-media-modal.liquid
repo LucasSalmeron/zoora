@@ -39,7 +39,19 @@
         endif
       -%}
 
+      {%- liquid
+        # Products in "Elegidos" keep images 3-5 for Meta ads only, so they are hidden here too
+        assign product_collection_handles = product.collections | map: 'handle'
+        assign hide_ad_media = false
+        if product_collection_handles contains 'elegidos'
+          assign hide_ad_media = true
+        endif
+      -%}
+
       {%- for media in product.media -%}
+        {%- if hide_ad_media and media.position >= 3 and media.position <= 5 -%}
+          {%- continue -%}
+        {%- endif -%}
         {%- liquid
           if section.settings.hide_variants and variant_images contains media.src or variant_images contains media.id
             assign variant_image = true

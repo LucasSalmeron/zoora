@@ -21,6 +21,19 @@
   endif
 
   assign media_count = product.media.size
+
+  # Products in "Elegidos" keep images 3-5 for Meta ads only, so they are hidden from the gallery
+  assign hide_ad_media = false
+  assign product_collection_handles = product.collections | map: 'handle'
+  if product_collection_handles contains 'elegidos' and media_count > 2
+    assign hide_ad_media = true
+    if media_count > 5
+      assign media_count = media_count | minus: 3
+    else
+      assign media_count = 2
+    endif
+  endif
+
   if section.settings.hide_variants and media_count > 1 and variant_images.size > 0
     assign media_count = media_count | minus: variant_images.size | plus: 1
   endif
@@ -91,6 +104,9 @@
           and section.settings.hide_variants
           and variant_images contains media.src
         %}
+          {% continue %}
+        {% endif %}
+        {% if hide_ad_media and media.position >= 3 and media.position <= 5 %}
           {% continue %}
         {% endif %}
 
@@ -252,6 +268,9 @@
           </li>
         {%- endif -%}
         {%- for media in product.media -%}
+          {%- if hide_ad_media and media.position >= 3 and media.position <= 5 -%}
+            {%- continue -%}
+          {%- endif -%}
           {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
             {%- liquid
               capture media_index
