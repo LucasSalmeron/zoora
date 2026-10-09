@@ -40,10 +40,10 @@
       -%}
 
       {%- liquid
-        # Products in "Elegidos" keep images 3-5 for Meta ads only, so they are hidden here too
+        # Products in "Elegidos" or "Sin variantes" keep images 3-5 for Meta ads only, so they are hidden here too
         assign product_collection_handles = product.collections | map: 'handle'
         assign hide_ad_media = false
-        if product_collection_handles contains 'elegidos'
+        if product_collection_handles contains 'elegidos' or product_collection_handles contains 'sin-variantes'
           assign hide_ad_media = true
         endif
       -%}
