@@ -318,7 +318,9 @@
 
     {% render 'whatsapp-button' %}
 
-    {% render 'transfer-payment-modal' %}
+    {% if settings.transfer_modal_ask_payment or settings.transfer_modal_ask_code %}
+      {% render 'transfer-payment-modal' %}
+    {% endif %}
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>

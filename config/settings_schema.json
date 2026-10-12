@@ -1455,6 +1455,23 @@
         "id": "cart_color_scheme",
         "label": "t:sections.all.colors.label",
         "default": "scheme-1"
+      },
+      {
+        "type": "header",
+        "content": "Modal antes de pagar"
+      },
+      {
+        "type": "checkbox",
+        "id": "transfer_modal_ask_payment",
+        "label": "Preguntar método de pago",
+        "info": "Ofrece pagar por transferencia con descuento. Requiere la app Scala con la regla de transferencia activa.",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "transfer_modal_ask_code",
+        "label": "Ofrecer código de descuento",
+        "default": false
       }
     ]
   }
