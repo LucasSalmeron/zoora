@@ -1,0 +1,224 @@
+{% comment %}
+  Asks how the customer will pay when they press any checkout button.
+  "Transferencia" delegates to the Scala Discounts app button (which applies the
+  discount and leaves only the transfer payment method in checkout); the other
+  option continues to the normal checkout. Scala's own buttons are hidden so this
+  modal is the only entry point. If Scala is not on the page, checkout works as usual.
+{% endcomment %}
+
+{%- assign transfer_fallback_percent = 10 -%}
+
+<dialog id="TransferModal" class="transfer-modal" aria-labelledby="TransferModal-Title">
+  <div class="transfer-modal__content">
+    <button type="button" class="transfer-modal__close" data-transfer-close aria-label="Cerrar">
+      <svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true">
+        <path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="1.5" fill="none"/>
+      </svg>
+    </button>
+
+    <h2 id="TransferModal-Title" class="transfer-modal__title">¿Cómo querés pagar?</h2>
+
+    <button type="button" class="transfer-modal__option transfer-modal__option--featured" data-transfer-choice="transfer">
+      <span class="transfer-modal__badge"><span data-transfer-percent>{{ transfer_fallback_percent }}</span>% OFF</span>
+      <span class="transfer-modal__label">Transferencia bancaria</span>
+      <span class="transfer-modal__price">
+        <s data-transfer-original></s>
+        <strong data-transfer-discounted></strong>
+      </span>
+    </button>
+
+    <button type="button" class="transfer-modal__option" data-transfer-choice="other">
+      <span class="transfer-modal__label">Tarjeta, Mercado Pago u otros medios</span>
+      <span class="transfer-modal__price"><span data-transfer-full></span></span>
+    </button>
+  </div>
+</dialog>
+
+{% style %}
+  scala-cart-button {
+    display: none !important;
+  }
+
+  .transfer-modal {
+    width: calc(100% - 32px);
+    max-width: 440px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    background: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+  }
+
+  .transfer-modal::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .transfer-modal__content {
+    position: relative;
+    padding: 32px 24px 24px;
+  }
+
+  .transfer-modal__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 8px;
+    border: none;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .transfer-modal__title {
+    margin: 0 0 20px;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .transfer-modal__option {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%;
+    margin-top: 12px;
+    padding: 16px;
+    border: 1px solid rgba(var(--color-foreground), 0.25);
+    border-radius: 6px;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+
+  .transfer-modal__option:hover {
+    border-color: rgb(var(--color-foreground));
+  }
+
+  .transfer-modal__option--featured {
+    border: 2px solid rgb(var(--color-foreground));
+  }
+
+  .transfer-modal__option[disabled] {
+    opacity: 0.6;
+    cursor: wait;
+  }
+
+  .transfer-modal__badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgb(var(--color-foreground));
+    color: rgb(var(--color-background));
+    font-size: 1.2rem;
+    letter-spacing: 0.05rem;
+  }
+
+  .transfer-modal__label {
+    font-size: 1.5rem;
+    letter-spacing: 0.04rem;
+  }
+
+  .transfer-modal__price {
+    display: flex;
+    gap: 8px;
+    font-size: 1.4rem;
+    color: rgba(var(--color-foreground), 0.75);
+  }
+
+  .transfer-modal__price strong {
+    color: rgb(var(--color-foreground));
+  }
+{% endstyle %}
+
+<script>
+  (() => {
+    const dialog = document.getElementById('TransferModal');
+    if (!dialog) return;
+
+    const fallbackPercent = {{ transfer_fallback_percent }};
+    let pendingButton = null;
+    let bypass = false;
+
+    const formatMoney = (cents) => '$' + Math.round(cents / 100).toLocaleString('es-AR');
+
+    // Read the discount from Scala's config so the modal stays in sync with the app.
+    const discountPercent = () => {
+      const config = document.querySelector('#scala-button-restrict script[data-kind="config"]');
+      const match = config && config.textContent.match(/"discountValue"=>(\d+(?:\.\d+)?)/);
+      return match ? parseFloat(match[1]) : fallbackPercent;
+    };
+
+    const scalaTrigger = (button) => {
+      const scala =
+        button.parentElement.querySelector('scala-cart-button') || document.querySelector('scala-cart-button');
+      return scala && scala.shadowRoot && scala.shadowRoot.querySelector('button[data-trigger]');
+    };
+
+    const fillPrices = async () => {
+      const percent = discountPercent();
+      dialog.querySelector('[data-transfer-percent]').textContent = percent;
+      const cart = await fetch(window.Shopify.routes.root + 'cart.js').then((response) => response.json());
+      const discounted = cart.total_price * (1 - percent / 100);
+      dialog.querySelector('[data-transfer-original]').textContent = formatMoney(cart.total_price);
+      dialog.querySelector('[data-transfer-discounted]').textContent = formatMoney(discounted);
+      dialog.querySelector('[data-transfer-full]').textContent = formatMoney(cart.total_price);
+    };
+
+    const open = (button) => {
+      pendingButton = button;
+      dialog.querySelectorAll('[data-transfer-choice]').forEach((option) => (option.disabled = false));
+      // The cart drawer traps focus inside itself, which would pull focus out of the modal.
+      if (typeof removeTrapFocus === 'function') removeTrapFocus();
+      dialog.showModal();
+      fillPrices().catch(() => {});
+    };
+
+    const close = () => {
+      dialog.close();
+      const drawer = pendingButton && pendingButton.closest('cart-drawer.active');
+      if (drawer && typeof trapFocus === 'function') trapFocus(document.getElementById('CartDrawer'), pendingButton);
+    };
+
+    document.addEventListener(
+      'click',
+      (event) => {
+        const button = event.target.closest('button[name="checkout"], input[name="checkout"]');
+        if (!button || bypass || button.disabled || !scalaTrigger(button)) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        open(button);
+      },
+      true
+    );
+
+    dialog.querySelector('[data-transfer-close]').addEventListener('click', close);
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) close();
+    });
+    dialog.addEventListener('cancel', (event) => {
+      event.preventDefault();
+      close();
+    });
+
+    dialog.querySelectorAll('[data-transfer-choice]').forEach((option) => {
+      option.addEventListener('click', () => {
+        if (option.dataset.transferChoice === 'transfer') {
+          // Scala navigates to checkout once it has stored the discount on the cart.
+          dialog.querySelectorAll('[data-transfer-choice]').forEach((other) => (other.disabled = true));
+          scalaTrigger(pendingButton).click();
+          return;
+        }
+        dialog.close();
+        bypass = true;
+        pendingButton.click();
+        bypass = false;
+      });
+    });
+  })();
+</script>
