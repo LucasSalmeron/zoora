@@ -1461,17 +1461,22 @@
         "content": "Modal antes de pagar"
       },
       {
-        "type": "checkbox",
-        "id": "transfer_modal_ask_payment",
-        "label": "Preguntar método de pago",
-        "info": "Ofrece pagar por transferencia con descuento. Requiere la app Scala con la regla de transferencia activa.",
-        "default": true
+        "type": "select",
+        "id": "transfer_modal_mode",
+        "label": "Modo del modal",
+        "info": "El descuento por transferencia lo aplica la app Scala: tiene que estar activa con la regla de transferencia.",
+        "options": [
+          { "value": "off", "label": "Desactivado" },
+          { "value": "payment", "label": "Preguntar método de pago" },
+          { "value": "code", "label": "Pedir código para transferencia" }
+        ],
+        "default": "code"
       },
       {
-        "type": "checkbox",
-        "id": "transfer_modal_ask_code",
-        "label": "Ofrecer código de descuento",
-        "default": false
+        "type": "text",
+        "id": "transfer_modal_code",
+        "label": "Código para descuento por transferencia",
+        "info": "Solo se usa en el modo \"Pedir código para transferencia\". No distingue mayúsculas."
       }
     ]
   }

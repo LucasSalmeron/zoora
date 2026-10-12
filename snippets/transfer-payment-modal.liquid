@@ -1,16 +1,22 @@
 {% comment %}
-  Opens when the customer presses any checkout button. Controlled by two theme settings (Cart):
-  - transfer_modal_ask_payment: ask how they will pay. "Transferencia" delegates to the Scala
-    Discounts app button (which applies the discount and leaves only the transfer payment
-    method in checkout); the other option continues to the normal checkout. Scala's own
-    buttons are hidden so this modal is the only entry point. Needs Scala on the page.
-  - transfer_modal_ask_code: offer a field to apply a discount code before paying.
-  With neither available, checkout works as usual.
+  Opens when the customer presses any checkout button. The transfer discount itself comes from
+  the Scala Discounts app: its (hidden) button applies the discount and leaves only the transfer
+  payment method in checkout. Mode is set in theme settings (Cart):
+  - payment: ask how they will pay; "Transferencia" goes through Scala, the other option
+    continues to the normal checkout.
+  - code: ask for the code in settings.transfer_modal_code; only with that code can they pay
+    by transfer with the discount. Without it they continue to the normal checkout.
+  If Scala is not on the page, checkout works as usual.
 {% endcomment %}
 
 {%- assign transfer_fallback_percent = 10 -%}
 
-<dialog id="TransferModal" class="transfer-modal" aria-labelledby="TransferModal-Title">
+<dialog
+  id="TransferModal"
+  class="transfer-modal"
+  data-view="{{ settings.transfer_modal_mode }}"
+  aria-labelledby="TransferModal-Title"
+>
   <div class="transfer-modal__content">
     <button type="button" class="transfer-modal__close" data-transfer-close aria-label="Cerrar">
       <svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true">
@@ -23,31 +29,31 @@
       <span data-code-only>¿Tenés un código de descuento?</span>
     </h2>
 
-    {%- if settings.transfer_modal_ask_code -%}
-      <form class="transfer-modal__code" data-transfer-code-form>
-        <label for="TransferModal-Code" class="visually-hidden">Código de descuento</label>
-        <input
-          id="TransferModal-Code"
-          class="transfer-modal__code-input"
-          type="text"
-          name="discount"
-          placeholder="Código de descuento"
-          autocomplete="off"
-          autocapitalize="characters"
-        >
-        <button type="submit" class="transfer-modal__code-button">Aplicar</button>
-      </form>
-      <p class="transfer-modal__code-message" data-transfer-code-message role="status"></p>
-    {%- endif -%}
+    <form class="transfer-modal__code" data-transfer-code-form data-code-only>
+      <label for="TransferModal-Code" class="visually-hidden">Código de descuento</label>
+      <input
+        id="TransferModal-Code"
+        class="transfer-modal__code-input"
+        type="text"
+        name="discount"
+        placeholder="Código de descuento"
+        autocomplete="off"
+        autocapitalize="characters"
+      >
+      <button type="submit" class="transfer-modal__code-button">Aplicar</button>
+    </form>
+    <p class="transfer-modal__code-message" data-transfer-code-message data-code-only role="status"></p>
 
     <button
       type="button"
       class="transfer-modal__option transfer-modal__option--featured"
       data-transfer-choice="transfer"
-      data-payment-only
     >
       <span class="transfer-modal__badge"><span data-transfer-percent>{{ transfer_fallback_percent }}</span>% OFF</span>
-      <span class="transfer-modal__label">Transferencia bancaria</span>
+      <span class="transfer-modal__label">
+        <span data-payment-only>Transferencia bancaria</span>
+        <span data-code-only>Pagar por transferencia</span>
+      </span>
       <span class="transfer-modal__price">
         <s data-transfer-original></s>
         <strong data-transfer-discounted></strong>
@@ -65,14 +71,13 @@
 </dialog>
 
 {% style %}
-  {%- if settings.transfer_modal_ask_payment -%}
-    scala-cart-button {
-      display: none !important;
-    }
-  {%- endif -%}
+  scala-cart-button {
+    display: none !important;
+  }
 
   .transfer-modal[data-view='payment'] [data-code-only],
-  .transfer-modal[data-view='code'] [data-payment-only] {
+  .transfer-modal[data-view='code'] [data-payment-only],
+  .transfer-modal[data-view='code']:not([data-code-valid]) [data-transfer-choice='transfer'] {
     display: none !important;
   }
 
@@ -140,11 +145,6 @@
     cursor: pointer;
   }
 
-  .transfer-modal__code-button[disabled] {
-    opacity: 0.6;
-    cursor: wait;
-  }
-
   .transfer-modal__code-message {
     margin: 6px 0 0;
     font-size: 1.3rem;
@@ -178,8 +178,7 @@
     border-color: rgb(var(--color-foreground));
   }
 
-  .transfer-modal__option--featured,
-  .transfer-modal[data-view='code'] .transfer-modal__option {
+  .transfer-modal__option--featured {
     border: 2px solid rgb(var(--color-foreground));
   }
 
@@ -222,7 +221,7 @@
     const dialog = document.getElementById('TransferModal');
     if (!dialog) return;
 
-    const askPayment = {{ settings.transfer_modal_ask_payment | json }};
+    const transferCode = {{ settings.transfer_modal_code | strip | json }};
     const fallbackPercent = {{ transfer_fallback_percent }};
     const codeForm = dialog.querySelector('[data-transfer-code-form]');
     const codeMessage = dialog.querySelector('[data-transfer-code-message]');
@@ -244,41 +243,26 @@
       return scala && scala.shadowRoot && scala.shadowRoot.querySelector('button[data-trigger]');
     };
 
-    // Which view the modal shows for this button, or null to go straight to checkout.
-    const viewFor = (button) => {
-      if (askPayment && scalaTrigger(button)) return 'payment';
-      return codeForm ? 'code' : null;
-    };
-
-    const fetchCart = () => fetch(window.Shopify.routes.root + 'cart.js').then((response) => response.json());
-
-    const fillPrices = (cart) => {
+    const fillPrices = async () => {
       const percent = discountPercent();
       dialog.querySelector('[data-transfer-percent]').textContent = percent;
+      const cart = await fetch(window.Shopify.routes.root + 'cart.js').then((response) => response.json());
       const discounted = cart.total_price * (1 - percent / 100);
       dialog.querySelector('[data-transfer-original]').textContent = formatMoney(cart.total_price);
       dialog.querySelector('[data-transfer-discounted]').textContent = formatMoney(discounted);
       dialog.querySelector('[data-transfer-full]').textContent = formatMoney(cart.total_price);
     };
 
-    const open = (button, view) => {
+    const open = (button) => {
       pendingButton = button;
-      dialog.dataset.view = view;
       dialog.querySelectorAll('[data-transfer-choice]').forEach((option) => (option.disabled = false));
-      if (codeMessage) codeMessage.textContent = '';
+      delete dialog.dataset.codeValid;
+      codeForm.reset();
+      codeMessage.textContent = '';
       // The cart drawer traps focus inside itself, which would pull focus out of the modal.
       if (typeof removeTrapFocus === 'function') removeTrapFocus();
       dialog.showModal();
-      fetchCart()
-        .then((cart) => {
-          // Pre-fill a code already on the cart, e.g. one applied from an email link.
-          if (codeForm) {
-            const existing = (cart.discount_codes || []).find((discount) => discount.applicable);
-            codeForm.elements.discount.value = existing ? existing.code : '';
-          }
-          fillPrices(cart);
-        })
-        .catch(() => {});
+      fillPrices().catch(() => {});
     };
 
     const close = () => {
@@ -291,12 +275,10 @@
       'click',
       (event) => {
         const button = event.target.closest('button[name="checkout"], input[name="checkout"]');
-        if (!button || bypass || button.disabled) return;
-        const view = viewFor(button);
-        if (!view) return;
+        if (!button || bypass || button.disabled || !scalaTrigger(button)) return;
         event.preventDefault();
         event.stopImmediatePropagation();
-        open(button, view);
+        open(button);
       },
       true
     );
@@ -310,32 +292,18 @@
       close();
     });
 
-    if (codeForm) {
-      codeForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const code = codeForm.elements.discount.value.trim();
-        if (!code) return;
-        const submit = codeForm.querySelector('button[type="submit"]');
-        submit.disabled = true;
-        try {
-          const cart = await fetch(window.Shopify.routes.root + 'cart/update.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ discount: code }),
-          }).then((response) => response.json());
-          const applied = (cart.discount_codes || []).find(
-            (discount) => discount.code.toLowerCase() === code.toLowerCase()
-          );
-          codeMessage.textContent =
-            applied && applied.applicable ? `Código ${applied.code} aplicado.` : 'El código ingresado no existe';
-          fillPrices(cart);
-        } catch (error) {
-          codeMessage.textContent = 'No pudimos aplicar el código. Probá de nuevo.';
-        } finally {
-          submit.disabled = false;
-        }
-      });
-    }
+    codeForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const code = codeForm.elements.discount.value.trim();
+      if (!code) return;
+      if (transferCode && code.toLowerCase() === transferCode.toLowerCase()) {
+        dialog.dataset.codeValid = '';
+        codeMessage.textContent = `Código ${transferCode} aplicado.`;
+      } else {
+        delete dialog.dataset.codeValid;
+        codeMessage.textContent = 'El código ingresado no existe';
+      }
+    });
 
     dialog.querySelectorAll('[data-transfer-choice]').forEach((option) => {
       option.addEventListener('click', () => {
