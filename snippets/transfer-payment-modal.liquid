@@ -326,11 +326,8 @@
           const applied = (cart.discount_codes || []).find(
             (discount) => discount.code.toLowerCase() === code.toLowerCase()
           );
-          // Codes limited to a customer segment can't be checked until the customer enters their email.
           codeMessage.textContent =
-            applied && applied.applicable
-              ? `Código ${applied.code} aplicado.`
-              : 'No pudimos aplicar este código ahora. Si es exclusivo para clientes, se valida cuando ingreses tu mail al pagar.';
+            applied && applied.applicable ? `Código ${applied.code} aplicado.` : 'El código ingresado no existe';
           fillPrices(cart);
         } catch (error) {
           codeMessage.textContent = 'No pudimos aplicar el código. Probá de nuevo.';
