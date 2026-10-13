@@ -1476,7 +1476,7 @@
         "type": "text",
         "id": "transfer_modal_code",
         "label": "Código para descuento por transferencia",
-        "info": "Solo se usa en el modo \"Pedir código para transferencia\". No distingue mayúsculas."
+        "info": "Solo se usa en el modo \"Pedir código para transferencia\". No distingue mayúsculas. Cualquier otro código ingresado en el modal se aplica como código de descuento normal de Shopify."
       }
     ]
   }

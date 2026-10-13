@@ -1,11 +1,14 @@
 {% comment %}
-  Opens when the customer presses any checkout button. The transfer discount itself comes from
-  the Scala Discounts app: its (hidden) button applies the discount and leaves only the transfer
-  payment method in checkout. Mode is set in theme settings (Cart):
+  Opens when the customer presses any checkout button (cart page, cart drawer, cart notification)
+  or the product page "Comprar ahora" button. For "Comprar ahora" the product is added to the cart
+  first, so every path ends in the cart checkout; if the modal is closed, the cart is restored.
+  The transfer discount itself comes from the Scala Discounts app: its (hidden) button applies
+  the discount and leaves only the transfer payment method in checkout. Mode is set in theme
+  settings (Cart):
   - payment: ask how they will pay; "Transferencia" goes through Scala, the other option
     continues to the normal checkout.
-  - code: ask for the code in settings.transfer_modal_code; only with that code can they pay
-    by transfer with the discount. Without it they continue to the normal checkout.
+  - code: ask for a discount code. settings.transfer_modal_code unlocks paying by transfer with
+    the Scala discount; any other code is applied to the cart as a regular Shopify code.
   If Scala is not on the page, checkout works as usual.
 {% endcomment %}
 
@@ -65,7 +68,10 @@
         <span data-payment-only>Tarjeta, Mercado Pago u otros medios</span>
         <span data-code-only>Continuar al pago</span>
       </span>
-      <span class="transfer-modal__price"><span data-transfer-full></span></span>
+      <span class="transfer-modal__price">
+        <s data-transfer-full-original></s>
+        <strong data-transfer-full></strong>
+      </span>
     </button>
   </div>
 </dialog>
@@ -223,12 +229,33 @@
 
     const transferCode = {{ settings.transfer_modal_code | strip | json }};
     const fallbackPercent = {{ transfer_fallback_percent }};
+    const root = window.Shopify.routes.root;
     const codeForm = dialog.querySelector('[data-transfer-code-form]');
     const codeMessage = dialog.querySelector('[data-transfer-code-message]');
+    const options = dialog.querySelectorAll('[data-transfer-choice]');
     let pendingButton = null;
+    // Set when the modal was opened from "Comprar ahora": the cart line it added, undone on close.
+    let addedLine = null;
     let bypass = false;
 
     const formatMoney = (cents) => '$' + Math.round(cents / 100).toLocaleString('es-AR');
+    const sameCode = (a, b) => a.toLowerCase() === b.toLowerCase();
+    const setOptionsDisabled = (disabled) => options.forEach((option) => (option.disabled = disabled));
+
+    // GET without a body; POST of a FormData as is, or of an object as JSON.
+    const request = (path, body) => {
+      const json = body && !(body instanceof FormData);
+      return fetch(root + path, {
+        method: body ? 'POST' : 'GET',
+        headers: json ? { Accept: 'application/json', 'Content-Type': 'application/json' } : { Accept: 'application/json' },
+        body: json ? JSON.stringify(body) : body,
+      }).then((response) => {
+        if (!response.ok) throw new Error(response.status);
+        return response.json();
+      });
+    };
+
+    const appliedCodes = (cart) => (cart.discount_codes || []).filter((discount) => discount.applicable);
 
     // Read the discount from Scala's config so the modal stays in sync with the app.
     const discountPercent = () => {
@@ -237,36 +264,73 @@
       return match ? parseFloat(match[1]) : fallbackPercent;
     };
 
+    // Scala's button next to this checkout button. Without one (e.g. from "Comprar ahora"), use the
+    // one attached to a cart checkout button, like the cart drawer's, which checks out the cart.
     const scalaTrigger = (button) => {
+      const all = [...document.querySelectorAll('scala-cart-button')];
       const scala =
-        button.parentElement.querySelector('scala-cart-button') || document.querySelector('scala-cart-button');
+        (button && button.parentElement.querySelector('scala-cart-button')) ||
+        all.find((element) => element.parentElement.querySelector('[name="checkout"]')) ||
+        all[0];
       return scala && scala.shadowRoot && scala.shadowRoot.querySelector('button[data-trigger]');
     };
 
-    const fillPrices = async () => {
+    const fillPrices = (cart) => {
       const percent = discountPercent();
+      // The transfer price starts from the full price: its discount replaces any regular code.
+      const full = cart.original_total_price;
       dialog.querySelector('[data-transfer-percent]').textContent = percent;
-      const cart = await fetch(window.Shopify.routes.root + 'cart.js').then((response) => response.json());
-      const discounted = cart.total_price * (1 - percent / 100);
-      dialog.querySelector('[data-transfer-original]').textContent = formatMoney(cart.total_price);
-      dialog.querySelector('[data-transfer-discounted]').textContent = formatMoney(discounted);
+      dialog.querySelector('[data-transfer-original]').textContent = formatMoney(full);
+      dialog.querySelector('[data-transfer-discounted]').textContent = formatMoney(full * (1 - percent / 100));
+      dialog.querySelector('[data-transfer-full-original]').textContent =
+        cart.total_price < full ? formatMoney(full) : '';
       dialog.querySelector('[data-transfer-full]').textContent = formatMoney(cart.total_price);
     };
 
-    const open = (button) => {
+    const open = async (button, productForm) => {
       pendingButton = button;
-      dialog.querySelectorAll('[data-transfer-choice]').forEach((option) => (option.disabled = false));
+      addedLine = null;
       delete dialog.dataset.codeValid;
       codeForm.reset();
       codeMessage.textContent = '';
+
+      if (productForm) {
+        const formData = new FormData(productForm);
+        try {
+          const line = await request('cart/add.js', formData);
+          addedLine = { key: line.key, quantity: line.quantity - (Number(formData.get('quantity')) || 1) };
+        } catch (error) {
+          // E.g. no more stock: let "Comprar ahora" handle it as if the modal did not exist.
+          bypass = true;
+          button.click();
+          bypass = false;
+          return;
+        }
+      }
+
+      setOptionsDisabled(true);
       // The cart drawer traps focus inside itself, which would pull focus out of the modal.
       if (typeof removeTrapFocus === 'function') removeTrapFocus();
       dialog.showModal();
-      fillPrices().catch(() => {});
+      try {
+        const cart = await request('cart.js');
+        // Show a code already on the cart, e.g. one applied from an email link.
+        const existing = appliedCodes(cart)[0];
+        if (existing) {
+          codeForm.elements.discount.value = existing.code;
+          codeMessage.textContent = `Código ${existing.code} aplicado.`;
+        }
+        fillPrices(cart);
+      } catch (error) {}
+      setOptionsDisabled(false);
     };
 
     const close = () => {
       dialog.close();
+      if (addedLine) {
+        request('cart/change.js', { id: addedLine.key, quantity: Math.max(addedLine.quantity, 0) }).catch(() => {});
+        addedLine = null;
+      }
       const drawer = pendingButton && pendingButton.closest('cart-drawer.active');
       if (drawer && typeof trapFocus === 'function') trapFocus(document.getElementById('CartDrawer'), pendingButton);
     };
@@ -274,11 +338,16 @@
     document.addEventListener(
       'click',
       (event) => {
-        const button = event.target.closest('button[name="checkout"], input[name="checkout"]');
-        if (!button || bypass || button.disabled || !scalaTrigger(button)) return;
+        if (bypass || !scalaTrigger()) return;
+        const checkout = event.target.closest('button[name="checkout"], input[name="checkout"]');
+        const buyNow = !checkout && event.target.closest('.shopify-payment-button, shopify-buy-it-now-button');
+        const button = checkout || buyNow;
+        if (!button || button.disabled) return;
+        const productForm = buyNow && buyNow.closest('product-form')?.querySelector('form[action*="/cart/add"]');
+        if (buyNow && !productForm) return;
         event.preventDefault();
         event.stopImmediatePropagation();
-        open(button);
+        open(button, productForm);
       },
       true
     );
@@ -292,28 +361,58 @@
       close();
     });
 
-    codeForm.addEventListener('submit', (event) => {
+    codeForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       const code = codeForm.elements.discount.value.trim();
       if (!code) return;
-      if (transferCode && code.toLowerCase() === transferCode.toLowerCase()) {
+
+      if (transferCode && sameCode(code, transferCode)) {
         dialog.dataset.codeValid = '';
         codeMessage.textContent = `Código ${transferCode} aplicado.`;
-      } else {
-        delete dialog.dataset.codeValid;
-        codeMessage.textContent = 'El código ingresado no existe';
+        return;
+      }
+
+      // Any other code is a regular Shopify code, valid with every payment method.
+      delete dialog.dataset.codeValid;
+      const submit = codeForm.querySelector('button[type="submit"]');
+      submit.disabled = true;
+      setOptionsDisabled(true);
+      try {
+        const previous = appliedCodes(await request('cart.js')).map((discount) => discount.code);
+        let cart = await request('cart/update.js', { discount: code });
+        const applied = appliedCodes(cart).find((discount) => sameCode(discount.code, code));
+        if (applied) {
+          codeMessage.textContent = `Código ${applied.code} aplicado.`;
+        } else {
+          codeMessage.textContent = 'El código ingresado no existe';
+          // Put back the code that was there, so a typo does not remove a valid one.
+          cart = await request('cart/update.js', { discount: previous.join(',') });
+        }
+        fillPrices(cart);
+      } catch (error) {
+        codeMessage.textContent = 'No pudimos aplicar el código. Probá de nuevo.';
+      } finally {
+        submit.disabled = false;
+        setOptionsDisabled(false);
       }
     });
 
-    dialog.querySelectorAll('[data-transfer-choice]').forEach((option) => {
-      option.addEventListener('click', () => {
+    options.forEach((option) => {
+      option.addEventListener('click', async () => {
         if (option.dataset.transferChoice === 'transfer') {
+          setOptionsDisabled(true);
+          // The transfer discount replaces any regular code instead of stacking with it.
+          await request('cart/update.js', { discount: '' }).catch(() => {});
           // Scala navigates to checkout once it has stored the discount on the cart.
-          dialog.querySelectorAll('[data-transfer-choice]').forEach((other) => (other.disabled = true));
-          scalaTrigger(pendingButton).click();
+          scalaTrigger(addedLine ? null : pendingButton).click();
           return;
         }
         dialog.close();
+        if (addedLine) {
+          // Opened from "Comprar ahora": the product is in the cart now, so check out the cart.
+          window.location.href = root + 'checkout';
+          return;
+        }
         bypass = true;
         pendingButton.click();
         bypass = false;
