@@ -259,7 +259,10 @@
 
     // Read the discount from Scala's config so the modal stays in sync with the app.
     const discountPercent = () => {
-      const config = document.querySelector('#scala-button-restrict script[data-kind="config"]');
+      // Scala renders the config inside a <template>, whose content is not part of the document.
+      const restrict = document.getElementById('scala-button-restrict');
+      const scope = restrict && (restrict.content || restrict);
+      const config = scope && scope.querySelector('script[data-kind="config"]');
       const match = config && config.textContent.match(/"discountValue"=>(\d+(?:\.\d+)?)/);
       return match ? parseFloat(match[1]) : fallbackPercent;
     };
