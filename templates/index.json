@@ -12,17 +12,6 @@
     "slideshow": {
       "type": "slideshow",
       "blocks": {
-        "slide_QDycLE": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/Promocion_Dia_de_la_Madre_con_peluches_y_detalles_tiernos_1.png",
-            "image_mobile": "shopify://shop_images/Promocion_Dia_de_la_Madre_Zoora.png",
-            "image_position_x": "center",
-            "image_position_y": "center",
-            "link": "",
-            "image_overlay_opacity": 0
-          }
-        },
         "slide_EXYJ9G": {
           "type": "slide",
           "settings": {
@@ -31,6 +20,17 @@
             "image_position_x": "center",
             "image_position_y": "center",
             "link": "shopify://collections/figuras",
+            "image_overlay_opacity": 0
+          }
+        },
+        "slide_QDycLE": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Promocion_Dia_de_la_Madre_con_peluches_y_detalles_tiernos_1.png",
+            "image_mobile": "shopify://shop_images/Promocion_Dia_de_la_Madre_Zoora.png",
+            "image_position_x": "center",
+            "image_position_y": "center",
+            "link": "",
             "image_overlay_opacity": 0
           }
         },
@@ -70,8 +70,8 @@
         }
       },
       "block_order": [
-        "slide_QDycLE",
         "slide_EXYJ9G",
+        "slide_QDycLE",
         "slide_fTHrMn",
         "slide_79A9aX",
         "slide_2"
