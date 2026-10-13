@@ -12,6 +12,17 @@
     "slideshow": {
       "type": "slideshow",
       "blocks": {
+        "slide_QDycLE": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Promocion_Dia_de_la_Madre_con_peluches_y_detalles_tiernos_1.png",
+            "image_mobile": "shopify://shop_images/Promocion_Dia_de_la_Madre_Zoora.png",
+            "image_position_x": "center",
+            "image_position_y": "center",
+            "link": "",
+            "image_overlay_opacity": 0
+          }
+        },
         "slide_EXYJ9G": {
           "type": "slide",
           "settings": {
@@ -20,18 +31,6 @@
             "image_position_x": "center",
             "image_position_y": "center",
             "link": "shopify://collections/figuras",
-            "image_overlay_opacity": 0
-          }
-        },
-        "slide_QDycLE": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_17_sept_2026_15_25_23.png",
-            "image_mobile": "shopify://shop_images/ChatGPT_Image_17_sept_2026_15_27_38.png",
-            "image_position_x": "center",
-            "image_position_y": "center",
-            "link": "",
             "image_overlay_opacity": 0
           }
         },
@@ -59,6 +58,7 @@
         },
         "slide_2": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/5694d5d1-2ff7-461a-94a3-fb69fddad41e_1_700cf206-2e14-4c76-bc9a-069aec9e3cb5.png",
             "image_mobile": "shopify://shop_images/8137e7ef-f094-40a2-9f1f-f415f8806054.png",
@@ -70,8 +70,8 @@
         }
       },
       "block_order": [
-        "slide_EXYJ9G",
         "slide_QDycLE",
+        "slide_EXYJ9G",
         "slide_fTHrMn",
         "slide_79A9aX",
         "slide_2"
