@@ -4,8 +4,27 @@ if (!customElements.get('back-in-stock')) {
     class BackInStock extends HTMLElement {
       constructor() {
         super();
-        // Listen on the element, not the form: product-info.js swaps the form when the variant changes.
+        // Listen on the element, not its children: product-info.js swaps them when the variant changes.
+        this.addEventListener('click', this.onClick.bind(this));
         this.addEventListener('submit', this.onSubmit.bind(this));
+      }
+
+      connectedCallback() {
+        // Back from a regular post (e.g. after a captcha): show the confirmation.
+        if (this.querySelector('[data-back-in-stock-posted]') && !this.dialog.open) this.dialog.showModal();
+      }
+
+      get dialog() {
+        return this.querySelector('dialog');
+      }
+
+      onClick(event) {
+        if (event.target.closest('.back-in-stock__open')) {
+          this.dialog.showModal();
+        } else if (event.target === this.dialog || event.target.closest('[data-back-in-stock-close]')) {
+          // A click on the dialog itself is a click on the backdrop.
+          this.dialog.close();
+        }
       }
 
       async onSubmit(event) {
