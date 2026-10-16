@@ -1,0 +1,71 @@
+{% comment %}
+  Renders the "Avisame cuando vuelva" form when the selected variant is sold out.
+  It's a regular Shopify contact form, so each request arrives as a contact email
+  with the product, variant and SKU. The wrapper is always rendered so product-info.js
+  can swap its content when the variant changes.
+
+  Accepts:
+  - product: {Object} product object.
+
+  Usage:
+  {% render 'back-in-stock', product: product %}
+{% endcomment %}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign form_id = 'BackInStockForm-' | append: section.id
+  assign sold_out = false
+  if variant and variant.available == false
+    assign sold_out = true
+  endif
+-%}
+
+{{ 'component-back-in-stock.css' | asset_url | stylesheet_tag }}
+
+<back-in-stock id="Back-In-Stock-{{ section.id }}" class="back-in-stock quick-add-hidden">
+  {%- form 'contact', id: form_id, class: 'back-in-stock__form' -%}
+    {%- if sold_out or form.posted_successfully? -%}
+      <div class="back-in-stock__fields{% if form.posted_successfully? %} hidden{% endif %}">
+        <p class="back-in-stock__title">¿Querés que te avisemos cuando vuelva?</p>
+        <p class="back-in-stock__text">
+          Dejanos tu email y te escribimos cuando vuelva a haber stock
+          {%- unless product.has_only_default_variant %} de {{ variant.title | escape }}{% endunless %}.
+        </p>
+
+        <input type="hidden" name="contact[body]" value="Quiero que me avisen cuando vuelva a haber stock.">
+        <input type="hidden" name="contact[Producto]" value="{{ product.title | escape }}">
+        {%- unless product.has_only_default_variant -%}
+          <input type="hidden" name="contact[Variante]" value="{{ variant.title | escape }}">
+        {%- endunless -%}
+        {%- if variant.sku != blank -%}
+          <input type="hidden" name="contact[SKU]" value="{{ variant.sku | escape }}">
+        {%- endif -%}
+
+        <div class="field">
+          <input
+            class="field__input"
+            type="email"
+            id="{{ form_id }}-email"
+            name="contact[email]"
+            value="{{ customer.email }}"
+            autocomplete="email"
+            autocapitalize="off"
+            spellcheck="false"
+            placeholder="Email"
+            required
+          >
+          <label class="field__label" for="{{ form_id }}-email">Email</label>
+        </div>
+        <button type="submit" class="button button--full-width button--primary">
+          <span>Avisame</span>
+          {%- render 'loading-spinner' -%}
+        </button>
+        <p class="back-in-stock__error hidden" role="alert">No pudimos guardar tu email. Probá de nuevo.</p>
+      </div>
+      <p class="back-in-stock__success{% unless form.posted_successfully? %} hidden{% endunless %}" role="status">
+        ¡Listo! Te vamos a avisar por email cuando vuelva a haber stock.
+      </p>
+    {%- endif -%}
+  {%- endform -%}
+</back-in-stock>
+
+<script src="{{ 'back-in-stock.js' | asset_url }}" defer="defer"></script>

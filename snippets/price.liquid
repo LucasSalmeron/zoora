@@ -148,7 +148,7 @@
         {{ 'products.product.sold_out' | t }}
       </span>
     {%- endif -%}
-    {%- if price > 0 -%}
+    {%- if price > 0 and available -%}
       <div class="price__installments">
         {{ installments_count }} cuotas sin interés de {{ installment_amount | money }}
       </div>

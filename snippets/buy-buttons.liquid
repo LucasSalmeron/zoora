@@ -71,6 +71,7 @@
             endif
           -%}
           {%- liquid
+            assign add_to_cart_text = 'Agregar a tu pedido'
             if button_style == 'outline'
               assign btn_modifier = 'button--secondary'
             elsif button_style == 'solid'
@@ -86,6 +87,7 @@
             type="submit"
             name="add"
             class="product-form__submit button button--full-width {{ btn_modifier }}"
+            data-add-to-cart-text="{{ add_to_cart_text }}"
             {% if product.selected_or_first_available_variant.available == false
               or quantity_rule_soldout
               or product.selected_or_first_available_variant == null
@@ -99,7 +101,7 @@
               {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
                 {{ 'products.product.sold_out' | t }}
               {%- else -%}
-                Agregar a tu pedido
+                {{ add_to_cart_text }}
               {%- endif -%}
             </span>
             {%- render 'loading-spinner' -%}
@@ -110,6 +112,8 @@
         </div>
       {%- endform -%}
     </product-form>
+
+    {%- render 'back-in-stock', product: product -%}
   {%- else -%}
     <div class="product-form">
       <div class="product-form__buttons form">

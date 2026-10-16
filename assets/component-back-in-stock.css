@@ -1,0 +1,38 @@
+.back-in-stock {
+  display: block;
+  max-width: 44rem;
+}
+
+.back-in-stock__fields,
+.back-in-stock__success {
+  margin-top: 1.5rem;
+}
+
+.back-in-stock__title {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 0.06rem;
+}
+
+.back-in-stock__text {
+  margin: 0.4rem 0 1.2rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.04rem;
+  line-height: calc(1 + 0.4 / var(--font-body-scale));
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.back-in-stock .field {
+  margin-bottom: 1rem;
+}
+
+.back-in-stock__error {
+  margin: 0.8rem 0 0;
+  font-size: 1.3rem;
+}
+
+.back-in-stock__success {
+  margin-bottom: 0;
+  font-size: 1.4rem;
+  letter-spacing: 0.04rem;
+}

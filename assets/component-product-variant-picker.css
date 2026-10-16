@@ -114,13 +114,24 @@ variant-selects {
 
 .product-form__input--pill input[type='radio']:disabled + label,
 .product-form__input--pill input[type='radio'].disabled + label {
-  border-color: rgba(var(--color-foreground), 0.1);
-  color: rgba(var(--color-foreground), 0.6);
-  text-decoration: line-through;
+  --pill-cross-color: rgba(var(--color-foreground), 0.35);
+  border-style: dashed;
+  border-color: rgba(var(--color-foreground), 0.35);
+  color: rgba(var(--color-foreground), 0.5);
+  background-image: linear-gradient(
+    to top left,
+    transparent calc(50% - 0.05rem),
+    var(--pill-cross-color) calc(50% - 0.05rem),
+    var(--pill-cross-color) calc(50% + 0.05rem),
+    transparent calc(50% + 0.05rem)
+  );
 }
 
 .product-form__input--pill input[type='radio'].disabled:checked + label,
 .product-form__input--pill input[type='radio']:disabled:checked + label {
+  --pill-cross-color: rgba(var(--color-background), 0.5);
+  border-style: solid;
+  border-color: rgb(var(--color-foreground));
   color: rgba(var(--color-background), 0.6);
 }
 .product-form__input--pill input[type='radio']:focus-visible + label {

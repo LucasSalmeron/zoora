@@ -296,6 +296,10 @@
   width: 100%;
 }
 
+.card--sold-out .card__media {
+  opacity: 0.5;
+}
+
 .card__inner:not(.ratio) > .card__content {
   height: 100%;
 }

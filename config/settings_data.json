@@ -442,7 +442,7 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".badge--sale,.badge[data-badge-type=\"sale\"],.product__badge--sale,.card__badge .badge {display: none !important;}",
+      ".badge--sale,.badge[data-badge-type=\"sale\"],.product__badge--sale {display: none !important;}",
       ".price__badge-sale {display: none !important;}"
     ]
   }
