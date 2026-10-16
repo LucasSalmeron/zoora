@@ -1,11 +1,17 @@
 {% comment %}
-  When the selected variant is sold out, renders an "Avisame cuando vuelva" button that takes the
-  place of the buy buttons and opens a modal with the email form. It's a regular Shopify contact
-  form, so each request arrives as a contact email with the product, variant and SKU.
-  The wrapper is always rendered so product-info.js can swap its content when the variant changes.
+  When the variant is sold out, renders an "Avisame cuando vuelva" button that opens a modal with
+  the email form. It's a regular Shopify contact form, so each request arrives as a contact email
+  with the product, variant and SKU.
+  - Product page: the button takes the place of the buy buttons for the selected variant. The
+    wrapper is always rendered so product-info.js can swap its content when the variant changes.
+  - Product card (card: true): only rendered for sold-out products; the customer picks the variant
+    in the modal.
 
   Accepts:
   - product: {Object} product object.
+  - id: {String} unique id for this form on the page. Default: section.id (optional)
+  - card: {Boolean} rendered in a product card. Default: false (optional)
+  - button_class: {String} classes for the "Avisame cuando vuelva" button (optional)
 
   Usage:
   {% render 'back-in-stock', product: product %}
@@ -13,22 +19,40 @@
 {%- liquid
   assign variant = product.selected_or_first_available_variant
   assign form_id = 'BackInStockForm-' | append: section.id
+  if id != blank
+    assign form_id = 'BackInStockForm-' | append: id
+  endif
   assign sold_out = false
   if variant and variant.available == false
     assign sold_out = true
+  endif
+  assign pick_variant = false
+  if card and product.has_only_default_variant == false
+    assign pick_variant = true
   endif
 -%}
 
 {{ 'component-back-in-stock.css' | asset_url | stylesheet_tag }}
 
-<back-in-stock id="Back-In-Stock-{{ section.id }}" class="back-in-stock quick-add-hidden">
+<back-in-stock
+  {% unless card %}
+    id="Back-In-Stock-{{ section.id }}"
+  {% endunless %}
+  class="back-in-stock{% if card %} back-in-stock--card{% else %} quick-add-hidden{% endif %}"
+>
   {%- if sold_out -%}
     <button
       type="button"
-      class="back-in-stock__open button button--full-width button--primary"
+      class="back-in-stock__open {{ button_class | default: 'button button--full-width button--primary' }}"
       aria-haspopup="dialog"
     >
-      Avisame cuando vuelva
+      {%- if card -%}
+        {%- comment -%}Shorter label on phones so it fits the card in one line.{%- endcomment -%}
+        <span class="small-hide">Avisame cuando vuelva</span>
+        <span class="medium-hide large-up-hide">¿Cuándo vuelve?</span>
+      {%- else -%}
+        Avisame cuando vuelva
+      {%- endif -%}
     </button>
   {%- endif -%}
 
@@ -40,23 +64,57 @@
         </svg>
       </button>
 
+      <h2 id="{{ form_id }}-title" class="back-in-stock__title">Avisame cuando vuelva</h2>
+
       {%- form 'contact', id: form_id, class: 'back-in-stock__form' -%}
-        {%- if sold_out or form.posted_successfully? -%}
-          <div class="back-in-stock__fields{% if form.posted_successfully? %} hidden{% endif %}">
-            <h2 id="{{ form_id }}-title" class="back-in-stock__title">Avisame cuando vuelva</h2>
+        {%- if sold_out -%}
+          <div class="back-in-stock__fields">
             <p class="back-in-stock__text">
               Dejanos tu email y te escribimos cuando vuelva a haber stock de
               {{ product.title | escape -}}
-              {%- unless product.has_only_default_variant %} ({{ variant.title | escape }}){% endunless %}.
+              {%- unless product.has_only_default_variant or pick_variant %} ({{ variant.title | escape }}){% endunless %}.
             </p>
 
             <input type="hidden" name="contact[body]" value="Quiero que me avisen cuando vuelva a haber stock.">
             <input type="hidden" name="contact[Producto]" value="{{ product.title | escape }}">
-            {%- unless product.has_only_default_variant -%}
-              <input type="hidden" name="contact[Variante]" value="{{ variant.title | escape }}">
-            {%- endunless -%}
-            {%- if variant.sku != blank -%}
-              <input type="hidden" name="contact[SKU]" value="{{ variant.sku | escape }}">
+            {%- if pick_variant -%}
+              {%- liquid
+                assign variant_label = 'Variante'
+                assign variant_placeholder = 'Elegí una opción'
+                if product.options.size == 1
+                  assign variant_label = product.options.first
+                  assign variant_placeholder = variant_label | downcase | prepend: 'Elegí tu '
+                endif
+              -%}
+              <div class="back-in-stock__variant">
+                <label class="form__label" for="{{ form_id }}-variant">{{ variant_label | escape }}</label>
+                <div class="select">
+                  <select
+                    class="select__select"
+                    id="{{ form_id }}-variant"
+                    name="contact[Variante]"
+                    required
+                    autofocus
+                  >
+                    <option value="" disabled selected>{{ variant_placeholder | escape }}</option>
+                    {%- for option_variant in product.variants -%}
+                      <option value="{{ option_variant.title | escape }}{% if option_variant.sku != blank %} (SKU {{ option_variant.sku | escape }}){% endif %}">
+                        {{- option_variant.title | escape -}}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                  <span class="svg-wrapper">
+                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                  </span>
+                </div>
+              </div>
+            {%- else -%}
+              {%- unless product.has_only_default_variant -%}
+                <input type="hidden" name="contact[Variante]" value="{{ variant.title | escape }}">
+              {%- endunless -%}
+              {%- if variant.sku != blank -%}
+                <input type="hidden" name="contact[SKU]" value="{{ variant.sku | escape }}">
+              {%- endif -%}
             {%- endif -%}
 
             <div class="field">
@@ -71,7 +129,9 @@
                 spellcheck="false"
                 placeholder="Email"
                 required
-                autofocus
+                {% unless pick_variant %}
+                  autofocus
+                {% endunless %}
               >
               <label class="field__label" for="{{ form_id }}-email">Email</label>
             </div>
@@ -81,16 +141,10 @@
             </button>
             <p class="back-in-stock__error hidden" role="alert">No pudimos guardar tu email. Probá de nuevo.</p>
           </div>
-          <p
-            class="back-in-stock__success{% unless form.posted_successfully? %} hidden{% endunless %}"
-            role="status"
-            {% if form.posted_successfully? %}
-              data-back-in-stock-posted
-            {% endif %}
-          >
-            ¡Listo! Te vamos a avisar por email cuando vuelva a haber stock.
-          </p>
         {%- endif -%}
+        <p class="back-in-stock__success hidden" role="status">
+          ¡Listo! Te vamos a avisar por email cuando vuelva a haber stock.
+        </p>
       {%- endform -%}
     </div>
   </dialog>

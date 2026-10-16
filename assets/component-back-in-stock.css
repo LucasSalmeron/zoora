@@ -13,6 +13,11 @@ product-form:not(quick-add-modal *):has(~ back-in-stock:not(.hidden) .back-in-st
   margin-bottom: 1rem;
 }
 
+.back-in-stock--card .back-in-stock__open {
+  margin-bottom: 0;
+}
+
+/* text-align resets what the dialog inherits from the product card. */
 .back-in-stock__dialog {
   width: calc(100% - 32px);
   max-width: 440px;
@@ -21,6 +26,7 @@ product-form:not(quick-add-modal *):has(~ back-in-stock:not(.hidden) .back-in-st
   border-radius: 8px;
   background: rgb(var(--color-background));
   color: rgb(var(--color-foreground));
+  text-align: left;
 }
 
 .back-in-stock__dialog::backdrop {
@@ -58,6 +64,7 @@ product-form:not(quick-add-modal *):has(~ back-in-stock:not(.hidden) .back-in-st
   color: rgba(var(--color-foreground), 0.75);
 }
 
+.back-in-stock__variant,
 .back-in-stock .field {
   margin-bottom: 12px;
 }

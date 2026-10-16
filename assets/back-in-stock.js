@@ -10,8 +10,14 @@ if (!customElements.get('back-in-stock')) {
       }
 
       connectedCallback() {
-        // Back from a regular post (e.g. after a captcha): show the confirmation.
-        if (this.querySelector('[data-back-in-stock-posted]') && !this.dialog.open) this.dialog.showModal();
+        // Back from a regular post (e.g. after a captcha): Shopify returns to the page with
+        // ?contact_posted=true and the form id as the hash, so only that form shows the confirmation.
+        const form = this.querySelector('form');
+        const posted = new URLSearchParams(window.location.search).get('contact_posted') === 'true';
+        if (posted && window.location.hash === `#${form.id}` && !this.dialog.open) {
+          this.showSuccess();
+          this.dialog.showModal();
+        }
       }
 
       get dialog() {
@@ -51,14 +57,18 @@ if (!customElements.get('back-in-stock')) {
             throw new Error(`Back in stock request failed (${response.status})`);
           }
 
-          this.querySelector('.back-in-stock__fields').classList.add('hidden');
-          this.querySelector('.back-in-stock__success').classList.remove('hidden');
+          this.showSuccess();
         } catch (error) {
           console.error(error);
           this.querySelector('.back-in-stock__error').classList.remove('hidden');
         } finally {
           this.toggleLoading(button, false);
         }
+      }
+
+      showSuccess() {
+        this.querySelector('.back-in-stock__fields')?.classList.add('hidden');
+        this.querySelector('.back-in-stock__success').classList.remove('hidden');
       }
 
       toggleLoading(button, loading) {
