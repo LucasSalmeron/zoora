@@ -25,6 +25,7 @@
         },
         "slide_QDycLE": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Promocion_Dia_de_la_Madre_con_peluches_y_detalles_tiernos_1.png",
             "image_mobile": "shopify://shop_images/Promocion_Dia_de_la_Madre_Zoora.png",
