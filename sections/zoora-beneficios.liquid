@@ -44,6 +44,27 @@
                   | image_url: width: 110
                   | image_tag: loading: 'lazy', widths: '55, 110', alt: block.settings.title
                 }}
+              {%- elsif block.settings.icon != blank and block.settings.icon != 'none' -%}
+                <svg class="zoora-beneficio-item__icon-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  {%- case block.settings.icon -%}
+                    {%- when 'lock' -%}
+                      <rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2"/>
+                    {%- when 'truck' -%}
+                      <path d="M2.5 6.5h11v9h-11z"/><path d="M13.5 9.5h4l3 3.5v2.5h-7"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>
+                    {%- when 'store' -%}
+                      <path d="M4 10v10h16V10"/><path d="M3 10l1.5-5.5h15L21 10z"/><path d="M3 10a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M10 20v-5h4v5"/>
+                    {%- when 'return' -%}
+                      <path d="M4 9h11a5 5 0 0 1 0 10H8"/><path d="M8 5L4 9l4 4"/>
+                    {%- when 'card' -%}
+                      <rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 9.5h19"/><path d="M6 15h4"/>
+                    {%- when 'gift' -%}
+                      <rect x="3.5" y="9" width="17" height="4" rx="1"/><path d="M5 13v7.5h14V13"/><path d="M12 9v11.5"/><path d="M12 9c-1.5-3.5-5.5-4-5.5-1.5S10 9 12 9zM12 9c1.5-3.5 5.5-4 5.5-1.5S14 9 12 9z"/>
+                    {%- when 'heart' -%}
+                      <path d="M12 20s-7.5-4.5-7.5-10A4.2 4.2 0 0 1 12 7.5 4.2 4.2 0 0 1 19.5 10c0 5.5-7.5 10-7.5 10z"/>
+                    {%- when 'chat' -%}
+                      <path d="M4 5.5h16v10H9l-5 4z"/><path d="M8 10h8"/>
+                  {%- endcase -%}
+                </svg>
               {%- elsif block.settings.emoji != blank -%}
                 <span class="zoora-beneficio-item__icon-emoji" aria-hidden="true">
                   {{- block.settings.emoji -}}
@@ -132,10 +153,28 @@
           "label": "Ícono (imagen PNG/SVG)"
         },
         {
+          "type": "select",
+          "id": "icon",
+          "label": "Ícono",
+          "info": "Se usa si no se sube una imagen",
+          "options": [
+            { "value": "none", "label": "Ninguno (usar emoji)" },
+            { "value": "lock", "label": "Candado (compra segura)" },
+            { "value": "truck", "label": "Camión (envío)" },
+            { "value": "store", "label": "Local (retiro)" },
+            { "value": "return", "label": "Flecha (cambios)" },
+            { "value": "card", "label": "Tarjeta (cuotas)" },
+            { "value": "gift", "label": "Regalo" },
+            { "value": "heart", "label": "Corazón" },
+            { "value": "chat", "label": "Mensaje (atención)" }
+          ],
+          "default": "none"
+        },
+        {
           "type": "text",
           "id": "emoji",
           "label": "Ícono (emoji)",
-          "info": "Se usa solo si no se sube una imagen",
+          "info": "Se usa solo si no hay imagen ni ícono",
           "default": "✓"
         },
         {
@@ -160,31 +199,31 @@
         {
           "type": "beneficio",
           "settings": {
-            "emoji": "🔒",
+            "icon": "lock",
             "title": "Compra segura",
-            "text": "Tus datos y pagos siempre protegidos."
+            "text": "Pagás con Mercado Pago y tus datos están siempre protegidos."
           }
         },
         {
           "type": "beneficio",
           "settings": {
-            "emoji": "🚚",
+            "icon": "truck",
             "title": "Envío gratis",
-            "text": "En compras a partir de cierto monto."
+            "text": "A todo el país, en todas tus compras."
           }
         },
         {
           "type": "beneficio",
           "settings": {
-            "emoji": "🛡️",
-            "title": "Datos protegidos",
-            "text": "Tu privacidad es nuestra prioridad."
+            "icon": "store",
+            "title": "Retiro en Palermo Soho",
+            "text": "Sin cargo, normalmente listo en 24 horas."
           }
         },
         {
           "type": "beneficio",
           "settings": {
-            "emoji": "↩️",
+            "icon": "return",
             "title": "Cambios y devoluciones",
             "text": "Política flexible para tu tranquilidad."
           }

@@ -88,6 +88,9 @@
         role="list"
       >
         {%- for block in section.blocks -%}
+          {%- if section.settings.hide_sold_out and block.settings.product != blank and block.settings.product.available == false and request.design_mode == false -%}
+            {%- continue -%}
+          {%- endif -%}
           <li
             class="grid__item slider__slide"
             id="Slide-{{ section.id }}-{{ forloop.index }}"
@@ -203,6 +206,13 @@
       "type": "checkbox",
       "id": "show_secondary_image",
       "label": "Segunda imagen al pasar el mouse",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_sold_out",
+      "label": "Ocultar productos agotados",
+      "info": "Vuelven a aparecer solos cuando haya stock. En el editor siempre se ven.",
       "default": true
     },
     {

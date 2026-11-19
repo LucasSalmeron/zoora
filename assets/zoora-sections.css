@@ -1037,3 +1037,9 @@
   opacity: 0.78;
   line-height: 1.2;
 }
+
+.zoora-beneficio-item__icon-svg {
+  width: 4rem;
+  height: 4rem;
+  color: rgb(var(--color-foreground));
+}

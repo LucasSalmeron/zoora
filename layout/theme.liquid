@@ -15,6 +15,22 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
+    {%- liquid
+      comment
+        Home page: when the title or description are empty in Online Store > Preferences, use the ones
+        from Theme settings > SEO de la página de inicio.
+      endcomment
+      assign meta_description = page_description | default: shop.description
+      if request.page_type == 'index'
+        if page_title == shop.name and settings.home_seo_title != blank
+          assign page_title = settings.home_seo_title
+        endif
+        if page_description == blank and settings.home_seo_description != blank
+          assign meta_description = settings.home_seo_description
+        endif
+      endif
+    -%}
+
     <title>
       {{ page_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
@@ -22,12 +38,11 @@
       {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
     </title>
 
-    {%- assign meta_description = page_description | default: shop.description -%}
     {%- if meta_description != blank -%}
       <meta name="description" content="{{ meta_description | escape }}">
     {%- endif -%}
 
-    {% render 'meta-tags' %}
+    {% render 'meta-tags', page_title: page_title, page_description: meta_description %}
 
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>

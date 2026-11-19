@@ -29,6 +29,7 @@
     data-section-id="{{ section.id }}"
     data-delay="{{ section.settings.delay }}"
     data-hide-days="{{ section.settings.hide_days }}"
+    data-after-scroll="{{ section.settings.open_after_scroll }}"
     data-state="signup"
   >
     <button type="button" class="newsletter-popup__close" data-newsletter-close aria-label="{{ 'accessibility.close' | t }}">
@@ -436,7 +437,24 @@
         if (busy) setTimeout(openWhenFree, 3000);
         else open();
       };
-      setTimeout(openWhenFree, delay);
+      // Wait for the delay and, if set, for the visitor to scroll about half a screen, so the popup
+      // does not cover the store before they have looked at it.
+      let waited = false;
+      let scrolled = dialog.dataset.afterScroll !== 'true';
+      const tryOpen = () => waited && scrolled && openWhenFree();
+      if (!scrolled) {
+        const onScroll = () => {
+          if (window.scrollY < window.innerHeight * 0.5) return;
+          window.removeEventListener('scroll', onScroll);
+          scrolled = true;
+          tryOpen();
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+      setTimeout(() => {
+        waited = true;
+        tryOpen();
+      }, delay);
     })();
   </script>
 {%- endif -%}
@@ -452,7 +470,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Se abre al entrar a la tienda. En el editor solo se ve mientras esta sección está seleccionada. Para desactivarlo, ocultá la sección."
+      "content": "Se abre unos segundos después de entrar a la tienda. En el editor solo se ve mientras esta sección está seleccionada. Para desactivarlo, ocultá la sección."
     },
     {
       "type": "image_picker",
@@ -512,7 +530,14 @@
       "max": 30,
       "step": 1,
       "unit": "s",
-      "default": 3
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "open_after_scroll",
+      "label": "Esperar a que el visitante haga scroll",
+      "info": "Se abre recién cuando pasaron los segundos y además bajó al menos media pantalla.",
+      "default": true
     },
     {
       "type": "range",

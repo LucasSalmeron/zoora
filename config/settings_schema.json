@@ -1479,5 +1479,70 @@
         "info": "Solo se usa en el modo \"Pedir código para transferencia\". No distingue mayúsculas. Cualquier otro código ingresado en el modal se aplica como código de descuento normal de Shopify."
       }
     ]
+  },
+  {
+    "name": "Cuotas y envío",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Lo que se muestra debajo del precio en productos y tarjetas. Mantenelo igual que los mensajes de la barra de anuncios."
+      },
+      {
+        "type": "checkbox",
+        "id": "installments_enabled",
+        "label": "Mostrar cuotas sin interés",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "installments_min_3",
+        "label": "3 cuotas desde (en $)",
+        "info": "Precio mínimo para mostrar 3 cuotas sin interés. 0 = en todos los productos.",
+        "default": 300000
+      },
+      {
+        "type": "number",
+        "id": "installments_min_6",
+        "label": "6 cuotas desde (en $)",
+        "info": "Precio mínimo para mostrar 6 cuotas sin interés. 0 = no ofrecer 6 cuotas.",
+        "default": 500000
+      },
+      {
+        "type": "text",
+        "id": "shipping_label",
+        "label": "Texto de envío",
+        "info": "Vacío = no mostrar nada.",
+        "default": "ENVÍO GRATIS A TODO EL PAÍS"
+      }
+    ]
+  },
+  {
+    "name": "SEO de la página de inicio",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Se usan solo si el título y la meta descripción de la página de inicio están vacíos en Tienda online > Preferencias."
+      },
+      {
+        "type": "text",
+        "id": "home_seo_title",
+        "label": "Título",
+        "info": "Lo que aparece en Google y en la pestaña. Ideal: hasta 60 caracteres.",
+        "default": "Zoora | Objetos de diseño y decoración con alma animal"
+      },
+      {
+        "type": "textarea",
+        "id": "home_seo_description",
+        "label": "Meta descripción",
+        "info": "El texto debajo del título en Google. Ideal: 140 a 160 caracteres.",
+        "default": "Figuras, almohadones, puf, bibliotecas y carteras con diseño animal. Objetos únicos para decorar y regalar. Envío gratis a todo el país."
+      },
+      {
+        "type": "image_picker",
+        "id": "home_share_image",
+        "label": "Imagen al compartir la tienda",
+        "info": "La que se ve al pasar el link en WhatsApp, Instagram o Facebook. Se recorta a 1200 × 628 px. Si está vacía se usa la de Preferencias."
+      }
+    ]
   }
 ]

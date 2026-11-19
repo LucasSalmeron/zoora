@@ -241,7 +241,7 @@
         "prod_4"
       ],
       "settings": {
-        "title": "Especialmente para vos",
+        "title": "Destacados",
         "heading_size": "h1",
         "columns_desktop": 5,
         "columns_mobile": "1",
@@ -400,31 +400,35 @@
         "ben_1": {
           "type": "beneficio",
           "settings": {
-            "emoji": "🔒",
+            "icon": "lock",
+            "emoji": "",
             "title": "Compra segura",
-            "text": "Tus datos y pagos siempre protegidos."
+            "text": "Pagás con Mercado Pago y tus datos están siempre protegidos."
           }
         },
         "ben_2": {
           "type": "beneficio",
           "settings": {
-            "emoji": "🚚",
+            "icon": "truck",
+            "emoji": "",
             "title": "Envío gratis",
-            "text": "En compras a partir de cierto monto."
+            "text": "A todo el país, en todas tus compras."
           }
         },
         "ben_3": {
           "type": "beneficio",
           "settings": {
-            "emoji": "🛡️",
-            "title": "Datos protegidos",
-            "text": "Tu privacidad es nuestra prioridad."
+            "icon": "store",
+            "emoji": "",
+            "title": "Retiro en Palermo Soho",
+            "text": "Sin cargo, normalmente listo en 24 horas."
           }
         },
         "ben_4": {
           "type": "beneficio",
           "settings": {
-            "emoji": "↩️",
+            "icon": "return",
+            "emoji": "",
             "title": "Cambios y devoluciones",
             "text": "Política flexible para tu tranquilidad."
           }

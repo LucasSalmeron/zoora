@@ -104,17 +104,35 @@
 
         {%- if section.settings.collection.products.size > 0 -%}
           {% assign lazy_load = false %}
-          {% paginate section.settings.collection.products by section.settings.products_to_show %}
-            {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
-              {% if lazy_load == false and forloop.index > max_columns_to_show %}
+          {%- liquid
+            comment
+              With "Ocultar agotados" on, read more of the collection and skip sold-out products, so the
+              section still shows the chosen number of products when some are out of stock.
+            endcomment
+            assign hide_sold_out = false
+            if section.settings.hide_sold_out and request.design_mode == false
+              assign hide_sold_out = true
+            endif
+            assign page_size = section.settings.products_to_show
+            if hide_sold_out
+              assign page_size = 50
+            endif
+            assign shown = 0
+          -%}
+          {% paginate section.settings.collection.products by page_size %}
+            {%- for product in section.settings.collection.products -%}
+              {%- if hide_sold_out and product.available == false -%}{%- continue -%}{%- endif -%}
+              {%- if shown >= section.settings.products_to_show -%}{%- break -%}{%- endif -%}
+              {%- assign shown = shown | plus: 1 -%}
+              {% if lazy_load == false and shown > max_columns_to_show %}
                 {% assign lazy_load = true %}
               {% endif %}
               <li
-                id="Slide-{{ section.id }}-{{ forloop.index }}"
+                id="Slide-{{ section.id }}-{{ shown }}"
                 class="grid__item{% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
                 {% if settings.animations_reveal_on_scroll %}
                   data-cascade
-                  style="--animation-order: {{ forloop.index }};"
+                  style="--animation-order: {{ shown }};"
                 {% endif %}
               >
                 {% render 'card-product',
@@ -245,6 +263,13 @@
       "step": 1,
       "default": 4,
       "label": "t:sections.featured-collection.settings.products_to_show.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_sold_out",
+      "label": "Ocultar productos agotados",
+      "info": "Se completa con los siguientes productos de la colección. En el editor siempre se ven.",
+      "default": true
     },     
     {
       "type": "header",
