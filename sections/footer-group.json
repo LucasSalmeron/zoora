@@ -59,7 +59,7 @@
     "newsletter_popup": {
       "type": "zoora-newsletter-popup",
       "settings": {
-        "heading": "Sumate a nuestro newsletter",
+        "heading": "Déjanos tu correo electrónico!",
         "text": "<p>Recibí antes que nadie novedades, lanzamientos y ofertas exclusivas.</p>",
         "button_label": "Suscribirme",
         "success_heading": "¡Gracias por suscribirte!",
