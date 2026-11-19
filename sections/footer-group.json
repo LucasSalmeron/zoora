@@ -55,9 +55,24 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "newsletter_popup": {
+      "type": "zoora-newsletter-popup",
+      "settings": {
+        "heading": "Sumate a nuestro newsletter",
+        "text": "<p>Recibí antes que nadie novedades, lanzamientos y ofertas exclusivas.</p>",
+        "button_label": "Suscribirme",
+        "success_heading": "¡Gracias por suscribirte!",
+        "success_text": "<p>Te vamos a avisar primero de novedades, lanzamientos y promociones.</p>",
+        "discount_code": "",
+        "delay": 3,
+        "hide_days": 7,
+        "color_scheme": "scheme-1"
+      }
     }
   },
   "order": [
-    "footer"
+    "footer",
+    "newsletter_popup"
   ]
 }

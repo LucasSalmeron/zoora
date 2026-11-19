@@ -1,0 +1,540 @@
+{% comment %}
+  Email signup popup. Opens a few seconds after the visitor arrives and subscribes the email to
+  Shopify's customer list with marketing consent (tag "newsletter"), like the footer form.
+  - Closing it hides it for `hide_days` days; subscribing hides it for good (per browser).
+  - Not shown on the cart page, nor to logged-in customers who already accept marketing.
+  - The form is sent in the background; if Shopify asks for a captcha or returns an error, it
+    falls back to a normal post, and the page reopens the popup with the result.
+  - In the theme editor it only opens while this section is selected.
+{% endcomment %}
+
+{%- liquid
+  assign show_popup = true
+  if template.name == 'cart'
+    assign show_popup = false
+  endif
+  if customer and customer.accepts_marketing
+    assign show_popup = false
+  endif
+  if request.design_mode
+    assign show_popup = true
+  endif
+-%}
+
+{%- if show_popup -%}
+  <dialog
+    id="NewsletterPopup"
+    class="newsletter-popup color-{{ section.settings.color_scheme }} gradient{% if section.settings.image != blank %} newsletter-popup--with-image{% endif %}"
+    aria-labelledby="NewsletterPopup-Title"
+    data-section-id="{{ section.id }}"
+    data-delay="{{ section.settings.delay }}"
+    data-hide-days="{{ section.settings.hide_days }}"
+    data-state="signup"
+  >
+    <button type="button" class="newsletter-popup__close" data-newsletter-close aria-label="{{ 'accessibility.close' | t }}">
+      <svg viewBox="0 0 18 18" width="16" height="16" aria-hidden="true">
+        <path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="1.5" fill="none"/>
+      </svg>
+    </button>
+
+    {% comment %} Takes the initial focus, so the popup does not open with a focus ring on the close button or the keyboard up on phones. {% endcomment %}
+    <div class="newsletter-popup__inner" tabindex="-1" autofocus>
+      {%- if section.settings.image != blank -%}
+        <div class="newsletter-popup__media">
+          {{
+            section.settings.image
+            | image_url: width: 760
+            | image_tag: loading: 'lazy', widths: '380, 570, 760', sizes: '(min-width: 750px) 380px, 100vw'
+          }}
+        </div>
+      {%- endif -%}
+
+      <div class="newsletter-popup__content">
+        {%- form 'customer', id: 'NewsletterPopup-Form', class: 'newsletter-popup__form' -%}
+          <div
+            class="newsletter-popup__view"
+            data-view="signup"
+            {% if form.posted_successfully? %}
+              data-server-success
+            {% endif %}
+          >
+            {%- if section.settings.heading != blank -%}
+              <h2 id="NewsletterPopup-Title" class="newsletter-popup__heading h2">{{ section.settings.heading }}</h2>
+            {%- endif -%}
+            {%- if section.settings.text != blank -%}
+              <div class="newsletter-popup__text rte">{{ section.settings.text }}</div>
+            {%- endif -%}
+
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="field">
+              <input
+                id="NewsletterPopup-Email"
+                type="email"
+                name="contact[email]"
+                class="field__input"
+                value="{{ form.email }}"
+                aria-required="true"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                {% if form.errors %}
+                  aria-invalid="true"
+                  aria-describedby="NewsletterPopup-Error"
+                {% endif %}
+                placeholder="{{ 'newsletter.label' | t }}"
+                required
+              >
+              <label class="field__label" for="NewsletterPopup-Email">{{ 'newsletter.label' | t }}</label>
+            </div>
+            {%- if form.errors -%}
+              <p class="newsletter-popup__error" id="NewsletterPopup-Error" data-server-error>
+                {{- form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email -}}
+              </p>
+            {%- endif -%}
+
+            <button type="submit" class="button button--full-width newsletter-popup__submit" name="commit">
+              {{ section.settings.button_label | default: 'Suscribirme' | escape }}
+            </button>
+
+            <button type="button" class="newsletter-popup__dismiss link" data-newsletter-close>No, gracias</button>
+          </div>
+
+          <div class="newsletter-popup__view" data-view="success" role="status">
+            {%- if section.settings.success_heading != blank -%}
+              <h2 id="NewsletterPopup-SuccessTitle" class="newsletter-popup__heading h2" tabindex="-1">
+                {{ section.settings.success_heading }}
+              </h2>
+            {%- endif -%}
+            {%- if section.settings.success_text != blank -%}
+              <div class="newsletter-popup__text rte">{{ section.settings.success_text }}</div>
+            {%- endif -%}
+
+            {%- assign discount_code = section.settings.discount_code | strip -%}
+            {%- if discount_code != blank -%}
+              <div class="newsletter-popup__code">
+                <span class="newsletter-popup__code-value">{{ discount_code | escape }}</span>
+                <button type="button" class="newsletter-popup__code-copy" data-newsletter-copy="{{ discount_code | escape }}">
+                  Copiar
+                </button>
+              </div>
+            {%- endif -%}
+
+            <button type="button" class="button button--full-width newsletter-popup__submit" data-newsletter-close>
+              Seguir comprando
+            </button>
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+  </dialog>
+
+  <style>
+    .newsletter-popup {
+      width: calc(100% - 32px);
+      max-width: 440px;
+      max-height: calc(100% - 32px);
+      padding: 0;
+      border: var(--popup-border-width) solid rgba(var(--color-foreground), var(--popup-border-opacity));
+      border-radius: var(--popup-corner-radius);
+      box-shadow: var(--popup-shadow-horizontal-offset) var(--popup-shadow-vertical-offset)
+        var(--popup-shadow-blur-radius) rgba(var(--color-shadow), var(--popup-shadow-opacity));
+      color: rgb(var(--color-foreground));
+      overflow-y: auto;
+    }
+
+    .newsletter-popup--with-image {
+      max-width: 780px;
+    }
+
+    .newsletter-popup::backdrop {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .newsletter-popup[open] {
+      animation: newsletter-popup-in 0.3s ease-out;
+    }
+
+    @keyframes newsletter-popup-in {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .newsletter-popup[open] {
+        animation: none;
+      }
+    }
+
+    .newsletter-popup[data-state='signup'] [data-view='success'],
+    .newsletter-popup[data-state='success'] [data-view='signup'] {
+      display: none;
+    }
+
+    .newsletter-popup__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: rgba(var(--color-background), 0.85);
+      color: rgb(var(--color-foreground));
+      cursor: pointer;
+    }
+
+    .newsletter-popup__inner {
+      display: grid;
+      outline: none;
+    }
+
+    .newsletter-popup__media {
+      height: 180px;
+      overflow: hidden;
+    }
+
+    .newsletter-popup__media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media screen and (min-width: 750px) {
+      .newsletter-popup--with-image .newsletter-popup__inner {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .newsletter-popup__media {
+        height: auto;
+        min-height: 420px;
+      }
+    }
+
+    .newsletter-popup__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4.8rem 2.4rem 2.4rem;
+      text-align: center;
+    }
+
+    @media screen and (min-width: 750px) {
+      .newsletter-popup__content {
+        padding: 5.6rem 4rem 3.2rem;
+      }
+    }
+
+    .newsletter-popup__heading {
+      margin: 0 0 1.2rem;
+    }
+
+    .newsletter-popup__heading:focus {
+      outline: none;
+    }
+
+    .newsletter-popup__text {
+      margin-bottom: 2.4rem;
+      color: rgba(var(--color-foreground), 0.75);
+    }
+
+    .newsletter-popup__text p {
+      margin: 0;
+    }
+
+    .newsletter-popup .field {
+      text-align: left;
+    }
+
+    .newsletter-popup__error {
+      margin: 0.8rem 0 0;
+      color: #c0392b;
+      font-size: 1.3rem;
+      text-align: left;
+    }
+
+    .newsletter-popup__submit {
+      margin-top: 1.2rem;
+    }
+
+    .newsletter-popup__dismiss {
+      margin-top: 1.6rem;
+      padding: 0.4rem;
+      border: none;
+      background: none;
+      color: rgba(var(--color-foreground), 0.65);
+      font: inherit;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    .newsletter-popup__code {
+      display: flex;
+      align-items: stretch;
+      margin-bottom: 0.4rem;
+      border: 1px dashed rgba(var(--color-foreground), 0.5);
+    }
+
+    .newsletter-popup__code-value {
+      flex: 1;
+      padding: 1.2rem;
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15rem;
+    }
+
+    .newsletter-popup__code-copy {
+      padding: 0 1.6rem;
+      border: none;
+      border-left: 1px dashed rgba(var(--color-foreground), 0.5);
+      background: none;
+      color: inherit;
+      font: inherit;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+  </style>
+
+  <script>
+    (() => {
+      const dialog = document.getElementById('NewsletterPopup');
+      if (!dialog) return;
+
+      const form = dialog.querySelector('form');
+      const storageKey = 'zoora-newsletter-popup';
+      const delay = Number(dialog.dataset.delay) * 1000;
+      const hideDays = Number(dialog.dataset.hideDays);
+      const designMode = window.Shopify && Shopify.designMode;
+
+      const read = () => {
+        try {
+          return JSON.parse(localStorage.getItem(storageKey)) || {};
+        } catch (error) {
+          return {};
+        }
+      };
+      const write = (value) => {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(value));
+        } catch (error) {}
+      };
+
+      const setState = (state) => {
+        dialog.dataset.state = state;
+        const title = document.getElementById(state === 'success' ? 'NewsletterPopup-SuccessTitle' : 'NewsletterPopup-Title');
+        if (title) dialog.setAttribute('aria-labelledby', title.id);
+        else dialog.removeAttribute('aria-labelledby');
+      };
+
+      const showSuccess = () => {
+        setState('success');
+        if (!designMode) write({ subscribed: true });
+        const title = document.getElementById('NewsletterPopup-SuccessTitle');
+        if (title && dialog.open) title.focus();
+      };
+
+      const open = () => {
+        if (dialog.open) return;
+        dialog.showModal();
+        document.body.classList.add('overflow-hidden');
+      };
+
+      setState('signup');
+      dialog.openPopup = open;
+      dialog.closePopup = () => dialog.open && dialog.close();
+
+      dialog.addEventListener('close', () => {
+        document.body.classList.remove('overflow-hidden');
+        if (!designMode && dialog.dataset.state !== 'success') write({ dismissedAt: Date.now() });
+      });
+      // A backdrop click closes it, unless the press started inside (e.g. selecting the email text).
+      let pressedOnBackdrop = false;
+      dialog.addEventListener('pointerdown', (event) => (pressedOnBackdrop = event.target === dialog));
+      dialog.addEventListener('click', (event) => {
+        const backdrop = event.target === dialog && pressedOnBackdrop;
+        if (backdrop || event.target.closest('[data-newsletter-close]')) dialog.close();
+      });
+
+      const copyButton = dialog.querySelector('[data-newsletter-copy]');
+      if (copyButton) {
+        copyButton.addEventListener('click', () => {
+          navigator.clipboard
+            .writeText(copyButton.dataset.newsletterCopy)
+            .then(() => (copyButton.textContent = '¡Copiado!'))
+            .catch(() => {});
+        });
+      }
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const submit = form.querySelector('[type="submit"]');
+        submit.disabled = true;
+        try {
+          const response = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+          if (response.ok && new URL(response.url).searchParams.get('customer_posted') === 'true') {
+            submit.disabled = false;
+            showSuccess();
+            return;
+          }
+        } catch (error) {}
+        // A captcha challenge, an error or anything unexpected: let Shopify handle a normal post.
+        // The page comes back with #NewsletterPopup-Form, which reopens the popup with the result.
+        form.submit();
+      });
+
+      if (designMode) {
+        // Bound once: the editor re-renders the section, so look the popup up each time.
+        if (!window.newsletterPopupEditorBound) {
+          window.newsletterPopupEditorBound = true;
+          const current = () => document.getElementById('NewsletterPopup');
+          const isOwn = (event) => current() && event.detail.sectionId === current().dataset.sectionId;
+          document.addEventListener('shopify:section:select', (event) => isOwn(event) && current().openPopup());
+          document.addEventListener('shopify:section:load', (event) => isOwn(event) && current().openPopup());
+          document.addEventListener('shopify:section:deselect', (event) => isOwn(event) && current().closePopup());
+        }
+        return;
+      }
+
+      // Shopify's success flag and errors apply to every newsletter form on the page, so only use
+      // them when this popup's form is the one that was sent.
+      const ownPost = window.location.hash === '#' + form.id;
+      const serverSuccess = dialog.querySelector('[data-server-success]');
+      const serverError = dialog.querySelector('[data-server-error]');
+      if (ownPost && serverSuccess) {
+        open();
+        showSuccess();
+        return;
+      }
+      if (ownPost && serverError) {
+        open();
+        return;
+      }
+      if (serverError) serverError.remove();
+      if (new URLSearchParams(window.location.search).get('customer_posted') === 'true') {
+        // Subscribed with another form (e.g. the footer's).
+        write({ subscribed: true });
+        return;
+      }
+
+      const stored = read();
+      if (stored.subscribed) return;
+      if (stored.dismissedAt && Date.now() - stored.dismissedAt < hideDays * 86400000) return;
+
+      const openWhenFree = () => {
+        // Wait while another modal, drawer or menu is open.
+        const busy =
+          document.querySelector('dialog[open]') ||
+          /(^|\s)overflow-hidden/.test(document.body.className);
+        if (busy) setTimeout(openWhenFree, 3000);
+        else open();
+      };
+      setTimeout(openWhenFree, delay);
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Popup de newsletter",
+  "tag": "div",
+  "class": "newsletter-popup-section",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Se abre al entrar a la tienda. En el editor solo se ve mientras esta sección está seleccionada. Para desactivarlo, ocultá la sección."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen",
+      "info": "Opcional. En computadora va a la izquierda; en celular, arriba."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "default": "Sumate a nuestro newsletter"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto",
+      "default": "<p>Recibí antes que nadie novedades, lanzamientos y ofertas exclusivas.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "default": "Suscribirme"
+    },
+    {
+      "type": "header",
+      "content": "Después de suscribirse"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "success_heading",
+      "label": "Título",
+      "default": "¡Gracias por suscribirte!"
+    },
+    {
+      "type": "richtext",
+      "id": "success_text",
+      "label": "Texto",
+      "default": "<p>Te vamos a avisar primero de novedades, lanzamientos y promociones.</p>"
+    },
+    {
+      "type": "text",
+      "id": "discount_code",
+      "label": "Código de descuento",
+      "info": "Opcional. Se muestra después de suscribirse, con un botón para copiarlo. Crealo antes en Descuentos de Shopify."
+    },
+    {
+      "type": "header",
+      "content": "Cuándo se muestra"
+    },
+    {
+      "type": "range",
+      "id": "delay",
+      "label": "Segundos antes de abrirse",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "s",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "hide_days",
+      "label": "Días sin volver a mostrarlo si lo cierran",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "unit": "d",
+      "default": 7
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Popup de newsletter"
+    }
+  ]
+}
+{% endschema %}
